@@ -6,7 +6,8 @@ import Routing from "./routing";
 
 import ReactDOM from 'react-dom';
 
-import { AuthContext } from "../context/auth";
+import { AuthContext } from "@contexts/auth";
+import { LangContext } from "@contexts/lang";
 
 const theme = createMuiTheme({
     palette: {
@@ -19,17 +20,16 @@ const theme = createMuiTheme({
     },
     typography: {
         h1: {
-            color: '#002b70',
             fontWeight: '900',
-            fontSize: '32px',
+            fontSize: '36px',
         },
         h2: {
-            color: '#002b70',
+            color: '#111',
             fontWeight: '900',
             fontSize: '30px',
         },
         h5: {
-            color: '#002b70',
+            color: '#111',
             fontWeight: '700',
         }
     },
@@ -46,15 +46,29 @@ const theme = createMuiTheme({
     }
 });
 
+var language = window.navigator ? (window.navigator.language ||
+    window.navigator.systemLanguage ||
+    window.navigator.userLanguage) : "ru";
+language = language.substr(0, 2).toLowerCase();
 
 function App() {
     const [authToken, setAuthToken] = useState({});
+    const [lang, setLang] = useState(language);
+
+    let words = {};
+    const setW = (e) => {words = e;}
+    const getW = (e) => {return words[e][lang];}
+    const setL = (e) => {setLang(e);}
 
     return (
         <ThemeProvider theme={theme}>
-            <AuthContext.Provider value={{authToken, setAuthToken}}>
-                <Routing />
-            </AuthContext.Provider>
+            <LangContext.Provider value={{setW, getW, setL}}>
+                <AuthContext.Provider value={{authToken, setAuthToken}}>
+                    <Router>
+                        <Routing />
+                    </Router>
+                </AuthContext.Provider>
+            </LangContext.Provider>
         </ThemeProvider>
     );
 }

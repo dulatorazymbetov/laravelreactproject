@@ -16,3 +16,4 @@ use Illuminate\Http\Request;
 Route::get('products', function () {
     return response(Product::all(),200);
 });
+Route::get('login', 'Auth\LoginController@login');
