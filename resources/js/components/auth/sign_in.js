@@ -14,9 +14,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import TranslateIcon from '@material-ui/icons/Translate';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 import { useLang } from "@contexts/lang";
-
+import { useAuth } from "@contexts/auth";
 
 const useStyles = makeStyles({
 	item: {
@@ -73,7 +74,24 @@ function SignIn() {
 	const handleClickShowPassword = () => {
 		setShowPassword(!showPassword);
 	}
-	const submitForm = event => {}
+	const submitForm = event => {
+		event.preventDefault();
+		if(login && password && !isLoading){
+			setIsLoading(true);
+			const data = new FormData(event.target);
+			window.axios.post('auth', data)
+            .then((response) => {
+            	setIsLoading(false);
+              	
+            })
+            .catch(function (error){
+            	setIsLoading(false);
+            	if(error.response){
+            		
+            	}
+            });
+		}
+	}
 
 	return (
 		<Grid container alignItems="center">
@@ -157,7 +175,18 @@ function SignIn() {
 				p={4}
 				alignItems="center" justify="center"
 			>
-				<img src="/img/logo.webp" />
+				<Box textAlign="center" width="100%" maxWidth="350px">
+					<img src="/img/logo.webp" />
+					<Box 
+						component={Button} 
+						variant="contained" 
+						className={classes.fullWidth} 
+						size="large"
+						startIcon={<EmojiPeopleIcon />}
+					>
+						Приемная комиссия
+					</Box>
+				</Box>
 			</Box>
 		</Grid>
 	);

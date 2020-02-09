@@ -60,6 +60,12 @@ function App() {
     const getW = (e) => {return words[e][lang];}
     const setL = (e) => {setLang(e);}
 
+    useEffect(() => {
+        window.axios.get('auth').then((response) => {
+
+        })
+    }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <LangContext.Provider value={{setW, getW, setL}}>

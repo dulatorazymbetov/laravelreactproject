@@ -14173,6 +14173,39 @@ function useForkRef(refA, refB) {
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/icons/EmojiPeople.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@material-ui/icons/EmojiPeople.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("circle", {
+  cx: "12",
+  cy: "4",
+  r: "2"
+}), _react.default.createElement("path", {
+  d: "M15.89 8.11C15.5 7.72 14.83 7 13.53 7h-2.54C8.24 6.99 6 4.75 6 2H4c0 3.16 2.11 5.84 5 6.71V22h2v-6h2v6h2V10.05L18.95 14l1.41-1.41-4.47-4.48z"
+})), 'EmojiPeople');
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/icons/Translate.js":
 /*!******************************************************!*\
   !*** ./node_modules/@material-ui/icons/Translate.js ***!
@@ -78286,6 +78319,7 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.baseURL = '/api/';
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -78329,7 +78363,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_icons_Visibility__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Visibility__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _material_ui_icons_VisibilityOff__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @material-ui/icons/VisibilityOff */ "./node_modules/@material-ui/icons/VisibilityOff.js");
 /* harmony import */ var _material_ui_icons_VisibilityOff__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_VisibilityOff__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _contexts_lang__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @contexts/lang */ "./resources/js/context/lang.js");
+/* harmony import */ var _material_ui_icons_EmojiPeople__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @material-ui/icons/EmojiPeople */ "./node_modules/@material-ui/icons/EmojiPeople.js");
+/* harmony import */ var _material_ui_icons_EmojiPeople__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_EmojiPeople__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _contexts_lang__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @contexts/lang */ "./resources/js/context/lang.js");
+/* harmony import */ var _contexts_auth__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @contexts/auth */ "./resources/js/context/auth.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -78337,6 +78374,8 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -78391,7 +78430,7 @@ function SignIn() {
       showPassword = _useState10[0],
       setShowPassword = _useState10[1];
 
-  var _useLang = Object(_contexts_lang__WEBPACK_IMPORTED_MODULE_14__["useLang"])(),
+  var _useLang = Object(_contexts_lang__WEBPACK_IMPORTED_MODULE_15__["useLang"])(),
       setW = _useLang.setW,
       getW = _useLang.getW,
       setL = _useLang.setL;
@@ -78447,7 +78486,21 @@ function SignIn() {
     setShowPassword(!showPassword);
   };
 
-  var submitForm = function submitForm(event) {};
+  var submitForm = function submitForm(event) {
+    event.preventDefault();
+
+    if (login && password && !isLoading) {
+      setIsLoading(true);
+      var data = new FormData(event.target);
+      window.axios.post('auth', data).then(function (response) {
+        setIsLoading(false);
+      })["catch"](function (error) {
+        setIsLoading(false);
+
+        if (error.response) {}
+      });
+    }
+  };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_3__["default"], {
     container: true,
@@ -78546,9 +78599,19 @@ function SignIn() {
     p: 4,
     alignItems: "center",
     justify: "center"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    textAlign: "center",
+    width: "100%",
+    maxWidth: "350px"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "/img/logo.webp"
-  })));
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    component: _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_4__["default"],
+    variant: "contained",
+    className: classes.fullWidth,
+    size: "large",
+    startIcon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_EmojiPeople__WEBPACK_IMPORTED_MODULE_14___default.a, null)
+  }, "\u041F\u0440\u0438\u0435\u043C\u043D\u0430\u044F \u043A\u043E\u043C\u0438\u0441\u0441\u0438\u044F"))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (SignIn);
@@ -78654,6 +78717,9 @@ function App() {
     setLang(e);
   };
 
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    window.axios.get('auth').then(function (response) {});
+  }, []);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["ThemeProvider"], {
     theme: theme
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_contexts_lang__WEBPACK_IMPORTED_MODULE_6__["LangContext"].Provider, {
