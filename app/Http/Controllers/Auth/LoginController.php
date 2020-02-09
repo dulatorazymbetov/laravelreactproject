@@ -14,7 +14,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
     
     public function __construct(){
-        $this->middleware('guest')->except('logout')->except('status');
+        $this->middleware('auth:api', ['except' => ['login']]);
     }
 
     public function login(Request $request){
@@ -40,9 +40,11 @@ class LoginController extends Controller
                 $user = User::where('login', $login)->first();
                 if ( !$user ){
                     $this->registerUser($login, $password);
+                    
                 }
                 else {
                     Auth::loginUsingId($user->id, true);
+                    return response()->json($user, 200);
                 }
             }
             else{
@@ -62,11 +64,12 @@ class LoginController extends Controller
         $user->lastname     = $ldap_user->sn[0];
         $user->password     = bcrypt($password);
         $user->save();
+
         Auth::loginUsingId($user->id, true);
+        return response()->json($user, 200);
     }
 
     public function status(Request $request){
-        Auth::loginUsingId(1, true);
         dd(Auth::user());
     }
 }

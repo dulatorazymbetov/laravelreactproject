@@ -82,7 +82,7 @@ function SignIn() {
 			window.axios.post('auth', data)
             .then((response) => {
             	setIsLoading(false);
-              	
+              	alert("Hello " + response.data.firstname);
             })
             .catch(function (error){
             	setIsLoading(false);
