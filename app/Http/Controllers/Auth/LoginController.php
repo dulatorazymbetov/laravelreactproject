@@ -7,15 +7,16 @@ use Adldap\Laravel\Facades\Adldap;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use App\User;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
-
-    public function __construct()
-    {
+    
+    public function __construct(){
         $this->middleware('guest')->except('logout')->except('status');
     }
+
     public function login(Request $request){
         //$user = Adldap::search()->where('sAMAccountName', '=', 'amazhenov')->first();
         //return response()->json($user, 201);
@@ -35,19 +36,37 @@ class LoginController extends Controller
             return response()->json($error, 406);
         }
         try {
-            if (Adldap::auth()->attempt($login, $password)) {
-
+            if (Adldap::auth()->attempt($login."@iitu.kz", $password)) {
+                $user = User::where('login', $login)->first();
+                if ( !$user ){
+                    $this->registerUser($login, $password);
+                }
+                else {
+                    Auth::loginUsingId($user->id, true);
+                }
             }
             else{
-                return response()->json('invalid username or password', 400);
+                return response()->json('invalid login or password', 400);
             }
         }
         catch (\Adldap\Exceptions\Auth\BindException $e){
             
         }
     }
-    public function status(){
-        $user = Auth::user();
-        return $user;
+
+    public function registerUser($login, $password){
+        $ldap_user = Adldap::search()->where('sAMAccountName', '=', $login)->first();
+        $user = new User();
+        $user->login     = strtolower($login);
+        $user->firstname    = $ldap_user->givenname[0];
+        $user->lastname     = $ldap_user->sn[0];
+        $user->password     = bcrypt($password);
+        $user->save();
+        Auth::loginUsingId($user->id, true);
+    }
+
+    public function status(Request $request){
+        Auth::loginUsingId(1, true);
+        dd(Auth::user());
     }
 }
