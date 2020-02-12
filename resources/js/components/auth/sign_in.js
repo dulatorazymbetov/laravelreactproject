@@ -33,9 +33,11 @@ function SignIn() {
 	const [menuAnchor, setMenuAnchor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const [login, setLogin] = useState("");
-	const [password, setPassword] = useState("");
+	const [login, setLogin] = useState("amazhenov");
+	const [password, setPassword] = useState("amazhenov_iitu");
 	const [showPassword, setShowPassword] = useState(false);
+
+    const { setToken } = useAuth();
 
 	const { setW, getW, setL } = useLang();
 	setW({
@@ -82,7 +84,7 @@ function SignIn() {
 			window.axios.post('auth', data)
             .then((response) => {
             	setIsLoading(false);
-              	alert("Hello " + response.data.firstname);
+                setToken(response.data.access_token);
             })
             .catch(function (error){
             	setIsLoading(false);

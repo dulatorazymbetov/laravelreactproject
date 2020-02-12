@@ -8,18 +8,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
     use AuthenticatesUsers;
     
     public function __construct(){
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('guest', ['except' => ['logout', 'status']]);
     }
 
     public function login(Request $request){
         //$user = Adldap::search()->where('sAMAccountName', '=', 'amazhenov')->first();
         //return response()->json($user, 201);
+        $user = auth()->user();
+        if($user){
+            dd($user);
+        }
         $validator = Validator::make($request->all(),[
                 'login' => 'required',
                 'password' => 'required',
@@ -39,13 +43,10 @@ class LoginController extends Controller
             if (Adldap::auth()->attempt($login."@iitu.kz", $password)) {
                 $user = User::where('login', $login)->first();
                 if ( !$user ){
-                    $this->registerUser($login, $password);
-                    
+                    $user = $this->registerUser($login, $password);
                 }
-                else {
-                    Auth::loginUsingId($user->id, true);
-                    return response()->json($user, 200);
-                }
+                $token = auth()->login($user);
+                return $this->respondWithToken($token);
             }
             else{
                 return response()->json('invalid login or password', 400);
@@ -62,14 +63,27 @@ class LoginController extends Controller
         $user->login     = strtolower($login);
         $user->firstname    = $ldap_user->givenname[0];
         $user->lastname     = $ldap_user->sn[0];
-        $user->password     = bcrypt($password);
+        $user->password     = Hash::make($password);
         $user->save();
-
-        Auth::loginUsingId($user->id, true);
-        return response()->json($user, 200);
+        return $user;
     }
 
     public function status(Request $request){
-        dd(Auth::user());
+        $user = auth()->user();
+        if($user){
+            return response()->json([
+                'firstname' => $user->firstname,
+                'lastname' => $user->lastname,
+                'login' => $user->login
+            ], 200);
+        }
+        
+    }
+    protected function respondWithToken($token){
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
     }
 }

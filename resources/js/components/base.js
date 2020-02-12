@@ -6,6 +6,8 @@ import Routing from "./routing";
 
 import ReactDOM from 'react-dom';
 
+import Cookies from 'js-cookie';
+
 import { AuthContext } from "@contexts/auth";
 import { LangContext } from "@contexts/lang";
 
@@ -61,15 +63,24 @@ function App() {
     const setL = (e) => {setLang(e);}
 
     useEffect(() => {
-        window.axios.get('auth').then((response) => {
-
-        })
+        if (Cookies.get('Authorization')) {
+            window.axios.defaults.headers.common['Authorization'] = "Bearer " + Cookies.get('Authorization');
+            window.axios.get('auth').then((response) => {
+                
+            });
+        }
     }, []);
+
+    const setToken = (token) => {
+        console.log(token);
+        window.axios.defaults.headers.common['Authorization'] = "Bearer " + token;
+        Cookies.set('Authorization', token);
+    }
 
     return (
         <ThemeProvider theme={theme}>
             <LangContext.Provider value={{setW, getW, setL}}>
-                <AuthContext.Provider value={{authToken, setAuthToken}}>
+                <AuthContext.Provider value={{ authToken, setToken}}>
                     <Router>
                         <Routing />
                     </Router>
