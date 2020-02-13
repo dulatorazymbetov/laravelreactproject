@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { Link } from "react-router-dom";
+
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -34,7 +36,7 @@ function SignIn() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const [login, setLogin] = useState("amazhenov");
-	const [password, setPassword] = useState("amazhenov_iitu");
+    const [password, setPassword] = useState("dev@2020@");
 	const [showPassword, setShowPassword] = useState(false);
 
     const { setToken } = useAuth();
@@ -179,15 +181,16 @@ function SignIn() {
 			>
 				<Box textAlign="center" width="100%" maxWidth="350px">
 					<img src="/img/logo.webp" />
-					<Box 
-						component={Button} 
+					<Button 
+                        component={Link}
+                        to="/set"
 						variant="contained" 
 						className={classes.fullWidth} 
 						size="large"
 						startIcon={<EmojiPeopleIcon />}
 					>
 						Приемная комиссия
-					</Box>
+					</Button>
 				</Box>
 			</Box>
 		</Grid>
