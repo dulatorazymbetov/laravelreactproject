@@ -55,7 +55,7 @@ language = language.substr(0, 2).toLowerCase();
 
 function App() {
     const [authToken, setAuthToken] = useState({});
-    const [access, setAccess] = useState({});
+    const [userInfo, setUserInfo] = useState({});
     const [lang, setLang] = useState(language);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -69,9 +69,12 @@ function App() {
             window.axios.defaults.headers.common['Authorization'] = "Bearer " + Cookies.get('Authorization');
             window.axios.get('auth').then((response) => {
                 setAuthToken(Cookies.get('Authorization'));
-                setAccess(response.data);
+                setUserInfo(response.data);
                 setIsLoading(false);
             });
+        }
+        else {
+            setIsLoading(false);
         }
     }, []);
 
@@ -80,11 +83,10 @@ function App() {
         Cookies.set('Authorization', token);
         setAuthToken(token);
     }
-
     return (
         <ThemeProvider theme={theme}>
             <LangContext.Provider value={{setW, getW, setL}}>
-                <AuthContext.Provider value={{ authToken, setToken}}>
+                <AuthContext.Provider value={{ authToken, setToken, userInfo, setUserInfo}}>
                     {!isLoading && <Router>
                         <Routing />
                     </Router>}

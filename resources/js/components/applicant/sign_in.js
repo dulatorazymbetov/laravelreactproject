@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import TranslateIcon from '@material-ui/icons/Translate';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 import { useLang } from "@contexts/lang";
 import { useAuth } from "@contexts/auth";
@@ -30,26 +30,26 @@ const useStyles = makeStyles({
 		width: '100%'
 	},
 });
-function SignIn() {
+function AplicantSignIn() {
 	const classes = useStyles();
 	const [menuAnchor, setMenuAnchor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const [login, setLogin] = useState("");
-    const [password, setPassword] = useState("");
+	const [login, setLogin] = useState("amazhenov");
+    const [password, setPassword] = useState("dev@2020@");
 	const [showPassword, setShowPassword] = useState(false);
 
-    const { setToken, setUserInfo } = useAuth();
+    const { setToken } = useAuth();
 
 	const { setW, getW, setL } = useLang();
 	setW({
 		title: {
-			ru: 'Войти в ваш аккаунт',
-			en: 'Sign into your account'
+			ru: 'Приемная комиссия',
+			en: 'Entrance committe'
 		},
 		account: {
-			ru: 'Ученая запись IITU',
-			en: 'IITU account'
+			ru: 'Ученая запись',
+			en: 'Username'
 		},
 		password: {
 			ru: 'Пароль',
@@ -63,6 +63,14 @@ function SignIn() {
 			ru: 'Русский',
 			en: 'English',
 			kk: 'Казахский'
+		},
+		or: {
+			ru: 'или',
+			en: 'or'
+		},
+		registration: {
+			ru: 'Регистрация',
+			en: 'Registration'
 		}
 	});
 
@@ -80,22 +88,6 @@ function SignIn() {
 	}
 	const submitForm = event => {
 		event.preventDefault();
-		if(login && password && !isLoading){
-			setIsLoading(true);
-			const data = new FormData(event.target);
-			window.axios.post('auth', data)
-            .then((response) => {
-                setToken(response.data.token.access_token);
-                setUserInfo(response.data.token.user);
-                setIsLoading(false);
-            })
-            .catch(function (error){
-            	setIsLoading(false);
-            	if(error.response){
-            		
-            	}
-            });
-		}
 	}
 
 	return (
@@ -142,12 +134,18 @@ function SignIn() {
 								),
 							}}
 						/>
-						<Box mt={4}>
+						<Box my={4}>
 							{!isLoading ? <Button variant="contained" color="secondary" className={classes.fullWidth} size="large" type="submit">
 								{getW('send')}
 							</Button> : <Button variant="contained" color="secondary" className={classes.fullWidth} size="large" disabled>
 								Загрузка...
 							</Button>}
+						</Box>
+						{getW('or')}
+						<Box mt={4}>
+							<Button variant="contained" className={classes.fullWidth} size="large" type="submit">
+								{getW('registration')}
+							</Button>
 						</Box>
 					</Box>
 					<Button 
@@ -184,13 +182,13 @@ function SignIn() {
 					<img src="/img/logo.webp" />
 					<Button 
                         component={Link}
-                        to="/applicant"
+                        to="/"
 						variant="contained" 
 						className={classes.fullWidth} 
 						size="large"
-						startIcon={<EmojiPeopleIcon />}
+						startIcon={<LockOpenIcon />}
 					>
-						Приемная комиссия
+						Авторизация
 					</Button>
 				</Box>
 			</Box>
@@ -198,4 +196,4 @@ function SignIn() {
 	);
 }
 
-export default SignIn;
+export default AplicantSignIn;

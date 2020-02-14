@@ -46,7 +46,7 @@ class LoginController extends Controller {
                     $user = $this->registerUser($login, $password);
                 }
                 $token = auth()->login($user);
-                return $this->respondWithToken($token);
+                return ['token' => $this->respondWithToken($token), 'user' => $user];
             }
             else{
                 return response()->json('invalid login or password', 400);
@@ -71,16 +71,12 @@ class LoginController extends Controller {
     public function status(Request $request){
         $user = auth()->user();
         if($user){
-            return response()->json([
-                'firstname' => $user->firstname,
-                'lastname' => $user->lastname,
-                'login' => $user->login
-            ], 200);
+            return $user;
         }
         
     }
     protected function respondWithToken($token){
-        return response()->json([
+        return ([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
