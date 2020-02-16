@@ -33,6 +33,9 @@ const theme = createMuiTheme({
         h5: {
             color: '#111',
             fontWeight: '700',
+        },
+        h6: {
+            fontWeight: '900',
         }
     },
     spacing: 8,
@@ -54,8 +57,8 @@ var language = window.navigator ? (window.navigator.language ||
 language = language.substr(0, 2).toLowerCase();
 
 function App() {
-    const [authToken, setAuthToken] = useState({});
-    const [userInfo, setUserInfo] = useState({});
+    const [authToken, setAuthToken] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
     const [lang, setLang] = useState(language);
     const [isLoading, setIsLoading] = useState(true);
 

@@ -5,37 +5,35 @@ import Box from '@material-ui/core/Box';
 import SignIn from "./auth/sign_in";
 import ApplicantSignIn from "./applicant/sign_in";
 
+import Header from "@layouts/header";
+import Navigation from "@layouts/navigation";
+import Title from "@layouts/title";
+
 import { useAuth } from "@contexts/auth";
 
-function PrivateRoute({ component: Component, altcomponent: Altcomponent, ...rest }) {
-    const status = useAuth().userInfo;
-    console.log(status);
-    return (
-        <Route
-            {...rest}
-            render={props => {
-                if(rest.status === 'guest' && status){
-                    return (
-                        <Box display="flex" minHeight="100vh" flexDirection="column">
-                            <Component {...props} />
-                            {rest.footer !== 'hidden' && <div>footer</div>}
-                        </Box>
-                    );    
-                }
-                else {
-                    return (<div><Altcomponent {...props} /></div>);
-                }
-            }}
-        />
-    );
-}
-
 function Routing(){
-	return (
-		<Box>
-            <PrivateRoute path="/" exact component={SignIn} altcomponent={ApplicantSignIn} footer="hidden" access='guest'/>
-            <PrivateRoute path="/applicant" exact component={ApplicantSignIn} footer="hidden" access='guest'/>
-		</Box>
-	);
+    const userInfo = useAuth().userInfo;
+    if(!userInfo){
+        return (
+            <Box>
+                <Route path="/" exact component={SignIn}/>
+                <Route path="/applicant" exact component={ApplicantSignIn}/>
+            </Box>
+        );
+    }
+    else {
+        return (
+            <div>
+                <Header />
+                <Box display="flex">
+                    <Navigation />
+                    <Box mt={12} mx={5}>
+                        <Title content={"Welcome back, " + userInfo.firstname + " " + userInfo.lastname} tree="Main page" />
+                    </Box>
+                </Box>
+            </div>
+        );
+    }
+    
 }
 export default Routing;

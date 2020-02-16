@@ -46,8 +46,8 @@ function Title(props){
 	document.title = content + " - IITU CAMPUS";
 	return (
 		<div className={classes.root}>
-			<div className={classes.top}><Link to="/" className={classes.link}>IITU CAMPUS</Link> {subtitle}</div>
-			<Typography variant="h1" className={classes.title}>{props.content}</Typography>
+			<div className={classes.top}><Link to="/" className={classes.link}>Campus</Link> {subtitle}</div>
+			<Typography variant="h2" className={classes.title}>{props.content}</Typography>
 		</div>
 	);
 }

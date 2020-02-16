@@ -35,8 +35,8 @@ function AplicantSignIn() {
 	const [menuAnchor, setMenuAnchor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const [login, setLogin] = useState("amazhenov");
-    const [password, setPassword] = useState("dev@2020@");
+	const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 
     const { setToken } = useAuth();

@@ -85,9 +85,9 @@ function SignIn() {
 			const data = new FormData(event.target);
 			window.axios.post('auth', data)
             .then((response) => {
-                setToken(response.data.token.access_token);
-                setUserInfo(response.data.token.user);
-                setIsLoading(false);
+				setIsLoading(false);
+				setToken(response.data.token.access_token);
+				setUserInfo(response.data.user);
             })
             .catch(function (error){
             	setIsLoading(false);
