@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,22 +7,26 @@ import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ScatterPlotIcon from '@material-ui/icons/ScatterPlot';
-
-import InboxIcon from '@material-ui/icons/Inbox';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import RecentActorsIcon from '@material-ui/icons/RecentActors';
+import Icon from '@material-ui/core/Icon';
 
 import { useAuth } from "@contexts/auth";
+import { useLang } from "@contexts/lang";
 
 const useStyles = makeStyles(theme => ({
 	root: {
-		minHeight: '100vh',
+		[theme.breakpoints.up('sm')]: {
+			width: '240px',
+			flexShrink: 0,
+			
+		  },
+	},
+	drawerPaper: {
 		background: '#2b303b',
-		width: '240px'
 	},
 	top: {
 		background: '#272b35',
@@ -55,16 +59,33 @@ const useStyles = makeStyles(theme => ({
 		}
 	}
 }));
-
+function ListItem(props){
+	return (
+		<Box className={props.className} component={Link} to={'/'+props.url} mb={3}>
+			<Box>{props.content}</Box><Icon>{props.icon}</Icon>
+		</Box>
+	);
+}
 function Navigation(props){
+	const { container } = props;
 	const classes = useStyles();
 	const auth = useAuth();
+	const modules = auth.userInfo.modules;
+	const [mobileOpen, setMobileOpen] = useState(false);
+
+	const { setW, getW, setL, getL } = useLang();
+
 	const logOut = () => {
 		auth.setToken(null);
 		auth.setUserInfo(null);
 	}
-	return (
-		<div className={classes.root}>
+
+	const handleDrawerToggle = () => {
+		setMobileOpen(!mobileOpen);
+	};
+
+	const drawer = (
+		<div>
 			<Toolbar className={classes.top}>
 				<Button 
 					component={Link} 
@@ -80,23 +101,53 @@ function Navigation(props){
         		</IconButton>
 			</Toolbar>
 			<Box p={3}>
-				<Box className={classes.item} component={Link} to="/" mb={3}>
-					<Box>Главная страница</Box><InboxIcon />
-				</Box>
-				<Box className={classes.item} component={Link} to="/" mb={3}>
-					<Box>Академ. календарь</Box><DateRangeIcon />
-				</Box>
-				<Box className={classes.item} component={Link} to="/" mb={3}>
-					<Box>Отдел кадров</Box><AssignmentIndIcon />
-				</Box>
-				<Box className={classes.item} component={Link} to="/" mb={3}>
-					<Box>Офис регистратор</Box><RecentActorsIcon />
-				</Box>
-				<Box className={classes.item} component={Link} to="#" mb={3} onClick={logOut}>
+				{modules.map((list, index) => {
+					return (
+						<ListItem 
+							className={classes.item} 
+							content={list["description_"+getL]}
+							icon={list.icon}
+							url={list.url}
+							key={index}
+						/>
+					);
+				})}
+				<Box className={classes.item}  component={Link} to="#" onClick={logOut}>
 					<Box>Выйти</Box>
 				</Box>
 			</Box>
-			
+		</div>
+	);
+	return (
+		<div className={classes.root}>
+			<Hidden smUp implementation="css">
+				<Drawer
+					variant="temporary"
+					anchor='left'
+					container={container}
+					open={mobileOpen}
+					onClose={handleDrawerToggle}
+					classes={{
+						paper: classes.drawerPaper,
+					}}
+					ModalProps={{
+						keepMounted: true, // Better open performance on mobile.
+					}}
+				>
+					{drawer}
+				</Drawer>
+		 	</Hidden>
+			 <Hidden xsDown implementation="css">
+				<Drawer
+					classes={{
+						paper: classes.drawerPaper,
+					}}
+					variant="permanent"
+					open
+				>
+					{drawer}
+				</Drawer>
+			</Hidden>
 		</div>
 	);
 }

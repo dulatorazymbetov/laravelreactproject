@@ -7,6 +7,7 @@
         <title>IITU CAMPUS</title>
         <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>

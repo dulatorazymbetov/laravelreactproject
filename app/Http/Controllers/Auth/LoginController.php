@@ -1,14 +1,15 @@
 <?php
 namespace App\Http\Controllers\Auth;
 
+use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Adldap\Laravel\Facades\Adldap;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
-use App\User;
+use App\Models\User\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
 
 class LoginController extends Controller {
     use AuthenticatesUsers;
@@ -41,12 +42,12 @@ class LoginController extends Controller {
         }
         try {
             if (Adldap::auth()->attempt($login."@iitu.kz", $password)) {
-                $user = User::where('login', $login)->first();
+                $user = User::where('login', $login)->with('roles')->first();
                 if ( !$user ){
                     $user = $this->registerUser($login, $password);
                 }
                 $token = auth()->login($user);
-                return ['token' => $this->respondWithToken($token), 'user' => $user];
+                return ['token' => $this->respondWithToken($token), 'user' => $this->respondUserInfo($user)];
             }
             else{
                 return response()->json('invalid login or password', 400);
@@ -65,14 +66,13 @@ class LoginController extends Controller {
         $user->lastname     = $ldap_user->sn[0];
         $user->password     = Hash::make($password);
         $user->save();
+        $user->roles()->attach(\App\Models\User\Role::find(2));
         return $user;
     }
 
-    public function status(Request $request){
-        $user = auth()->user();
-        if($user){
-            return $user;
-        }
+    public function status(){
+        $user = User::with('roles')->find(auth()->id());
+        if($user){return $this->respondUserInfo($user);}
         
     }
     protected function respondWithToken($token){
@@ -81,5 +81,13 @@ class LoginController extends Controller {
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
+    }
+    protected function respondUserInfo($user){
+        return [
+            'firstname' => $user->firstname,
+            'lastname' => $user->lastname,
+            'login' => $user->login,
+            'modules' => $user->modules
+        ];
     }
 }

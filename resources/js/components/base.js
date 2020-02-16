@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { BrowserRouter as Router } from "react-router-dom";
-import Routing from "./routing";
-
 import ReactDOM from 'react-dom';
-
+import { BrowserRouter as Router } from "react-router-dom";
 import Cookies from 'js-cookie';
+
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import Routing from "./routing";
 
 import { AuthContext } from "@contexts/auth";
 import { LangContext } from "@contexts/lang";
@@ -18,7 +18,8 @@ const theme = createMuiTheme({
             dark: '#002b70',
             contrastText: '#ffff'
         },
-        secondary: {main: '#1B6CF3'}
+        secondary: {main: '#1B6CF3'},
+        default: {main: '#eee'}
     },
     typography: {
         h1: {
@@ -88,7 +89,7 @@ function App() {
     }
     return (
         <ThemeProvider theme={theme}>
-            <LangContext.Provider value={{setW, getW, setL}}>
+            <LangContext.Provider value={{setW, getW, setL, getL: lang}}>
                 <AuthContext.Provider value={{ authToken, setToken, userInfo, setUserInfo}}>
                     {!isLoading && <Router>
                         <Routing />
