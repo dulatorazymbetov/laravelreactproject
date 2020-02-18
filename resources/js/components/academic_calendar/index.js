@@ -18,7 +18,7 @@ function EditRespond(){
 
 	return (
 		<Box>
-			<Title content="Загрузка..." />
+			<Title content="Академический календарь" />
 		</Box>
 	);
 }

@@ -13,8 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('products', function () {
-    return response(Product::all(),200);
-});
 Route::post('auth', 'Auth\LoginController@login');
 Route::get('auth', 'Auth\LoginController@status');
+
+Route::get('users', 'UserController@allUsers');
