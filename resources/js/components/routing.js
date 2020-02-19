@@ -44,7 +44,7 @@ function Routing(){
                 <Header />
                 <Box display="flex">
                     <Navigation />
-                    <Box mt={12} mx={5}>
+                    <Box mt={12} mx={5} width="100%">
                         {userInfo.modules.map((list, index) => {
                             return (
                                 <PrivateRoute key={index} path={'/'+list.url} exact component={list.name} />
