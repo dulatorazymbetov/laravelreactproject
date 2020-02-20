@@ -9,3 +9,38 @@ body {
     box-sizing: border-box;
     background-color: #fff;
 }
+#nprogress {
+  	z-index: 999999999 !important;
+  	position: fixed;
+  	height: 5px !important;
+}
+
+#nprogress .bar {
+  	background: #679e17 !important;
+  	height: 5px !important;
+}
+
+#nprogress .peg {
+  	-webkit-box-shadow: 0 0 10px #679e17, 0 0 5px #679e17 !important;
+          box-shadow: 0 0 10px #679e17, 0 0 5px #679e17 !important;
+}
+
+#nprogress .spinner-icon {
+  	border-top-color: #679e17 !important;
+  	border-left-color: #679e17 !important;
+  	width: 40px !important;
+  	height: 40px !important;
+  	-webkit-animation: nprogress-spinner 300ms linear infinite !important;
+          animation: nprogress-spinner 300ms linear infinite !important;
+}
+
+#nprogress .spinner {
+  	top: 50% !important;
+  	right: 50% !important;
+  	margin-right: -20px !important;
+  	background: white !important;
+  	padding: 15px;
+  	-webkit-box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+          box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+  	border-radius: 4px;
+}

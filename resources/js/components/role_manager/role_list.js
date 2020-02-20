@@ -16,13 +16,15 @@ const useStyles = makeStyles(theme => ({
 	
 }));
 
-function UserList(props) {
+function RoleList(props) {
 	const classes = useStyles();
-	const [users, setUsers] = useState([]);
+	const { setW, getW, setL, getL } = useLang();
+
+	const [roles, setRoles] = useState([]);
 
 	useEffect(() => {
-    	window.axios('/users').then((response) => {
-    		setUsers(response.data);
+    	window.axios('/roles').then((response) => {
+    		setRoles(response.data);
     	});
     }, []);
 
@@ -35,28 +37,34 @@ function UserList(props) {
 							ID
 						</TableCell>
 						<TableCell>
-							ФИО
+							Code
 						</TableCell>
 						<TableCell>
-							Доступные роли
+							Название
+						</TableCell>
+						<TableCell>
+							Доступные модули
 						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{users.map((user, user_index) => {
+					{roles.map((role, role_index) => {
 						return (
-							<TableRow hover key={"user_"+user_index}>
+							<TableRow hover key={"role_"+role_index}>
 								<TableCell>
-									{user.id}
+									{role.id}
 								</TableCell>
 								<TableCell>
-									{user.firstname} {user.lastname}
+									{role.name}
 								</TableCell>
 								<TableCell>
-									{user.roles.map((role, role_index) =>{
+									{role["description_"+getL]}
+								</TableCell>
+								<TableCell>
+									{role.modules.map((module, module_index) =>{
 										return (
-											<div key={"role_"+role_index}>
-												{role.name}
+											<div key={"module_"+module_index}>
+												{module["description_"+getL]}
 											</div>
 										);
 									})}
@@ -70,4 +78,4 @@ function UserList(props) {
 	);
 
 } 
-export default UserList;
+export default RoleList;

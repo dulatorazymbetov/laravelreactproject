@@ -8,6 +8,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
 import UserList from './user_list';
+import RoleList from './role_list';
+import ModuleList from './module_list';
 
 const useStyles = makeStyles(theme => ({
 	
@@ -39,6 +41,8 @@ function RoleManager(){
 			</Box>
 			<Box mt={4}>
 				{tab===0 && <UserList />}
+				{tab===1 && <RoleList />}
+				{tab===2 && <ModuleList />}
 			</Box>
 		</Box>
 	);

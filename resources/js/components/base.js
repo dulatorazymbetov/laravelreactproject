@@ -11,6 +11,11 @@ import Routing from "./routing";
 import { AuthContext } from "@contexts/auth";
 import { LangContext } from "@contexts/lang";
 
+import { loadProgressBar } from 'axios-progress-bar';
+import 'axios-progress-bar/dist/nprogress.css';
+
+loadProgressBar();
+
 const theme = createMuiTheme({
     palette: {
         primary: {

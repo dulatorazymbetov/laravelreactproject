@@ -11,13 +11,16 @@ const mix = require('laravel-mix');
  |
  */
 mix.webpackConfig({
-   resolve: {
-       alias: {
+   	resolve: {
+       	alias: {
            '@layouts': path.resolve(__dirname, 'resources/js/layout'),
            '@components': path.resolve(__dirname, 'resources/js/components/'),
            '@contexts': path.resolve(__dirname, 'resources/js/context/'),
-       }
-   }
+       	}
+   	},
+   	output: {
+        chunkFilename: 'js/[name].[chunkhash].js',
+    },
 });
 mix.react('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
