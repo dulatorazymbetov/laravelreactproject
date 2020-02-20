@@ -66,7 +66,8 @@ class LoginController extends Controller {
         $user->lastname     = $ldap_user->sn[0];
         $user->password     = Hash::make($password);
         $user->save();
-        $user->roles()->attach(\App\Models\User\Role::find(2));
+        $old_info = $this->getInfoFromOldCampus($login);
+        $user->roles()->attach(\App\Models\User\Role::find($old_info->role_id));
         return $user;
     }
 
@@ -89,5 +90,9 @@ class LoginController extends Controller {
             'login' => $user->login,
             'modules' => $user->modules
         ];
+    }
+    protected function getInfoFromOldCampus($login){
+        $result = \DB::connection('old')->table('user')->where('username', $login)->first();
+        return $result;
     }
 }
