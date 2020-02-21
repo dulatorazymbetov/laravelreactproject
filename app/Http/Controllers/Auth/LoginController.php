@@ -8,6 +8,7 @@ use Adldap\Laravel\Facades\Adldap;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User\User;
+use App\Models\User\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
 
@@ -67,7 +68,7 @@ class LoginController extends Controller {
         $user->password     = Hash::make($password);
         $user->save();
         $old_info = $this->getInfoFromOldCampus($login);
-        $user->roles()->attach(\App\Models\User\Role::find($old_info->role_id));
+        $user->roles()->attach(Role::find($old_info->roles));
         return $user;
     }
 
@@ -92,7 +93,15 @@ class LoginController extends Controller {
         ];
     }
     protected function getInfoFromOldCampus($login){
-        $result = \DB::connection('old')->table('user')->where('username', $login)->first();
-        return $result;
+        $user = \DB::connection('old')
+            ->table('user')
+            ->where('username', $login)
+            ->first();
+        $user->roles = \DB::connection('old')
+            ->table('user_role_mapper')
+            ->select('role_id')
+            ->where('user_id', $user->user_id)
+            ->get()->pluck('role_id');
+        return $user;
     }
 }

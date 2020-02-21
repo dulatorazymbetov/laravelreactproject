@@ -23,6 +23,8 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '1',
             'module_id' => '1'
         ]);
+
+
         DB::table('modules')->insert([
             'id' => '2',
             'url' => 'academic_calendar',
@@ -46,6 +48,19 @@ class ModulesTableSeeder extends Seeder
         DB::table('module_role')->insert([
             'role_id' => '4',
             'module_id' => '2'
+        ]);
+
+        DB::table('modules')->insert([
+            'id' => '3',
+            'url' => 'individual_study_plan',
+            'description_kk' => 'Oqý jospary',
+            'description_ru' => 'Учебный план',
+            'description_en' => 'Study plan',
+            'icon' => 'import_contacts'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '4',
+            'module_id' => '3'
         ]);
     }
 }

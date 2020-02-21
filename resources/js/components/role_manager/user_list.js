@@ -35,6 +35,9 @@ function UserList(props) {
 							ID
 						</TableCell>
 						<TableCell>
+							Учетная запись
+						</TableCell>
+						<TableCell>
 							ФИО
 						</TableCell>
 						<TableCell>
@@ -48,6 +51,9 @@ function UserList(props) {
 							<TableRow hover key={"user_"+user_index}>
 								<TableCell>
 									{user.id}
+								</TableCell>
+								<TableCell>
+									{user.login}
 								</TableCell>
 								<TableCell>
 									{user.firstname} {user.lastname}
