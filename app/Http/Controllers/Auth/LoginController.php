@@ -61,13 +61,16 @@ class LoginController extends Controller {
 
     public function registerUser($login, $password){
         $ldap_user = Adldap::search()->where('sAMAccountName', '=', $login)->first();
+        $old_info = $this->getInfoFromOldCampus($login);
         $user = new User();
         $user->login     = strtolower($login);
         $user->firstname    = $ldap_user->givenname[0];
         $user->lastname     = $ldap_user->sn[0];
         $user->password     = Hash::make($password);
+        $user->gender = $old_info->gender;
+        $user->email = $old_info->email;
+        $user->birthdate = $old_info->birthdate;
         $user->save();
-        $old_info = $this->getInfoFromOldCampus($login);
         $user->roles()->attach(Role::find($old_info->roles));
         return $user;
     }

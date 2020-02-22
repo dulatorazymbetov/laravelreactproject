@@ -18,4 +18,7 @@ class UserController extends Controller
     public function allModules(){
     	return Module::with('roles')->get();
     }
+    public function allStudents(){
+    	return User::where('is_student', 1)->get();
+    }
 }

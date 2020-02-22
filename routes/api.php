@@ -19,3 +19,5 @@ Route::get('auth', 'Auth\LoginController@status');
 Route::get('users', 'UserController@allUsers');
 Route::get('roles', 'UserController@allRoles');
 Route::get('modules', 'UserController@allModules');
+
+Route::get('students', 'UserController@allStudents');
