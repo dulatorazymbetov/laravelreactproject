@@ -26,12 +26,12 @@ function RoleManager(){
 		<Box>
 			<Title content="Менеджмент ролей" />
 			<Box mt={4}>
-				<Paper square>
+				<Paper elevation={2} square>
 					<Tabs
 				    	value={tab}
 				    	indicatorColor="primary"
 				    	textColor="primary"
-				    	onChange={handleTabChange}
+						onChange={handleTabChange}
 				  	>
 				    	<Tab label="Все пользователи" />
 				    	<Tab label="Редактор ролей" />

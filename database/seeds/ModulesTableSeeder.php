@@ -62,5 +62,18 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '4',
             'module_id' => '3'
         ]);
+
+        DB::table('modules')->insert([
+            'id' => '4',
+            'url' => 'list_of_students',
+            'description_kk' => 'Stýdentter tizimi',
+            'description_ru' => 'Список студентов',
+            'description_en' => 'List of students',
+            'icon' => 'people_alt'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '5',
+            'module_id' => '4'
+        ]);
     }
 }

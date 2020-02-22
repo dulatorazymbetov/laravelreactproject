@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import Button from '@material-ui/core/Button';
 
 import { useLang } from "@contexts/lang";
 
@@ -45,6 +46,8 @@ function ModuleList(props) {
 						<TableCell>
 							Доступно
 						</TableCell>
+						<TableCell>
+						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -68,6 +71,11 @@ function ModuleList(props) {
 											</div>
 										);
 									})}
+								</TableCell>
+								<TableCell>
+									<Button variant="outlined" color="primary" size="small">
+										Редактировать
+									</Button>
 								</TableCell>
 							</TableRow>
 						);

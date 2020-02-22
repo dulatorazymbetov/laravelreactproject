@@ -33,6 +33,6 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
     public function getModulesAttribute($value){
-        return $this->roles->pluck('modules')->flatten()->unique('id');
+        return $this->roles->pluck('modules')->flatten()->unique('id')->sortBy('url')->values();
     }
 }

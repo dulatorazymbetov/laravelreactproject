@@ -39,5 +39,12 @@ class RolesTableSeeder extends Seeder
             'description_ru' => 'Студент',
             'description_en' => 'Student'
         ]);
+        DB::table('roles')->insert([
+            'id' => '5',
+            'name' => 'DEANARY_STAFF',
+            'description_kk' => 'Dekanat qyzmetkeri',
+            'description_ru' => 'Сотрудник деканата',
+            'description_en' => 'Deanary Staff'
+        ]);
     }
 }
