@@ -75,8 +75,12 @@ class StudentTableSeeder extends Seeder
                     $student->study_lang_id = $row->lang_id;
                     $student->course = $row->course;
                     $student->save();
+
+                    if(User::where('login', $row->username)->first()){
+                        $row->username = $row->username."_duplicate";
+                    }
                     
-                    $user = User::firstOrNew(['login' => $row->username]);
+                    $user = new User;
                     $user->firstname = $row->firstname;
                     $user->lastname = $row->lastname;
                     $user->patronymic = $row->middlename;
