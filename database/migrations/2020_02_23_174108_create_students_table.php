@@ -15,10 +15,10 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('study_status_id')->unsigned();
-            $table->tinyInteger('study_form_id')->unsigned();
-            $table->tinyInteger('study_lang_id')->unsigned();
-            $table->tinyInteger('course')->unsigned();
+            $table->tinyInteger('study_status_id')->unsigned()->nullable();
+            $table->tinyInteger('study_form_id')->unsigned()->nullable();
+            $table->tinyInteger('study_lang_id')->unsigned()->nullable();
+            $table->tinyInteger('course')->unsigned()->nullable();
             
             $table->timestamps();
         });
