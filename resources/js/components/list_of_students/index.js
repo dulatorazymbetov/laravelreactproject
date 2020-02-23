@@ -13,6 +13,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 
+import { useLang } from "@contexts/lang";
+
 const useStyles = makeStyles(theme => ({
 	
 }));
@@ -20,16 +22,20 @@ const useStyles = makeStyles(theme => ({
 function StudyPlan(){
 	const classes = useStyles();
 	const [students, setStudents] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const { getL } = useLang();
+
 	useEffect(() => {
        	window.axios.get('students').then((response) => {
-       		setStudents(response.data);
+			setStudents(response.data);
+			setIsLoading(false);
        	});
     }, []);
 
 	return (
 		<Box>
 			<Title content="Список студентов" />
-			<Box mt={4}>
+			{!isLoading && <Box mt={4}>
 				<TableContainer component={Paper}>
 					<Table stickyHeader>
 						<TableHead>
@@ -40,17 +46,29 @@ function StudyPlan(){
 								<TableCell>
 									ФИО
 								</TableCell>
+								<TableCell>
+									Статус
+								</TableCell>
+								<TableCell>
+									Курс
+								</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{students.map((student, student_index) => {
+							{students.map((user, user_index) => {
 								return (
-									<TableRow hover key={"student_"+student_index}>
+									<TableRow hover key={"student_"+user_index}>
 										<TableCell>
-											{(student_index + 1)}
+											{(user_index + 1)}
 										</TableCell>
 										<TableCell>
-											{student.lastname} {student.firstname} {student.patronymic}
+											{user.lastname} {user.firstname} {user.patronymic}
+										</TableCell>
+										<TableCell>
+											{user.student.study_status['description_'+getL]}
+										</TableCell>
+										<TableCell>
+											{user.student.course}
 										</TableCell>
 									</TableRow>
 								);
@@ -58,7 +76,7 @@ function StudyPlan(){
 						</TableBody>
 					</Table>
 				</TableContainer>
-			</Box>
+			</Box>}
 		</Box>
 	);
 }

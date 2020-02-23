@@ -23,16 +23,24 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function getModulesAttribute($value){
+        return $this->roles->pluck('modules')->flatten()->unique('id')->sortBy('url')->values();
+    }
+
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
+    public function student(){
+        return $this->belongsTo('App\Models\Student\Student');
+    }
+
     public function getJWTIdentifier(){
         return $this->getKey();
     }
     public function getJWTCustomClaims(){
         return [];
     }
-    public function getModulesAttribute($value){
-        return $this->roles->pluck('modules')->flatten()->unique('id')->sortBy('url')->values();
-    }
+
+
+    
 }
