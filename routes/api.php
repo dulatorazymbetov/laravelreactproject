@@ -21,3 +21,5 @@ Route::get('roles', 'UserController@allRoles');
 Route::get('modules', 'UserController@allModules');
 
 Route::get('students', 'UserController@allStudents');
+
+Route::get('employees', 'UserController@allEmployees');

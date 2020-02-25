@@ -59,6 +59,7 @@ class StudentTableSeeder extends Seeder
                 'user.gender',
                 'user.email',
                 'user.birthdate',
+                'user.iin',
                 'student_card.status_id',
                 'student_card.edu_form_id',
                 'student_card.lang_id',
@@ -66,6 +67,7 @@ class StudentTableSeeder extends Seeder
             )
             ->join('student_card', 'student_card.student_id', '=', 'user.user_id')
             ->join('student_status', 'student_status.id', '=', 'student_card.status_id')
+            ->where('user_id', '<', '1000')
             ->orderBy('user_id')
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {
@@ -79,7 +81,7 @@ class StudentTableSeeder extends Seeder
                     if(User::where('login', $row->username)->first()){
                         $row->username = $row->username."_duplicate";
                     }
-                    
+
                     $user = new User;
                     $user->firstname = $row->firstname;
                     $user->lastname = $row->lastname;
@@ -89,6 +91,7 @@ class StudentTableSeeder extends Seeder
                     $user->email = $row->email;
                     $user->birthdate = $row->birthdate;
                     $user->student_id = $student->id;
+                    $user->iin = $row->iin;
                     $user->save();
                     $user->roles()->attach(Role::find(4));
                 }

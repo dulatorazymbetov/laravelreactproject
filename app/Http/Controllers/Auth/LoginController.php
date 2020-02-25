@@ -70,6 +70,7 @@ class LoginController extends Controller {
         $user->gender = $old_info->gender;
         $user->email = $old_info->email;
         $user->birthdate = $old_info->birthdate;
+        $user->iin = $old_info->iin;
         $user->save();
         $user->roles()->attach(Role::find($old_info->roles));
         return $user;

@@ -46,5 +46,47 @@ class RolesTableSeeder extends Seeder
             'description_ru' => 'Сотрудник деканата',
             'description_en' => 'Deanary Staff'
         ]);
+        DB::table('roles')->insert([
+            'id' => '6',
+            'name' => 'ESUVO_ADMIN',
+            'description_kk' => 'Dekanat qyzmetkeri',
+            'description_ru' => 'Администратор ЕСУВО Отчетов',
+            'description_en' => 'Deanary Staff'
+        ]);
+        DB::table('roles')->insert([
+            'id' => '7',
+            'name' => 'APPLICANT',
+            'description_kk' => 'Dekanat qyzmetkeri',
+            'description_ru' => 'Абитуриент',
+            'description_en' => 'Deanary Staff'
+        ]);
+        DB::table('roles')->insert([
+            'id' => '8',
+            'name' => 'ADMISSION_MANAGER',
+            'description_kk' => 'Dekanat qyzmetkeri',
+            'description_ru' => 'Менеджер приемной комиссии',
+            'description_en' => 'Deanary Staff'
+        ]);
+        DB::table('roles')->insert([
+            'id' => '9',
+            'name' => 'GRADUATE',
+            'description_kk' => 'Dekanat qyzmetkeri',
+            'description_ru' => 'Выпускник',
+            'description_en' => 'Deanary Staff'
+        ]);
+        DB::table('roles')->insert([
+            'id' => '10',
+            'name' => 'DEPARTMENT_STAFF',
+            'description_kk' => 'Dekanat qyzmetkeri',
+            'description_ru' => 'Кафедра',
+            'description_en' => 'Deanary Staff'
+        ]);
+        DB::table('roles')->insert([
+            'id' => '11',
+            'name' => 'HR_DEPARTMENT',
+            'description_kk' => 'Dekanat qyzmetkeri',
+            'description_ru' => 'Отдел кадров',
+            'description_en' => 'Deanary Staff'
+        ]);
     }
 }

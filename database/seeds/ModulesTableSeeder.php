@@ -75,5 +75,31 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '5',
             'module_id' => '4'
         ]);
+
+        DB::table('modules')->insert([
+            'id' => '5',
+            'url' => 'list_of_employees',
+            'description_kk' => 'Qyzmetkerler tizimi',
+            'description_ru' => 'Список сотрудников',
+            'description_en' => 'List of employees',
+            'icon' => 'assignment_ind'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '11',
+            'module_id' => '5'
+        ]);
+
+        DB::table('modules')->insert([
+            'id' => '6',
+            'url' => 'list_of_tutors',
+            'description_kk' => 'Oqytýshylar tizimi',
+            'description_ru' => 'Список преподавателей',
+            'description_en' => 'List of tutors',
+            'icon' => 'business_center'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '11',
+            'module_id' => '6'
+        ]);
     }
 }
