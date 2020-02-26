@@ -93,7 +93,7 @@ class ModulesTableSeeder extends Seeder
             'id' => '6',
             'url' => 'list_of_tutors',
             'description_kk' => 'Oqytýshylar tizimi',
-            'description_ru' => 'Список преподавателей',
+            'description_ru' => 'Список ППС',
             'description_en' => 'List of tutors',
             'icon' => 'business_center'
         ]);

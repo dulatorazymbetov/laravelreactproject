@@ -26,7 +26,7 @@ function StudyPlan(){
 	const { getL } = useLang();
 
 	useEffect(() => {
-       	window.axios.get('students').then((response) => {
+       	window.axios.get('employees').then((response) => {
 			setStudents(response.data);
 			setIsLoading(false);
        	});
@@ -34,7 +34,7 @@ function StudyPlan(){
 
 	return (
 		<Box>
-			<Title content="Список сотрудников" />
+			<Title content="Список Преподавателей" />
 			{!isLoading && <Box mt={4}>
 				<TableContainer component={Paper}>
 					<Table stickyHeader>
@@ -46,12 +46,6 @@ function StudyPlan(){
 								<TableCell>
 									ФИО
 								</TableCell>
-								<TableCell>
-									Статус
-								</TableCell>
-								<TableCell>
-									Курс
-								</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
@@ -62,13 +56,10 @@ function StudyPlan(){
 											{(user_index + 1)}
 										</TableCell>
 										<TableCell>
+											{user.login}
+										</TableCell>
+										<TableCell>
 											{user.lastname} {user.firstname} {user.patronymic}
-										</TableCell>
-										<TableCell>
-											{user.student.study_status['description_'+getL]}
-										</TableCell>
-										<TableCell>
-											{user.student.course}
 										</TableCell>
 									</TableRow>
 								);

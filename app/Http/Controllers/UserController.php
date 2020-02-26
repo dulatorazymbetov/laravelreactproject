@@ -22,6 +22,6 @@ class UserController extends Controller
         return User::whereNotNull('student_id')->with('student')->orderBy('id', 'DESC')->get();
     }
     public function allEmployees(){
-        
+        return User::whereNull('student_id')->get();
     }
 }
