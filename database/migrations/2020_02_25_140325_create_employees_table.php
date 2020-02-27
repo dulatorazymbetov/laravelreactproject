@@ -16,6 +16,7 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->bigIncrements('id');
 			$table->tinyInteger('post_id')->unsigned()->nullable();
+			$table->boolean('foreigner')->nullable();
             $table->timestamps();
         });
     }
