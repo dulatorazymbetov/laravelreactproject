@@ -28,11 +28,6 @@ class CreateUsersTable extends Migration
             $table->date('birthdate')->nullable();
             $table->string('iin')->nullable();
 			
-			$table->boolean('foreigner')->default(false); 
-			
-			
-			
-			
 
             $table->timestamps();
             $table->softDeletes();
