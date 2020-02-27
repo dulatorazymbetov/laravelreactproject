@@ -12,7 +12,13 @@ class EnglishLevelsTableSeeder extends Seeder
     public function run()
     {
         //
-         DB::table('english_levels')->insert([
+        DB::table('english_levels')->insert([
+            'name' => 'None',
+            'description_kk' => 'None',
+            'description_ru' => 'None',
+            'description_en' => 'None'
+        ]);
+        DB::table('english_levels')->insert([
             'name' => 'A1',
             'description_kk' => 'A1',
             'description_ru' => 'A1',
@@ -47,12 +53,6 @@ class EnglishLevelsTableSeeder extends Seeder
             'description_kk' => 'C2',
             'description_ru' => 'C2',
             'description_en' => 'C2'
-        ]);
-        DB::table('english_levels')->insert([
-            'name' => 'None',
-            'description_kk' => 'None',
-            'description_ru' => 'None',
-            'description_en' => 'None'
         ]);
 
 
