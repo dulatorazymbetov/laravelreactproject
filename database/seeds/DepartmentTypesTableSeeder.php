@@ -25,7 +25,7 @@ class DepartmentTypesTableSeeder extends Seeder
             'description_en' => 'Cafedra'
         ]);
         DB::table('department_types')->insert([
-            'id' => 3',
+            'id' => '3',
             'description_kk' => 'Департамент',
             'description_ru' => 'Департамент',
             'description_en' => 'Department'
