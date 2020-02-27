@@ -16,20 +16,20 @@ class CreateStaffTable extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->bigInteger('userid');
 			$table->boolean('foreigner')->default(false); // прибывший из-за рубежа
-			$table->tinyInteger('teaching_language')->nullable()->unsigned(); //язык преподавания
-			$table->tinyInteger('english_level')->nullable()->unsigned(); //уровень знания английского языка
-			$table->tinyInteger('academic_degree')->nullable()->unsigned(); //Академическая, ученая степень
-			$table->tinyInteger('academic_rank')->nullable()->unsigned(); //Ученое звание
+			$table->tinyInteger('teaching_language_id')->nullable()->unsigned(); //язык преподавания
+			$table->tinyInteger('english_level_id')->nullable()->unsigned(); //уровень знания английского языка
+			$table->tinyInteger('academic_degree_id')->nullable()->unsigned(); //Академическая, ученая степень
+			$table->tinyInteger('academic_rank_id')->nullable()->unsigned(); //Ученое звание
 
-			$table->date('employment_date')->nullable(); //Дата принятия на работу
-			$table->string('employment_order_number')->nullable(); //Номер приказа о принятии на работу
-			$table->tinyInteger('employment_contratc_type')->nullable()->unsigned(); //Срок трудового договора
+			$table->date('emp_start_date')->nullable(); //Дата принятия на работу
+			$table->string('emp_order_number')->nullable(); //Номер приказа о принятии на работу
+			$table->tinyInteger('emp_contract_type')->nullable()->unsigned(); //Срок трудового договора
 			$table->tinyInteger('employee_current_status')->nullable()->unsigned();//Текущий статус сотрудника
 
 			$table->boolean('trilingual_teaching')->default(false); // Ведет занятия на английском языке в рамках трехъязычного обучения
-			$table->date('employment_termination_date')->nullable(); //дата расторжения/прекращения трудового договора
-			$table->string('employment_termination_order_number')->nullable(); //Номер приказа о расторжении/прекращении трудового договора
-			$table->tinyInteger('employee_termination_reason')->nullable()->unsigned(); //причина расторжения трудового договора
+			$table->date('emp_term_date')->nullable(); //дата расторжения/прекращения трудового договора
+			$table->string('emp_term_order_number')->nullable(); //Номер приказа о расторжении/прекращении трудового договора
+			$table->tinyInteger('emp_term_reason_id')->nullable()->unsigned(); //причина расторжения трудового договора
 
             $table->timestamps();
             $table->softDeletes();
