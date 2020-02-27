@@ -15,7 +15,7 @@ class CreateAcademicRanksTable extends Migration
     {
         Schema::create('academic_ranks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('sort_order');
+            $table->tinyInteger('sort_order')->nullable();
             $table->string('description_kk')->nullable();
 			$table->string('description_ru')->nullable();
 			$table->string('description_en')->nullable();
