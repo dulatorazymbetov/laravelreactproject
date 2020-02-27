@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EnglishLevelsTableSeeder::class);
         $this->call(EmpCntTypesTableSeeder::class);
         $this->call(EmpCntTermReasonsTableSeeder::class);
+        $this->call(VacationStatusesTableSeeder::class);
         
     }
 }
