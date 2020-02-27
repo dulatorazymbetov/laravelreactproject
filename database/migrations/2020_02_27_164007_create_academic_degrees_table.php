@@ -20,6 +20,7 @@ class CreateAcademicDegreesTable extends Migration
 			$table->string('description_ru')->nullable();
 			$table->string('description_en')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
