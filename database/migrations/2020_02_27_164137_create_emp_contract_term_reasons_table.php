@@ -15,7 +15,11 @@ class CreateEmpContractTermReasonsTable extends Migration
     {
         Schema::create('emp_contract_term_reasons', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('description_ru')->nullable();
+			$table->string('description_kk')->nullable();
+			$table->string('description_en')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
