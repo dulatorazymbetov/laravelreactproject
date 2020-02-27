@@ -27,6 +27,12 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->date('birthdate')->nullable();
             $table->string('iin')->nullable();
+			
+			$table->bool('foreigner')->nullable(); //прибывший из-за рубежа
+			
+			
+			
+			
 
             $table->timestamps();
             $table->softDeletes();
