@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('iin')->nullable();
 			
 			$table->boolean('foreigner')->default('false')->after('gender'); 
-			
+			$table->tinyInteger('post_id')->unsigned()->nullable();
 			
 			
 			
