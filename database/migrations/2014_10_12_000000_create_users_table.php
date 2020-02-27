@@ -28,8 +28,8 @@ class CreateUsersTable extends Migration
             $table->date('birthdate')->nullable();
             $table->string('iin')->nullable();
 			
-			$table->boolean('foreigner')->default('false'); 
-			$table->tinyInteger('post_id')->unsigned()->nullable();
+			$table->boolean('foreigner')->default(false); 
+			
 			
 			
 			
