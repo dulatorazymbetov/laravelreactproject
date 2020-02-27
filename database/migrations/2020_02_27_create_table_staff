@@ -1,0 +1,48 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateUsersTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('staff', function (Blueprint $table) {
+            $table->bigInteger('userid');
+			$table->boolean('foreigner')->default(false); // прибывший из-за рубежа
+			$table->tinyInteger('teaching_language')->nullable()->unsigned(); //язык преподавания
+			$table->tinyInteger('english_level')->nullable()->unsigned(); //уровень знания английского языка
+			$table->tinyInteger('academic_degree')->nullable()->unsigned(); //Академическая, ученая степень
+			$table->tinyInteger('academic_rank')->nullable()->unsigned(); //Ученое звание
+
+			$table->date('employment_date')->nullable(); //Дата принятия на работу
+			$table->string('employment_order_number')->nullable(); //Номер приказа о принятии на работу
+			$table->tinyInteger('employment_contratc_type')->nullable()->unsigned(); //Срок трудового договора
+			$table->tinyInteger('employee_current_status')->nullable()->unsigned();//Текущий статус сотрудника
+
+			$table->boolean('trilingual_teaching')->default(false); // Ведет занятия на английском языке в рамках трехъязычного обучения
+			$table->date('employment_termination_date')->nullable(); //дата расторжения/прекращения трудового договора
+			$table->string('employment_termination_order_number')->nullable(); //Номер приказа о расторжении/прекращении трудового договора
+			$table->tinyInteger('employee_termination_reason')->nullable()->unsigned(); //причина расторжения трудового договора
+
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('staff');
+    }
+}
