@@ -15,6 +15,11 @@ class CreateEnglishLevelsTable extends Migration
     {
         Schema::create('english_levels', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->tinyInteger('sort_order')->nullable();
+            $table->string('name');
+			$table->string('description_kk')->nullable();
+			$table->string('description_ru')->nullable();
+			$table->string('description_en')->nullable();
             $table->timestamps();
         });
     }
