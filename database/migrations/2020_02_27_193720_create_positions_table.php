@@ -22,6 +22,8 @@ class CreatePositionsTable extends Migration
             $table->float('time_rate',3,2); //ставка
             $table->date('start_date'); //дата окончания работы
             $table->date('finish_date')->nullable(); //дата окончания работы
+            $table->boolean('is_head')->default(false); //воглавляет данное подразделение
+            $table->integer('chief_position_id')->nullable(); //непосредственный ркуоводитель
             $table->timestamps();
             $table->softDeletes();
         });
