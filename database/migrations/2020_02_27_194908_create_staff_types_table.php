@@ -14,8 +14,13 @@ class CreateStaffTypesTable extends Migration
     public function up()
     {
         Schema::create('staff_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->integer('id');
+            $table->string('description_kk')->nullable();
+			$table->string('description_ru')->nullable();
+			$table->string('description_en')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
