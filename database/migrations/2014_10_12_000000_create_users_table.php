@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->date('birthdate')->nullable();
             $table->string('iin')->nullable();
 			
-			$table->boolean('foreigner')->default('false'); //прибывший из-за рубежа
+			$table->boolean('foreigner')->default('false')->after('gender'); 
 			
 			
 			
