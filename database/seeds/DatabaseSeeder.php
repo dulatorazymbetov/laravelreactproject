@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TutosTableSeeder::class);
         $this->call(StudentTableSeeder::class);
         $this->call(TeachingLanguagesTableSeeder::class);
-        $this->call(AcademisDegreesTableSeeder::class);
+        $this->call(AcademicDegreesTableSeeder::class);
         $this->call(AcademicRanksTableSeeder::class);
         $this->call(EnglishLevelsTableSeeder::class);
         $this->call(EmpCntTypesTableSeeder::class);
