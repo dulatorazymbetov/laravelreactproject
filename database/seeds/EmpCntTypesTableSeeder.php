@@ -13,11 +13,13 @@ class EmpCntTypesTableSeeder extends Seeder
     {
         //
         DB::table('emp_contract_types')->insert([
+            'id' => '1',
             'description_kk' => 'неопределенный',
             'description_ru' => 'неопределенный',
             'description_en' => 'неопределенный'
         ]);
         DB::table('emp_contract_types')->insert([
+            'id' => '2',
             'description_kk' => 'определенный',
             'description_ru' => 'определенный',
             'description_en' => 'определенный'
