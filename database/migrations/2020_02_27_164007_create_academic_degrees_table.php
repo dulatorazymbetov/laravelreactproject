@@ -15,6 +15,9 @@ class CreateAcademicDegreesTable extends Migration
     {
         Schema::create('academic_degrees', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('description_kk')->nullable();
+			$table->string('description_ru')->nullable();
+			$table->string('description_en')->nullable();
             $table->timestamps();
         });
     }
