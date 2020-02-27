@@ -17,9 +17,14 @@ class CreateStaffTable extends Migration
             $table->bigInteger('userid');
 			$table->boolean('foreigner')->default(false); // прибывший из-за рубежа
 			$table->tinyInteger('teaching_language_id')->nullable()->unsigned(); //язык преподавания
+			$table->foreign('teaching_language_id')->references('id')->on('teaching_language');});
+			
 			$table->tinyInteger('english_level_id')->nullable()->unsigned(); //уровень знания английского языка
+			$table->foreign('english_level_id')->references('id')->on('english_level');});
 			$table->tinyInteger('academic_degree_id')->nullable()->unsigned(); //Академическая, ученая степень
+			$table->foreign('academic_degree_id')->references('id')->on('academic_degree');});
 			$table->tinyInteger('academic_rank_id')->nullable()->unsigned(); //Ученое звание
+			$table->foreign('academic_rank_id')->references('id')->on('academic_rank');});
 
 			$table->date('emp_start_date')->nullable(); //Дата принятия на работу
 			$table->string('emp_order_number')->nullable(); //Номер приказа о принятии на работу
