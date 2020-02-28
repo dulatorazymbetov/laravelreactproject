@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 
 import SignIn from "./auth/sign_in";
 import ApplicantSignIn from "./applicant/sign_in";
+import ApplicantReg from "./applicant/reg";
 
 import Header from "@layouts/header";
 import Navigation from "@layouts/navigation";
@@ -32,6 +33,7 @@ function Routing(){
         return (
             <Box component={Switch}>
                 <Route path="/applicant" exact component={ApplicantSignIn}/>
+                <Route path="/applicant_reg" exact component={ApplicantReg}/>
                 <Route path="/" component={SignIn}/>
             </Box>
         );

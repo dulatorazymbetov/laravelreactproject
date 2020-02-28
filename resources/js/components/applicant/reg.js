@@ -68,9 +68,9 @@ function AplicantSignIn() {
 			ru: 'или',
 			en: 'or'
 		},
-		registration: {
-			ru: 'Регистрация',
-			en: 'Registration'
+		sign_in: {
+			ru: 'Войти',
+			en: 'Sign In'
 		}
 	});
 
@@ -105,10 +105,40 @@ function AplicantSignIn() {
 					<Box color="text.secondary">{getW('title')}</Box>
 					<Box my={5} component="form" onSubmit={submitForm}>
 						<TextField
-							name="login"
-							label={getW('account')}
+							name="IIN"
+							label="ИИН"
 							className={classes.fullWidth}
-							value={login}
+							defaultValue=""
+							onChange={handleChange}
+							margin="normal"
+							required
+							variant="filled"
+						/>
+						<TextField
+							name="E-mail"
+							label="E-mail"
+							className={classes.fullWidth}
+							defaultValue=""
+							onChange={handleChange}
+							margin="normal"
+							required
+							variant="filled"
+						/>
+						<TextField
+							name="IIN"
+							label="Телефон"
+							className={classes.fullWidth}
+							defaultValue=""
+							onChange={handleChange}
+							margin="normal"
+							required
+							variant="filled"
+						/>
+						<TextField
+							name="IIN"
+							label="ФИО"
+							className={classes.fullWidth}
+							defaultValue=""
 							onChange={handleChange}
 							margin="normal"
 							required
@@ -134,6 +164,7 @@ function AplicantSignIn() {
 								),
 							}}
 						/>
+						
 						<Box my={4}>
 							{!isLoading ? <Button variant="contained" color="secondary" className={classes.fullWidth} size="large" type="submit">
 								{getW('send')}
@@ -143,8 +174,8 @@ function AplicantSignIn() {
 						</Box>
 						{getW('or')}
 						<Box mt={4}>
-							<Button variant="contained" className={classes.fullWidth} size="large" component={Link} to="/applicant_reg">
-								{getW('registration')}
+							<Button variant="contained" className={classes.fullWidth} size="large" component={Link} to="/applicant">
+								{getW('sign_in')}
 							</Button>
 						</Box>
 					</Box>
