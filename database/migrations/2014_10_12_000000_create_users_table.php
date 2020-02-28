@@ -6,13 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+    public function up() {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('firstname');
@@ -20,7 +14,6 @@ class CreateUsersTable extends Migration
             $table->string('patronymic')->nullable();
             $table->string('login')->unique();
             $table->string('password')->nullable();
-
             $table->tinyInteger('gender')->nullable()->unsigned();
             $table->bigInteger('student_id')->nullable()->unsigned();
             $table->bigInteger('employee_id')->nullable()->unsigned();
@@ -28,19 +21,11 @@ class CreateUsersTable extends Migration
             $table->date('birthdate')->nullable();
             $table->string('iin')->nullable();
 			
-
             $table->timestamps();
             $table->softDeletes();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('users');
     }
 }

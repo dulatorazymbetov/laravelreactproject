@@ -14,12 +14,10 @@ class Role extends Model
 
     protected $with = ['modules'];
 
-    public function users()
-    {
+    public function users(){
     	return $this->belongsToMany(User::class);
     }
-    public function modules()
-    {
+    public function modules(){
     	return $this->belongsToMany(Module::class);
     }
 }

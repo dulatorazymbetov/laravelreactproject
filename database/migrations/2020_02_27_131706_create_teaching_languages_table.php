@@ -6,13 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTeachingLanguagesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+    public function up(){
         Schema::create('teaching_languages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
@@ -23,14 +17,7 @@ class CreateTeachingLanguagesTable extends Migration
             $table->softDeletes();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down(){
         Schema::dropIfExists('teaching_languages');
     }
 }

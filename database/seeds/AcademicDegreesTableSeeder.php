@@ -12,7 +12,7 @@ class AcademicDegreesTableSeeder extends Seeder
     public function run()
     {
         //
-         DB::table('academic_degrees')->insert([
+        DB::table('academic_degrees')->insert([
             'id' => '1',
             'sort_order' => '1',
             'description_kk' => 'Жоқ',

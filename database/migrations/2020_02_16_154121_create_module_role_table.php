@@ -6,27 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateModuleRoleTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+    public function up(){
         Schema::create('module_role', function (Blueprint $table) {
             $table->integer('role_id')->unsigned();
             $table->integer('module_id')->unsigned();
             $table->primary(['role_id', 'module_id']);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down(){
         Schema::dropIfExists('module_role');
     }
 }

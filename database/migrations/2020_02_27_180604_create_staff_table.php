@@ -32,7 +32,7 @@ class CreateStaffTable extends Migration
 			$table->tinyInteger('emp_contract_type_id')->nullable()->unsigned(); //Срок трудового договора
 			//$table->foreign('emp_contract_type_id')->references('id')->on('emp_contract_types');
 
-			$table->boolean('is_active')->default(false);//Текущий статус сотрудника
+			$table->boolean('is_active')->default(false); //Текущий статус сотрудника
 			
 			$table->tinyInteger('vacation_status_id')->default(1); //отпуск
 			//$table->foreign('vacation_status_id')->references('id')->on('vacation_statuses');

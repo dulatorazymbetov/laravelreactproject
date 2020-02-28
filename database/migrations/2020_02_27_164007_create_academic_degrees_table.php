@@ -6,13 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateAcademicDegreesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+    public function up(){
         Schema::create('academic_degrees', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->tinyInteger('sort_order')->nullable();
@@ -23,14 +17,7 @@ class CreateAcademicDegreesTable extends Migration
             $table->softDeletes();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down(){
         Schema::dropIfExists('academic_degrees');
     }
 }

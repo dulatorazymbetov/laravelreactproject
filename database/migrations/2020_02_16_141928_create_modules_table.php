@@ -6,13 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateModulesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+    public function up(){
         Schema::create('modules', function (Blueprint $table) {
             $table->increments('id');
             $table->string('url')->unique();
@@ -23,14 +17,7 @@ class CreateModulesTable extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down(){
         Schema::dropIfExists('modules');
     }
 }

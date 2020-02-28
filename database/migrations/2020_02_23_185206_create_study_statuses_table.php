@@ -6,13 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateStudyStatusesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+    public function up(){
         Schema::create('study_statuses', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->string('name')->unique();
@@ -22,14 +16,7 @@ class CreateStudyStatusesTable extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down(){
         Schema::dropIfExists('study_statuses');
     }
 }
