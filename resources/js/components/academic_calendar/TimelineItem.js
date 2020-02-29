@@ -19,7 +19,7 @@ function TimelineItem ({data}) {
 			<div className="timeline-item">
 				<div className="timeline-item-content">
 					<time>{data.date.slice(0, 10)}</time>
-					<p>We are here!</p>
+					<p>Текущее событие</p>
 					<span className="circle">
 					</span>
 				</div>
@@ -38,7 +38,7 @@ function TimelineItem ({data}) {
 		      </span>
 		      <time>{data.date.slice(0, 10)}</time>
 		      <p>{data.text}</p>
-		      <p>We are here!</p>
+		      <p>Текущее событие</p>
 		      <span className="circle">
 		      </span>
 	      </div>
@@ -74,7 +74,7 @@ function TimelineItem ({data}) {
       	</Element>
 	      <div className="timeline-item-content">
 	       <time>{data.date}</time>
-	       <p>We are here!</p>
+	       <p>Текущее событие</p>
 	       <span className="circle">
 	       </span>
 	      </div>
@@ -92,7 +92,7 @@ function TimelineItem ({data}) {
 			      </span>
 			      <time>{data.date}</time>
 			      <p>{data.text}</p>
-			      <p>We are here!</p>
+			      <p>Текущее событие</p>
 			      <span className="circle">
 			      </span>
 		      </div>
