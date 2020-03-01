@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models\Staff;
 
 use Illuminate\Database\Eloquent\Model;
 
-class teaching_language extends Model
+class StaffType extends Model
 {
     //
 }

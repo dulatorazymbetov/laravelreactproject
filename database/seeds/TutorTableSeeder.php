@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User\User;
 use App\Models\User\Role;
 use App\Models\Student\Student;
-use App\Models\Employee\Employee;
+use App\Models\Staff\Staff;
 
 class TutosTableSeeder extends Seeder
 {
@@ -32,25 +32,19 @@ class TutosTableSeeder extends Seeder
             ->orderBy('user_id')
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {
-                    $employee = new Employee;
-                    $employee->save();
-                    
-                    if(User::where('login', $row->username)->first()){
-                        $row->username = $row->username."_duplicate_".$row->user_id;
-                    }
-                    
-                    $user = new User;
-                    $user->firstname = $row->firstname;
-                    $user->lastname = $row->lastname;
-                    $user->patronymic = $row->middlename;
-                    $user->login = $row->username;
-                    $user->gender = $row->gender;
-                    $user->email = $row->email;
-                    $user->birthdate = $row->birthdate;
-                    $user->employee_id = $employee->id;
-                    $user->iin = $row->iin;
-                    $user->save();
-                    $user->roles()->attach(Role::find(3));
+                    if(!User::where('login', $row->username)->first()){
+                        $user = new User;
+                        $user->firstname = $row->firstname;
+                        $user->lastname = $row->lastname;
+                        $user->patronymic = $row->middlename;
+                        $user->login = $row->username;
+                        $user->gender = $row->gender;
+                        $user->email = $row->email;
+                        $user->birthdate = $row->birthdate;
+                        $user->iin = $row->iin;
+                        $user->save();
+                        $user->roles()->attach(Role::find(3));
+                    } 
                 }
             });
     }

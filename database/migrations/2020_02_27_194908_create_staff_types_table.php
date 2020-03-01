@@ -6,13 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateStaffTypesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
+    public function up(){
         Schema::create('staff_types', function (Blueprint $table) {
             $table->integer('id');
             $table->string('description_kk')->nullable();
@@ -23,14 +17,7 @@ class CreateStaffTypesTable extends Migration
             $table->softDeletes();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
+    public function down(){
         Schema::dropIfExists('staff_types');
     }
 }

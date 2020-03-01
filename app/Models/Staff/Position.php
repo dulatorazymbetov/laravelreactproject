@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models\Staff;
 
 use Illuminate\Database\Eloquent\Model;
 
-class english_level extends Model
+class Position extends Model
 {
     //
 }
