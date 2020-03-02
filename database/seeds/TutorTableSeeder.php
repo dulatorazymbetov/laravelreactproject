@@ -26,9 +26,10 @@ class TutosTableSeeder extends Seeder
                 'user.gender',
                 'user.email',
                 'user.birthdate',
-                'user.iin'
+                'user.iin',
+                'staff_card.staff_degree_id'
             )
-            ->where('role_id', '3')
+            ->join('staff_card', 'staff_card.user_id', '=', 'user.user_id')
             ->orderBy('user_id')
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {
@@ -44,6 +45,11 @@ class TutosTableSeeder extends Seeder
                         $user->iin = $row->iin;
                         $user->save();
                         $user->roles()->attach(Role::find(3));
+
+                        $staff = new Staff;
+                        $staff->user_id = $user->id;
+                        $staff->academic_degree_id = $row->staff_degree_id;
+                        $staff->save();
                     } 
                 }
             });

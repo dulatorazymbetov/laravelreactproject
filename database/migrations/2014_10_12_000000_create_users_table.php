@@ -15,8 +15,6 @@ class CreateUsersTable extends Migration
             $table->string('login')->unique();
             $table->string('password')->nullable();
             $table->tinyInteger('gender')->nullable()->unsigned();
-            $table->bigInteger('student_id')->nullable()->unsigned();
-            $table->bigInteger('employee_id')->nullable()->unsigned();
             $table->string('email')->nullable();
             $table->date('birthdate')->nullable();
             $table->string('iin')->nullable();

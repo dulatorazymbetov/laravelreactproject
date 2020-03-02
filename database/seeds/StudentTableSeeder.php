@@ -70,13 +70,6 @@ class StudentTableSeeder extends Seeder
             ->orderBy('user_id')
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {
-                    $student = new Student;
-                    $student->study_status_id = $row->status_id;
-                    $student->study_form_id = $row->edu_form_id;
-                    $student->study_lang_id = $row->lang_id;
-                    $student->course = $row->course;
-                    $student->save();
-
                     if(User::where('login', $row->username)->first()){
                         $row->username = $row->username."_duplicate";
                     }
@@ -89,10 +82,17 @@ class StudentTableSeeder extends Seeder
                     $user->gender = $row->gender;
                     $user->email = $row->email;
                     $user->birthdate = $row->birthdate;
-                    $user->student_id = $student->id;
                     $user->iin = $row->iin;
                     $user->save();
                     $user->roles()->attach(Role::find(4));
+
+                    $student = new Student;
+                    $student->user_id = $user->id;
+                    $student->study_status_id = $row->status_id;
+                    $student->study_form_id = $row->edu_form_id;
+                    $student->study_lang_id = $row->lang_id;
+                    $student->course = $row->course;
+                    $student->save();
                 }
             });
 
