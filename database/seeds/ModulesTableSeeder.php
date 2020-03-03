@@ -101,5 +101,18 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '11',
             'module_id' => '6'
         ]);
+
+        DB::table('modules')->insert([
+            'id' => '7',
+            'url' => 'certificates',
+            'description_kk' => 'Anyqtama tizimi',
+            'description_ru' => 'Журнал справок',
+            'description_en' => 'List of certificates',
+            'icon' => 'assignment'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '4',
+            'module_id' => '7'
+        ]);
     }
 }

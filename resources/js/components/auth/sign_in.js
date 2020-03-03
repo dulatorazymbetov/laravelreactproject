@@ -88,12 +88,6 @@ function SignIn() {
 				setIsLoading(false);
 				setToken(response.data.token.access_token);
 				setUserInfo(response.data.user);
-            })
-            .catch(function (error){
-            	setIsLoading(false);
-            	if(error.response){
-            		
-            	}
             });
 		}
 	}

@@ -90,6 +90,7 @@ class LoginController extends Controller {
     }
     protected function respondUserInfo($user){
         return [
+            'id' => $user->id,
             'firstname' => $user->firstname,
             'lastname' => $user->lastname,
             'login' => $user->login,

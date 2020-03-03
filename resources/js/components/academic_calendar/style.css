@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-.current-date {
-    margin-top: 20px;
-}
-
 .timeline-container {
     display: flex;
     flex-direction: column;

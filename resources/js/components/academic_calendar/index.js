@@ -22,12 +22,14 @@ function EditRespond(){
 	return (
 		<Box>
 			<Title content="Академический календарь" />
-			<Button variant="contained" color="primary" className="current-date"><Link activeClass="active" className="test" to="test" spy={true} smooth={true} duration={500}>Показать текущую дату</Link></Button>
-			<div className="timeline-container">
-				{timelineData.map((data, index) => (
-					<TimelineItem data={data} key={index}/>
-				))}
-			</div>
+			<Box mt={2}>
+				<Button variant="contained" color="primary"><Link activeClass="active" className="test" to="test" spy={true} smooth={true} duration={500}>Показать текущую дату</Link></Button>
+				<div className="timeline-container">
+					{timelineData.map((data, index) => (
+						<TimelineItem data={data} key={index}/>
+					))}
+				</div>
+			</Box>
 		</Box>
 	);
 }
