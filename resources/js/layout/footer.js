@@ -13,7 +13,7 @@ function Footer(props){
 	
 	
 	return (
-		<Box ml={35} mt={6} mb={4} style={{color: '#777', fontWeight: 'bold', fontSize: '14px'}}>
+		<Box ml={35} mt={6} mb={4} style={{color: '#777', fontWeight: 'bold', fontSize: '14px', textAlign: 'center'}}>
 			IITU CAMPUS 2019
 		</Box>
 	);
