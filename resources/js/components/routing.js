@@ -8,6 +8,7 @@ import ApplicantReg from "./applicant/reg";
 
 import Header from "@layouts/header";
 import Navigation from "@layouts/navigation";
+import Footer from "@layouts/footer";
 
 import { useAuth } from "@contexts/auth";
 
@@ -55,6 +56,7 @@ function Routing(){
                         </Switch>
                     </Box>
                 </Box>
+                <Footer />
             </div>
         );
     }

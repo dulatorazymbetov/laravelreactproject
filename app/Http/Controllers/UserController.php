@@ -21,7 +21,12 @@ class UserController extends Controller
     public function allStudents(){
         return User::whereNotNull('student_id')->with('student')->orderBy('id', 'DESC')->get();
     }
-    public function allEmployees(){
-        return User::whereNull('student_id')->get();
+    public function allTutors(Request $request){
+        $rows = $request->rows;
+        $offset = $request->page * $rows;
+        return [
+            'total' => User::count(),
+            'list' => User::take($rows)->skip($offset)->orderBy('id', 'DESC')->get(),
+        ];
     }
 }
