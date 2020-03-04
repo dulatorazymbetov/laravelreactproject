@@ -52,7 +52,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm logo">
-          <img width="405" height="90" src="img/logo.png" alt="">  
+          <img width="405" height="90" src="img/iitu-logo.png" alt="">  
         </div>
       </div>
       <div class="row">
@@ -78,13 +78,13 @@
       </div>
       <div class="row">
         <div class="col-sm ml-5 body">
-          <p class="text obzac">Дана гр. <b>{{$show->full_name}} {{$show->birthday}}</b> г.р.</p>
+          <p class="text obzac">Дана гр. <b>{{$users->firstname}} {{$users->lastname}} {{$users->patronymic}} 06.10.2000</b> г.р.</p>
           <p class="text small">(Ф.И.О. обучающегося/студента, с указанием года рождения)</p>
           <p class="text obzac">В том, что он(а) действительно является обучающимся</p>
           <p class="text">АО Международного университета информационных технологий</p>
           <p class="text">«5B100200»-Системы информационной безопасности</p>
           <p class="text">Госуд.лицензия Серия АБ № 0064060 от 29.05.2009 год без ограничения срока</p>
-          <p class="text">{{$show->kurs}} класса/курса, форма обучения-очное.</p>
+          <p class="text">3 класса/курса, форма обучения-очное.</p>
           <p class="text">Справка действительна на 2019-2020 учебный год, с 1 сентября 2017 г. по 31 августа 2018 г.</p>
           <p class="text">Справка выдана для предъявления в отделение</p>
           <p class="text">Государственной корпораций</p>  

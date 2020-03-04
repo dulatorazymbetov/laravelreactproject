@@ -20,4 +20,32 @@ class DownloadPdfController extends Controller
         
         return $pdf->download('Report.pdf');
     }
+
+    public function downloadReport3PDF($id) {
+        $users = User::find($id);
+        $pdf = PDF::loadView('report3', compact('users'));
+        
+        return $pdf->download('Report.pdf');
+    }
+
+    public function downloadReport4PDF($id) {
+        $users = User::find($id);
+        $pdf = PDF::loadView('report4', compact('users'));
+        
+        return $pdf->download('Report.pdf');
+    }
+
+    public function downloadReport5PDF($id) {
+        $users = User::find($id);
+        $pdf = PDF::loadView('report5', compact('users'));
+        
+        return $pdf->download('Report.pdf');
+    }
+
+    public function downloadReport6PDF($id) {
+        $users = User::find($id);
+        $pdf = PDF::loadView('report6', compact('users'));
+        
+        return $pdf->download('Report.pdf');
+    }
 }

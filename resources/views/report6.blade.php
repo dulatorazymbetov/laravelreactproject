@@ -18,7 +18,7 @@
         margin-left: 160px;
       }
       .header {
-        margin: 60px 0 20px 315px;
+        margin: 100px 0 20px 315px;
         font-size: 18px;
         text-transform: uppercase;
       }
@@ -41,10 +41,10 @@
         padding-top: 10px;
       }
       .podpis {
-        padding: 170px 0 0 30px;
+        padding: 100px 0 0 30px;
       }
       .isp {
-        padding-top: 175px;
+        padding-top: 200px;
         font-size: 11px;
       }
     </style>
@@ -52,22 +52,15 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm logo">
-          <img width="" height="90" src="img/iitu-logo.png" alt="">  
+          <img width="405" height="90" src="img/iitu-logo.png" alt="">  
         </div>
       </div>
       <div class="row">
-        <div class="col-sm mt-4">
-          <p class="text-right">Приложение 2-1</p>
-          <p class="text-right">к стандарту государственной услуги</p>
-          <p class="text-right">«Назначение государственных социальных</p>
-          <p class="text-right">пособий по инвалидности, по случаю</p>
-          <p class="text-right">потери кормильца и по возрасту»</p>
-          <!-- <p class="text-right">Приложение 2-1 к стандарту</p>
-          <p class="text-right">государственной услуги</p>
-          <p class="text-right">«Назначение государственных</p>
-          <p class="text-right">социальных пособий</p>
-          <p class="text-right">по инвалидности, по случаю</p>
-          <p class="text-right">потери кормильца и по возрасту»</p> -->
+       <div class="col-sm mt-5">
+          <p class="text-right">Приложение 9</p>
+          <p class="text-right">к приказу Министра здравоохранения и</p>
+          <p class="text-right">социального развития Республики Казахстан,</p>
+          <p class="text-right">в которые вносят изменения и дополнения</p>
         </div>
       </div>
       <div class="row">
