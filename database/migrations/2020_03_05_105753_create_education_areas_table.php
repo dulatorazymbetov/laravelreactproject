@@ -14,7 +14,7 @@ class CreateEducationAreasTable extends Migration
     public function up()
     {
         Schema::create('education_areas', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigInteger('id');
 			$table->string('code');	//код
 			$table->string('title_kk');
             $table->string('title_ru');
