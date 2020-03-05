@@ -15,6 +15,14 @@ class CreateEduProgramsTable extends Migration
     {
         Schema::create('edu_programs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title_kk');
+            $table->string('title_ru');
+            $table->string('title_en');
+			$table->integer('edu_program_type');
+			$table->tinyInteger('nrk_level');
+			$table->tinyInteger('ork_level');
+
+			$table->
             $table->timestamps();
         });
     }
