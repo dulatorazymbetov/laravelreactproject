@@ -21,8 +21,6 @@ class CreateEduProgramsTable extends Migration
 			$table->integer('edu_program_type');
 			$table->tinyInteger('nrk_level');
 			$table->tinyInteger('ork_level');
-
-			$table->
             $table->timestamps();
         });
     }
