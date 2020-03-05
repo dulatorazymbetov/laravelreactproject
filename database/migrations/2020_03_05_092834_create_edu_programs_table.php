@@ -17,11 +17,10 @@ class CreateEduProgramsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title_kk');
             $table->string('title_ru');
-            $table->string('title_en');
+            $table->string('title_en')->nullable();
 			$table->integer('edu_program_type_id');	//
-			//$table->integer('education_area');	//Область образования
-			//$table->integer('training_direction');	//Направление подготовки
-			$table->integer('edu_programs_group_id');	//Группа образовательных программ
+			
+			$table->integer('edu_programs_group_id');	//Группа образовательных программ	//edu_programs_groups
 			$table->string('goals_kk')->nullable();	//Цели ОП
 			$table->string('goals_ru')->nullable();
 			$table->string('goals_en')->nullable();

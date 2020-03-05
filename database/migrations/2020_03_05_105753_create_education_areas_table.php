@@ -15,7 +15,12 @@ class CreateEducationAreasTable extends Migration
     {
         Schema::create('education_areas', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->string('code');	//код
+			$table->string('title_kk');
+            $table->string('title_ru');
+            $table->string('title_en')->nullable();
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 

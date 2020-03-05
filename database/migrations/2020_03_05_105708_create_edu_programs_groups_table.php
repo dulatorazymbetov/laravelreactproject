@@ -15,7 +15,13 @@ class CreateEduProgramsGroupsTable extends Migration
     {
         Schema::create('edu_programs_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->integer('training_direction_id');	//Направление подготовки	//training_directions
+			$table->string('code');
+            $table->string('title_kk');
+            $table->string('title_ru');
+            $table->string('title_en')->nullable();
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 

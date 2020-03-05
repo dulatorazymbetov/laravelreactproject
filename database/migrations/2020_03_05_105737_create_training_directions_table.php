@@ -15,7 +15,13 @@ class CreateTrainingDirectionsTable extends Migration
     {
         Schema::create('training_directions', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->integer('education_area_id');	//Область образования	//education_areas
+			$table->string('code');	//код
+			$table->string('title_kk');
+            $table->string('title_ru');
+            $table->string('title_en')->nullable();
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 
