@@ -18,10 +18,23 @@ class CreateEduProgramsTable extends Migration
             $table->string('title_kk');
             $table->string('title_ru');
             $table->string('title_en');
-			$table->integer('edu_program_type');
+			$table->integer('edu_program_type_id');	//
+			//$table->integer('education_area');	//Область образования
+			//$table->integer('training_direction');	//Направление подготовки
+			$table->integer('edu_programs_group_id');	//Группа образовательных программ
+			$table->string('goals_kk')->nullable();	//Цели ОП
+			$table->string('goals_ru')->nullable();
+			$table->string('goals_en')->nullable();
+			$table->integer('degree_id');	//Академическая степень
+			$table->float('duration');	//продолжительность обучения в годах
+			$table->integer('credits');	//кредиты
+			$table->integer('study_language_id');	//язык обучения
+			$table->date('app_date');	//дата утверждения ОП
+			
 			$table->tinyInteger('nrk_level');
 			$table->tinyInteger('ork_level');
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 
