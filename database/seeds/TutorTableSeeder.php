@@ -34,6 +34,13 @@ class TutosTableSeeder extends Seeder
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {
                     if(!User::where('login', $row->username)->first()){
+                        $roles = \DB::connection('old')
+                            ->table('user_role_mapper')
+                            ->select('role_id')
+                            ->where('user_id', $row->user_id)
+                            ->get()
+                            ->pluck('role_id');
+
                         $user = new User;
                         $user->firstname = $row->firstname;
                         $user->lastname = $row->lastname;
@@ -44,7 +51,7 @@ class TutosTableSeeder extends Seeder
                         $user->birthdate = $row->birthdate;
                         $user->iin = $row->iin;
                         $user->save();
-                        $user->roles()->attach(Role::find(3));
+                        $user->roles()->attach(Role::find($roles));
 
                         $staff = new Staff;
                         $staff->user_id = $user->id;
