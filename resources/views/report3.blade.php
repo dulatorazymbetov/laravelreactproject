@@ -62,18 +62,38 @@
       </div>
       <div class="row">
         <div class="col-sm ml-5 body">
-          <p class="text obzac">Дана гр. <b>{{$users->firstname}} {{$users->lastname}} {{$users->patronymic}} 06.10.2000</b> г.р.</p>
+          <p class="text obzac">Дана гр. <b>{{$users->firstname}} {{$users->lastname}} {{$users->patronymic}} {{ date('d.m.Y', strtotime($users->birthdate)) }}</b> г.р.</p>
           <p class="text small">(Ф.И.О. обучающегося/студента, с указанием года рождения)</p>
-          <p class="text obzac">В том, что он(а) действительно является студентом 3 курса очного отделения</p>
+          <p class="text obzac">В том, что он(а) действительно является студентом {{ $students->course }} курса очного отделения</p>
+          @php
+            $currentTimeinSeconds = time();  
+            $currentDate = date('d.m.Y', $currentTimeinSeconds); 
+            $day = date('j', $currentTimeinSeconds);
+            $month = date('n', $currentTimeinSeconds);
+            $year = date('Y', $currentTimeinSeconds);
+            $learningPeriodS = 0;
+            $learningPeriodE = 0;
+            if (($day > 1 && $month > 1) && ($month < 9)) {
+              $yearPeriod = $year - 1;
+              $learningPeriodS = $yearPeriod - $students->course + 1;
+              $learningPeriodE = $learningPeriodS + 4;
+              $yearPeriod = "$yearPeriod - $year";
+            } else {
+              $yearPeriod = $year + 1;
+              $learningPeriodS = $year - $students->course + 1;
+              $learningPeriodE = $learningPeriodS + 4;
+              $yearPeriod = "$year - $yearPeriod";
+            }
+          @endphp
           <p class="text">в АО "Международного университета информационных технологий"</p>
           <p class="text">по специальности «5B100200»-Системы информационной безопасности</p>
           <p class="text">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
           <p class="text">Гос.лицензия Серия АБ № 0064060 от 29.05.2009 год без ограничения срока</p>
           <p class="text">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
-          <p class="text">Справка действительна на 2019-2020 учебный год</p>
+          <p class="text">Справка действительна на {{ $yearPeriod }} учебный год</p>
           <p class="text">Справка выдана для предъявления по месту требования</p>
           <p class="text">Срок обучения в учебном заведении 4 (четыре) года</p>
-          <p class="text">Период обучения с 01.09.2018 г. по 04.09.2021 г.</p>
+          <p class="text">Период обучения с 01.09.{{ $learningPeriodS }} г. по 04.09.{{ $learningPeriodE }} г.</p>
           <p class="text additional">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
           <p class="text">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</p>
           <p class="text podpis">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b>Декан</b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b>Мукажанов Н.К.</b></p>
