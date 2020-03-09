@@ -27,10 +27,13 @@ class TutosTableSeeder extends Seeder
                 'user.email',
                 'user.birthdate',
                 'user.iin',
-                'staff_card.staff_degree_id'
+                'staff_card.staff_degree_id',
+                'staff_card.is_foreign_staff',
+                'staff_card.academic_status_id'
             )
             ->join('staff_card', 'staff_card.user_id', '=', 'user.user_id')
             ->orderBy('user_id')
+            ->where('user.role_id', '3')
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {
                     if(!User::where('login', $row->username)->first()){
@@ -53,9 +56,26 @@ class TutosTableSeeder extends Seeder
                         $user->save();
                         $user->roles()->attach(Role::find($roles));
 
+                        if(is_null($row->is_foreign_staff)){
+                            $row->is_foreign_staff = 0;
+                        }
+                        if(is_null($row->staff_degree_id)){
+                            $row->staff_degree_id = 6;
+                        }
+                        if(is_null($row->academic_status_id)){
+                            $row->academic_status_id = 5;
+                        }
+                        $academic_degree_list = [
+                            1 => 3, 2 => 4, 3 => 2, 4 => 5, 5 => 6, 6 => 1
+                        ];
+                        $academic_rank_list = [
+                            1 => 2, 2 => 4, 3 => 4, 4 => 3, 5 => 1
+                        ];
                         $staff = new Staff;
                         $staff->user_id = $user->id;
-                        $staff->academic_degree_id = $row->staff_degree_id;
+                        $staff->is_foreign = $row->is_foreign_staff;
+                        $staff->academic_degree_id = $academic_degree_list[$row->staff_degree_id];
+                        $staff->academic_rank_id = $academic_rank_list[$row->academic_status_id];
                         $staff->save();
                     } 
                 }

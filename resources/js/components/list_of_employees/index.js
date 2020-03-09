@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import TablePagination from '@material-ui/core/TablePagination';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -29,32 +30,44 @@ const useStyles = makeStyles(theme => ({
 
 function StudyPlan(){
 	const classes = useStyles();
-	const [students, setStudents] = useState([]);
-	const [dialogOpen, setDialogOpen] = useState(false);
-	const [dialogUser, setDialoguser] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const [total, setTotal] = useState(0);
+	const [tutors, setTutors] = useState([]);
+	const [page, setPage] = useState(0);
+	const [rowsPerPage, setRowsPerPage] = useState(15);
 	const { getL } = useLang();
 
-	useEffect(() => {
-       	window.axios.get('employees').then((response) => {
-			setStudents(response.data);
+	const handleChangePage = (event, newPage) => {
+		setPage(newPage);
+		getData(rowsPerPage, newPage);
+	}
+
+	const handleChangeRowsPerPage = (event) => {
+		const newValue = parseInt(event.target.value, 10);
+		setRowsPerPage(newValue);
+		setPage(0);
+		getData(newValue, 0);
+	}
+
+	const getData = (rows, page) => {
+		window.axios.get('tutors', {
+			params: {rows: rows,page: page}
+		}).then((response) => {
+			setTutors(response.data.list);
+			setTotal(response.data.total);
 			setIsLoading(false);
        	});
-    }, []);
-
-	const showDialog = (index) => {
-		setDialoguser(students[index]);
-		setDialogOpen(true);
 	}
-	const dialogClose = () => {
-		setDialogOpen(false);
-	}
+	useEffect(() => {
+		getData(rowsPerPage, page);
+	}, []);
+	
 	return (
 		<Box>
-			<Title content="Список сотрудников" />
+			<Title content="Список Преподавателей" />
 			{!isLoading && <Box mt={4}>
 				<Box my={2}>
-					Найдено: {students.length}
+					Найдено: {total}
 				</Box>
 				<TableContainer component={Paper}>
 					<Table stickyHeader>
@@ -72,11 +85,11 @@ function StudyPlan(){
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{students.map((user, user_index) => {
+							{tutors.map((user, user_index) => {
 								return (
 									<TableRow style={{cursor: 'pointer'}} hover key={"student_"+user_index} onClick={() => {showDialog(user_index)}}>
 										<TableCell>
-											{(user_index + 1)}
+											{user.id}
 										</TableCell>
 										<TableCell>
 											{user.login}
@@ -89,48 +102,19 @@ function StudyPlan(){
 							})}
 						</TableBody>
 					</Table>
+					<TablePagination
+          				rowsPerPageOptions={[15, 25, 50]}
+          				component="div"
+          				count={total}
+          				rowsPerPage={rowsPerPage}
+						page={page}
+						labelRowsPerPage="Сотрудников на страницу"
+						labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
+          				onChangePage={handleChangePage}
+          				onChangeRowsPerPage={handleChangeRowsPerPage}
+        			/>
 				</TableContainer>
 			</Box>}
-			<Dialog open={dialogOpen} onClose={dialogClose} aria-labelledby="form-dialog-title">
-		        <DialogTitle id="form-dialog-title">{dialogUser.lastname} {dialogUser.firstname} {dialogUser.patronymic}</DialogTitle>
-		        <DialogContent>
-		          	<DialogContentText>
-		            	Редактировать профиль
-		          	</DialogContentText>
-		          	<TextField
-		            	margin="dense"
-		            	id="name"
-		            	label="Email Address"
-		            	type="email"
-		            	fullWidth
-		            	defaultValue={dialogUser.email}
-		          	/>
-		          	<TextField
-		            	margin="dense"
-		            	id="name"
-		            	label="Дата рождения"
-		            	type="email"
-		            	fullWidth
-		            	defaultValue={dialogUser.birthdate}
-		          	/>
-		          	<TextField
-		            	margin="dense"
-		            	id="name"
-		            	label="ИИН"
-		            	type="email"
-		            	fullWidth
-		            	defaultValue={dialogUser.iin}
-		          	/>
-		        </DialogContent>
-		        <DialogActions>
-		          	<Button onClick={dialogClose} color="primary">
-		            	Сохранить
-		          	</Button>
-		          	<Button onClick={dialogClose} color="primary">
-		            	Закрыть
-		          	</Button>
-		        </DialogActions>
-		    </Dialog>
 		</Box>
 	);
 }

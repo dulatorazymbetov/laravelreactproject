@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User\User;
+use App\Models\Staff\Staff;
 use App\Models\User\Role;
 use App\Models\User\Module;
 
@@ -25,8 +26,12 @@ class UserController extends Controller
         $rows = $request->rows;
         $offset = $request->page * $rows;
         return [
-            'total' => User::count(),
-            'list' => User::take($rows)->skip($offset)->orderBy('id', 'DESC')->get(),
+            'total' => Staff::count(),
+            'list' => Staff::with('academic_rank', 'academic_degree', 'user')
+                ->take($rows)
+                ->skip($offset)
+                ->orderBy('id', 'DESC')
+                ->get(),
         ];
     }
 }

@@ -59,5 +59,13 @@ class AcademicDegreesTableSeeder extends Seeder
             'description_ru' => 'Доктор по профилю',
             'description_en' => 'Доктор по профилю'
         ]);
+
+        DB::table('academic_degrees')->insert([
+            'id' => '7',
+            'sort_order' => '7',
+            'description_kk' => 'Доктор философии PhD',
+            'description_ru' => 'Доктор философии PhD',
+            'description_en' => 'Доктор философии PhD'
+        ]);
     }
 }

@@ -13,7 +13,6 @@ class CreateStudyStatusesTable extends Migration
             $table->string('description_kk');
             $table->string('description_ru');
             $table->string('description_en');
-            $table->timestamps();
         });
     }
     public function down(){

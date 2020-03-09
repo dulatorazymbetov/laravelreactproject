@@ -82,21 +82,34 @@ function StudyPlan(){
 								<TableCell>
 									ФИО
 								</TableCell>
+								<TableCell>
+									Уч. Степень
+								</TableCell>
+								<TableCell>
+									Уч. Звание
+								</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{tutors.map((user, user_index) => {
+							{tutors.map((tutor, tutor_index) => {
 								return (
-									<TableRow style={{cursor: 'pointer'}} hover key={"student_"+user_index} onClick={() => {showDialog(user_index)}}>
+									<TableRow style={{cursor: 'pointer'}} hover key={"tutor_"+tutor_index}>
 										<TableCell>
-											{user.id}
+											{tutor.id}
 										</TableCell>
 										<TableCell>
-											{user.login}
+											{tutor.user.login}
 										</TableCell>
 										<TableCell>
-											{user.lastname} {user.firstname} {user.patronymic}
+											{tutor.user.lastname} {tutor.user.firstname} {tutor.user.patronymic}
 										</TableCell>
+										<TableCell>
+											{tutor.academic_degree['description_'+getL]}
+										</TableCell>
+										<TableCell>
+											{tutor.academic_rank['description_'+getL]}
+										</TableCell>
+										
 									</TableRow>
 								);
 							})}
