@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('welcome');});
 
 Route::get('downloadReport1PDF/{id}', 'DownloadPdfController@downloadReport1PDF');
 Route::get('downloadReport2PDF/{id}', 'DownloadPdfController@downloadReport2PDF');

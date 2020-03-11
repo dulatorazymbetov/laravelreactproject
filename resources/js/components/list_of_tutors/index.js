@@ -18,6 +18,8 @@ import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 
 import { useLang } from "@contexts/lang";
 
+import Tutor from "./tutor.js";
+
 const useStyles = makeStyles(theme => ({
 	
 }));
@@ -27,6 +29,7 @@ function StudyPlan(){
 	const [isLoading, setIsLoading] = useState(true);
 	const [total, setTotal] = useState(0);
 	const [tutors, setTutors] = useState([]);
+	const [selectTutor, setSelectTutor] = useState(null);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(15);
 	const { getL } = useLang();
@@ -117,7 +120,7 @@ function StudyPlan(){
 											{tutor.academic_rank['description_'+getL]}
                                         </TableCell>
                                         <TableCell>
-                                            <IconButton aria-label="Редактировать">
+                                            <IconButton onClick={() => {setSelectTutor(tutor.id)}} aria-label="Редактировать">
                                                 <PermContactCalendarIcon />
                                             </IconButton>   
                                         </TableCell>
@@ -128,6 +131,7 @@ function StudyPlan(){
 					</Table>
 				</TableContainer>
 			</Box>}
+			{selectTutor && <Tutor id={selectTutor} setTutor={setSelectTutor} />}
 		</Box>
 	);
 }

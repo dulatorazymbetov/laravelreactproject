@@ -34,4 +34,7 @@ class UserController extends Controller
                 ->get(),
         ];
     }
+    public function getTutor(Request $request){
+        dd($request);
+    }
 }
