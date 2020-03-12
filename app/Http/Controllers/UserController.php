@@ -7,6 +7,8 @@ use App\Models\User\User;
 use App\Models\Staff\Staff;
 use App\Models\User\Role;
 use App\Models\User\Module;
+use App\Models\Staff\AcademicDegree;
+use App\Models\Staff\AcademicRank;
 
 class UserController extends Controller
 {
@@ -35,6 +37,13 @@ class UserController extends Controller
         ];
     }
     public function getTutor(Request $request){
-        dd($request);
+        $id = $request->id;
+        return [
+            'form' => [
+                'academic_degree' => AcademicDegree::all(),
+                'academic_rank' => AcademicRank::all()
+            ],
+            'tutor' => Staff::with('academic_rank', 'academic_degree', 'user')->find($id)
+        ];
     }
 }
