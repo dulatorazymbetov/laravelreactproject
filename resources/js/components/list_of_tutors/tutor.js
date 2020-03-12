@@ -54,7 +54,7 @@ function StudyPlan(props){
 			open={true}
 			onClose={() => {props.setTutor(null)}}
 		>
-			<Appbar position="static" color="default">
+			<AppBar position="static" color="default">
 				<Tabs
 					value={tab}
 					indicatorColor="primary"
@@ -66,7 +66,7 @@ function StudyPlan(props){
 					<Tab label="Публикации" />
 					<Tab label="Обучение" />
 				</Tabs>
-			</Appbar>
+			</AppBar>
 			<DialogContent>
 				{tab===0 && <Box py={4} px={2}>
 					<form>
