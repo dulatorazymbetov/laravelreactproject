@@ -16,6 +16,9 @@ class Staff extends Model
     public function academic_rank(){
         return $this->belongsTo(AcademicRank::class);
     }
+    public function english_level(){
+        return $this->belongsTo(EnglishLevel::class);
+    }
     public function user(){
         return $this->belongsTo('App\Models\User\User');
     }

@@ -43,13 +43,21 @@ class TutosTableSeeder extends Seeder
                             ->where('user_id', $row->user_id)
                             ->get()
                             ->pluck('role_id');
-
+                        
+                        if(is_null($row->gender)){
+                            $row->gender = 3;
+                        }
+                        $gender_list = [
+                            0 => 1,
+                            1 => 2,
+                            3 => 3
+                        ];
                         $user = new User;
                         $user->firstname = $row->firstname;
                         $user->lastname = $row->lastname;
                         $user->patronymic = $row->middlename;
                         $user->login = $row->username;
-                        $user->gender = $row->gender;
+                        $user->gender = $gender_list[$row->gender];
                         $user->email = $row->email;
                         $user->birthdate = $row->birthdate;
                         $user->iin = $row->iin;
@@ -76,6 +84,7 @@ class TutosTableSeeder extends Seeder
                         $staff->is_foreign = $row->is_foreign_staff;
                         $staff->academic_degree_id = $academic_degree_list[$row->staff_degree_id];
                         $staff->academic_rank_id = $academic_rank_list[$row->academic_status_id];
+                        $staff->english_level_id = 1;
                         $staff->save();
                     } 
                 }

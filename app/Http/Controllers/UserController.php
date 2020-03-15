@@ -9,6 +9,7 @@ use App\Models\User\Role;
 use App\Models\User\Module;
 use App\Models\Staff\AcademicDegree;
 use App\Models\Staff\AcademicRank;
+use App\Models\Staff\EnglishLevel;
 
 class UserController extends Controller
 {
@@ -41,9 +42,10 @@ class UserController extends Controller
         return [
             'form' => [
                 'academic_degree' => AcademicDegree::all(),
-                'academic_rank' => AcademicRank::all()
+                'academic_rank' => AcademicRank::all(),
+                'english_level' => EnglishLevel::all()
             ],
-            'tutor' => Staff::with('academic_rank', 'academic_degree', 'user')->find($id)
+            'tutor' => Staff::with('academic_rank', 'academic_degree', 'english_level','user')->find($id)
         ];
     }
 }
