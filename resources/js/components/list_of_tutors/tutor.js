@@ -83,7 +83,7 @@ function Tutor(props){
 			fullWidth
 			maxWidth="md"
 			open={true}
-			onClose={() => {props.close}}
+			onClose={props.close}
 		>
 			<Paper position="static" color="default">
 				<Tabs
@@ -110,7 +110,7 @@ function Tutor(props){
 								fullWidth
 								onChange={(event) => {setFirstname(event.target.value)}}
 								autoComplete="fname"
-								defaultValue={firstname}
+								value={firstname}
 								variant="filled"
 							/>
 						</Grid>
@@ -122,7 +122,7 @@ function Tutor(props){
 								fullWidth
 								onChange={(event) => {setLastname(event.target.value)}}
 								autoComplete="lname"
-								defaultValue={lastname}
+								value={lastname}
 								variant="filled"
 							/>
 						</Grid>
@@ -133,7 +133,7 @@ function Tutor(props){
 								fullWidth
 								onChange={(event) => {setPatronymic(event.target.value)}}
 								autoComplete="patronymic"
-								defaultValue={patronymic}
+								value={patronymic}
 								variant="filled"
 							/>
 						</Grid>
@@ -143,8 +143,9 @@ function Tutor(props){
 								name="iin"
 								label="ИИН"
 								fullWidth
+								onChange={(event) => {setIin(event.target.value)}}
 								autoComplete="iin"
-								defaultValue={iin}
+								value={iin}
 								variant="filled"
 							/>
 						</Grid>
@@ -153,8 +154,9 @@ function Tutor(props){
 								name="email"
 								label="E-mail"
 								fullWidth
+								onChange={(event) => {setEmail(event.target.value)}}
 								autoComplete="email"
-								defaultValue={email}
+								value={email}
 								variant="filled"
 							/>
 						</Grid>
