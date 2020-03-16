@@ -24,3 +24,4 @@ Route::get('students', 'UserController@allStudents');
 
 Route::get('tutors', 'UserController@allTutors');
 Route::get('tutors/{id}', 'UserController@getTutor')->where('id', '[0-9]+');
+Route::post('tutors/{id}/edit', 'UserController@editTutor')->where('id', '[0-9]+');

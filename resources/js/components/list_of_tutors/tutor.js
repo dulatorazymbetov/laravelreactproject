@@ -24,13 +24,18 @@ const useStyles = makeStyles(theme => ({
 	
 }));
 
-function StudyPlan(props){
+function Tutor(props){
 	const classes = useStyles();
 
 	const [tab, setTab] = useState(0);
-	const [tutor, setTutor] = useState({});
+	const [isLoading, setIsLoading] = useState(true);
 	const [formData, setFormData] = useState({});
 
+	const [firstname, setFirstname] = useState('');
+	const [lastname, setLastname] = useState('');
+	const [patronymic, setPatronymic] = useState('');
+	const [iin, setIin] = useState('');
+	const [email, setEmail] = useState('');
 	const [academicRankId, setAcademicRankId] = useState(null);
 	const [academicDegreeId, setAcademicDegreeId] = useState(null);
 	const [englishLevelId, setEnglishLevelId] = useState(null);
@@ -41,11 +46,16 @@ function StudyPlan(props){
     async function getData() {
 		window.axios.get('tutors/' + props.id).then((response) => {
 			setFormData(response.data.form);
+			setFirstname(response.data.tutor.user.firstname);
+			setLastname(response.data.tutor.user.lastname);
+			setPatronymic(response.data.tutor.user.patronymic);
+			setIin(response.data.tutor.user.iin);
+			setEmail(response.data.tutor.user.email);
 			setAcademicDegreeId(response.data.tutor.academic_degree_id);
 			setAcademicRankId(response.data.tutor.academic_rank_id);
 			setEnglishLevelId(response.data.tutor.english_level_id);
 			setIsForeign(response.data.tutor.is_foreign);
-			setTutor(response.data.tutor);
+			setIsLoading(false);
         });
 	}
 	useEffect(() => {
@@ -55,15 +65,25 @@ function StudyPlan(props){
 	const tabChange = (event, newValue) => {setTab(newValue);}
 	const handleSubmit = (event) => {
 		event.preventDefault();
+		window.axios.post('tutors/'+props.id+'/edit', {
+			lastname, firstname, patronymic, iin, email, 
+			academic_degree_id: academicDegreeId,
+			academic_rank_id: academicRankId,
+			english_level_id: englishLevelId,
+			is_foreign: isForeign
+		}).then((response) => {
+			props.close();
+			props.refresh();
+		});
 	}
-	if(!tutor.id){return (<div/>);}
+	if(isLoading){return (<div/>);}
 
 	return (
 		<Dialog
 			fullWidth
 			maxWidth="md"
 			open={true}
-			onClose={() => {props.setTutor(null)}}
+			onClose={() => {props.close}}
 		>
 			<Paper position="static" color="default">
 				<Tabs
@@ -85,12 +105,12 @@ function StudyPlan(props){
 						<Grid item xs={12} sm={6}>
 							<TextField
 								required
-								id="firstName"
 								name="firstname"
 								label="Имя"
 								fullWidth
+								onChange={(event) => {setFirstname(event.target.value)}}
 								autoComplete="fname"
-								defaultValue={tutor.user.firstname}
+								defaultValue={firstname}
 								variant="filled"
 							/>
 						</Grid>
@@ -100,8 +120,9 @@ function StudyPlan(props){
 								name="lastname"
 								label="Фамилия"
 								fullWidth
+								onChange={(event) => {setLastname(event.target.value)}}
 								autoComplete="lname"
-								defaultValue={tutor.user.lastname}
+								defaultValue={lastname}
 								variant="filled"
 							/>
 						</Grid>
@@ -110,8 +131,9 @@ function StudyPlan(props){
 								name="patronymic"
 								label="Отчество"
 								fullWidth
+								onChange={(event) => {setPatronymic(event.target.value)}}
 								autoComplete="patronymic"
-								defaultValue={tutor.user.patronymic}
+								defaultValue={patronymic}
 								variant="filled"
 							/>
 						</Grid>
@@ -122,7 +144,7 @@ function StudyPlan(props){
 								label="ИИН"
 								fullWidth
 								autoComplete="iin"
-								defaultValue={tutor.user.iin}
+								defaultValue={iin}
 								variant="filled"
 							/>
 						</Grid>
@@ -132,7 +154,7 @@ function StudyPlan(props){
 								label="E-mail"
 								fullWidth
 								autoComplete="email"
-								defaultValue={tutor.user.email}
+								defaultValue={email}
 								variant="filled"
 							/>
 						</Grid>
@@ -146,7 +168,7 @@ function StudyPlan(props){
 								>
 									{formData.academic_degree.map((list, index) => {
 										return (
-											<MenuItem value={list.id}>
+											<MenuItem value={list.id} key={index}>
 												{list['description_'+getL]}
 											</MenuItem>
 										);
@@ -209,7 +231,7 @@ function StudyPlan(props){
 					<Button color="primary" variant="contained" type="submit">
 						Сохранить
 					</Button>
-					<Button color="primary" onClick={() => {props.setTutor(null)}}>
+					<Button color="primary" onClick={props.close}>
 						Отмена
 					</Button>
 				</DialogActions>
@@ -218,4 +240,4 @@ function StudyPlan(props){
 	);
 }
 
-export default StudyPlan;
+export default Tutor;
