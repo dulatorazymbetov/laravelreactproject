@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User\User;
+use App\Models\Staff\Staff;
 use App\Models\User\Role;
 use App\Models\User\Module;
+use App\Models\Staff\AcademicDegree;
+use App\Models\Staff\AcademicRank;
+use App\Models\Staff\EnglishLevel;
 
 class UserController extends Controller
 {
@@ -25,8 +29,23 @@ class UserController extends Controller
         $rows = $request->rows;
         $offset = $request->page * $rows;
         return [
-            'total' => User::count(),
-            'list' => User::take($rows)->skip($offset)->orderBy('id', 'DESC')->get(),
+            'total' => Staff::count(),
+            'list' => Staff::with('academic_rank', 'academic_degree', 'user')
+                ->take($rows)
+                ->skip($offset)
+                ->orderBy('id', 'DESC')
+                ->get(),
+        ];
+    }
+    public function getTutor(Request $request){
+        $id = $request->id;
+        return [
+            'form' => [
+                'academic_degree' => AcademicDegree::all(),
+                'academic_rank' => AcademicRank::all(),
+                'english_level' => EnglishLevel::all()
+            ],
+            'tutor' => Staff::with('academic_rank', 'academic_degree', 'english_level','user')->find($id)
         ];
     }
 }
