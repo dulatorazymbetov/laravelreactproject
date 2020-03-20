@@ -45,7 +45,9 @@ function StudyPlan(){
 		setPage(0);
 		getData(newValue, 0);
 	}
-
+	const refreshList = () => {
+		getData(rowsPerPage, page);
+	}
     async function getData(rows, page) {
 		window.axios.get('tutors', {
 			params: {rows: rows,page: page}
@@ -131,7 +133,7 @@ function StudyPlan(){
 					</Table>
 				</TableContainer>
 			</Box>}
-			{selectTutor && <Tutor id={selectTutor} setTutor={setSelectTutor} />}
+			{selectTutor && <Tutor id={selectTutor} close={() => {setSelectTutor(null)}} refresh={refreshList}/>}
 		</Box>
 	);
 }

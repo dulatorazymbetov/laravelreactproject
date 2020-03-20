@@ -48,4 +48,20 @@ class UserController extends Controller
             'tutor' => Staff::with('academic_rank', 'academic_degree', 'english_level','user')->find($id)
         ];
     }
+    public function editTutor(Request $request){
+        $id = $request->id;
+        $tutor = Staff::find($id);
+        $tutor->academic_rank_id = $request->academic_rank_id;
+        $tutor->academic_degree_id = $request->academic_degree_id;
+        $tutor->english_level_id = $request->english_level_id;
+        $tutor->is_foreign = $request->is_foreign;
+        $tutor->save();
+        $user = User::find($tutor->user_id);
+        $user->lastname = $request->lastname;
+        $user->firstname = $request->firstname;
+        $user->patronymic = $request->patronymic;
+        $user->iin = $request->iin;
+        $user->email = $request->email;
+        $user->save();
+    }
 }
