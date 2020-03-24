@@ -6,7 +6,7 @@ use App\Models\User\Role;
 use App\Models\Student\Student;
 use App\Models\Staff\Staff;
 
-class TutosTableSeeder extends Seeder
+class TutorTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
