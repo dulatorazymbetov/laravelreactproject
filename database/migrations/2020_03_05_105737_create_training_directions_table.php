@@ -17,7 +17,7 @@ class CreateTrainingDirectionsTable extends Migration
             $table->bigIncrements('id');
 			$table->integer('education_area_id');	//Область образования	//education_areas
 			$table->string('code');	//код
-			//$table->string('code_msko');	//код МСКО
+			$table->string('code_msko');	//код МСКО
 			$table->string('title_kk');
             $table->string('title_ru');
             $table->string('title_en')->nullable();
