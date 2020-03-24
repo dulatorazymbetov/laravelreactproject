@@ -10,6 +10,7 @@ use App\Models\User\Module;
 use App\Models\Staff\AcademicDegree;
 use App\Models\Staff\AcademicRank;
 use App\Models\Staff\EnglishLevel;
+use App\Models\Staff\PositionType;
 
 class UserController extends Controller
 {
@@ -43,7 +44,8 @@ class UserController extends Controller
             'form' => [
                 'academic_degree' => AcademicDegree::all(),
                 'academic_rank' => AcademicRank::all(),
-                'english_level' => EnglishLevel::all()
+                'english_level' => EnglishLevel::all(),
+                'position_type' => PositionType::all()
             ],
             'tutor' => Staff::with('academic_rank', 'academic_degree', 'english_level','user')->find($id)
         ];

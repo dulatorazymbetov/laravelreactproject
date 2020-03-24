@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions  from '@material-ui/core/DialogActions';
 import Tabs from '@material-ui/core/Tabs';
@@ -17,6 +18,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+
+import AddIcon from '@material-ui/icons/Add';
 
 import { useLang } from "@contexts/lang"; 
 
@@ -40,6 +43,8 @@ function Tutor(props){
 	const [academicDegreeId, setAcademicDegreeId] = useState(null);
 	const [englishLevelId, setEnglishLevelId] = useState(null);
 	const [isForeign, setIsForeign] = useState(0);
+
+	const [positionAddOpen, setPositionAddOpen] = useState(false);
 
 	const { getL } = useLang();
 
@@ -232,6 +237,54 @@ function Tutor(props){
 				<DialogActions>
 					<Button color="primary" variant="contained" type="submit">
 						Сохранить
+					</Button>
+					<Button color="primary" onClick={props.close}>
+						Отмена
+					</Button>
+				</DialogActions>
+			</Box>}
+			{tab===1 && <Box>
+				<DialogContent>
+					<Dialog
+						open={positionAddOpen}
+						onClose={() => {setPositionAddOpen(false)}}
+					>
+						<DialogTitle>Добавить новую должность</DialogTitle>
+						<DialogContent>
+							<Grid container spacing={3}>
+								<Grid item xs={12}>
+									<FormControl fullWidth variant="filled">
+										<InputLabel id="english-level-id-label">Должность</InputLabel>
+										<Select
+											labelId="english-level-id-label"
+											value={englishLevelId}
+											onChange={(event) => {setEnglishLevelId(event.target.value)}}
+										>
+											{formData.position_type.map((list, index) => {
+												return (
+													<MenuItem value={list.id} key={index}>
+														{list['description_'+getL]}
+													</MenuItem>
+												);
+											})}
+										</Select>
+									</FormControl>
+								</Grid>
+							</Grid>
+						</DialogContent>
+						<DialogActions>
+							<Button color="primary" variant="contained">
+								Добавить
+							</Button>
+							<Button color="primary" onClick={() => {setPositionAddOpen(false)}}>
+								Отмена
+							</Button>
+						</DialogActions>
+					</Dialog>
+				</DialogContent>
+				<DialogActions>
+					<Button startIcon={<AddIcon />} onClick={() => {setPositionAddOpen(true)}} color="primary" variant="contained">
+						Добавить
 					</Button>
 					<Button color="primary" onClick={props.close}>
 						Отмена

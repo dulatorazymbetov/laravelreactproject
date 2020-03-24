@@ -1,10 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models\Staff;
 
 use Illuminate\Database\Eloquent\Model;
 
-class position_type extends Model
-{
+class PositionType extends Model {
     //
 }

@@ -17,7 +17,7 @@ class CreatePositionsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id'); //пользователь
             $table->integer('department_id'); //подразделение
-            $table->integer('post_type_id'); //должность
+            $table->integer('position_type_id'); //должность
             $table->integer('staff_time_type'); //условия найма
             $table->float('time_rate',3,2); //ставка
             $table->date('start_date'); //дата окончания работы

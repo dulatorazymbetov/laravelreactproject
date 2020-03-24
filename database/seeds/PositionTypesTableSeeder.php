@@ -40,7 +40,7 @@ class PositionTypesTableSeeder extends Seeder
             'description_ru' => 'Преподаватель',
             'description_en' => 'Teacher'
         ]);
-                DB::table('position_types')->insert([
+        DB::table('position_types')->insert([
             'id' => '5',
             'staff_type_id' => '1',
             'description_kk' => 'Инженер',

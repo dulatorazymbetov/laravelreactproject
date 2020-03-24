@@ -91,14 +91,14 @@ class ModulesTableSeeder extends Seeder
 
         DB::table('modules')->insert([
             'id' => '6',
-            'url' => 'list_of_tutors',
-            'description_kk' => 'Oqytýshylar tizimi',
-            'description_ru' => 'Список ППС',
-            'description_en' => 'List of tutors',
+            'url' => 'list_of_applicants',
+            'description_kk' => 'Talapker',
+            'description_ru' => 'Абитуриенты',
+            'description_en' => 'Applicants',
             'icon' => 'business_center'
         ]);
         DB::table('module_role')->insert([
-            'role_id' => '11',
+            'role_id' => '5',
             'module_id' => '6'
         ]);
 
@@ -111,7 +111,7 @@ class ModulesTableSeeder extends Seeder
             'icon' => 'assignment'
         ]);
         DB::table('module_role')->insert([
-            'role_id' => '4',
+            'role_id' => '7',
             'module_id' => '7'
         ]);
     }
