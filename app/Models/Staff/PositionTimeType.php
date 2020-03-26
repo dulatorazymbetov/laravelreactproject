@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models\Staff;
 
 use Illuminate\Database\Eloquent\Model;
 
-class position_time_type extends Model
+class PositionTimeType extends Model
 {
     //
 }

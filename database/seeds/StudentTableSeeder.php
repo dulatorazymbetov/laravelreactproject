@@ -67,6 +67,7 @@ class StudentTableSeeder extends Seeder
             )
             ->join('student_card', 'student_card.student_id', '=', 'user.user_id')
             ->join('student_status', 'student_status.id', '=', 'student_card.status_id')
+            ->where('user_id', '<', '500')
             ->orderBy('user_id')
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {

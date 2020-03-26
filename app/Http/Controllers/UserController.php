@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User\User;
+use App\Models\Student\Student;
 use App\Models\Staff\Staff;
 use App\Models\User\Role;
 use App\Models\User\Module;
@@ -11,11 +12,13 @@ use App\Models\Staff\AcademicDegree;
 use App\Models\Staff\AcademicRank;
 use App\Models\Staff\EnglishLevel;
 use App\Models\Staff\PositionType;
+use App\Models\Staff\PositionTimeType;
+use App\Models\Department\Department;
 
 class UserController extends Controller
 {
     public function allUsers(){
-    	return User::with('roles')->get();
+    	return User::with('roles')->limit(200)->get();
     }
     public function allRoles(){
     	return Role::with('modules')->get();
@@ -24,13 +27,16 @@ class UserController extends Controller
     	return Module::with('roles')->get();
     }
     public function allStudents(){
-        return User::whereNotNull('student_id')->with('student')->orderBy('id', 'DESC')->get();
+        return Student::with('user')->orderBy('id', 'DESC')->get();
     }
     public function allTutors(Request $request){
         $rows = $request->rows;
         $offset = $request->page * $rows;
         return [
-            'total' => Staff::count(),
+            'statistic' => [
+                'total' => Staff::count(),
+                'tutors' => Role::where('id', '3')->withCount('users')->first()->users_count
+            ],
             'list' => Staff::with('academic_rank', 'academic_degree', 'user')
                 ->take($rows)
                 ->skip($offset)
@@ -45,7 +51,9 @@ class UserController extends Controller
                 'academic_degree' => AcademicDegree::all(),
                 'academic_rank' => AcademicRank::all(),
                 'english_level' => EnglishLevel::all(),
-                'position_type' => PositionType::all()
+                'position_type' => PositionType::all(),
+                'department' => Department::where('include_staff', true)->get(),
+                'position_time_type' => PositionTimeType::all()
             ],
             'tutor' => Staff::with('academic_rank', 'academic_degree', 'english_level','user')->find($id)
         ];

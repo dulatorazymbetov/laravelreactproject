@@ -21,13 +21,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import { useLang } from "@contexts/lang"; 
+import { useLang } from "@contexts/lang";
 
 const useStyles = makeStyles(theme => ({
 	
 }));
 
-function Tutor(props){
+function Employee(props){
 	const classes = useStyles();
 
 	const [tab, setTab] = useState(0);
@@ -44,6 +44,9 @@ function Tutor(props){
 	const [englishLevelId, setEnglishLevelId] = useState(null);
 	const [isForeign, setIsForeign] = useState(0);
 
+	const [newPositionTypeId, setNewPositionTypeId] = useState(null);
+	const [newDepartmentId, setNewDepartmentId] = useState(null);
+	const [newPositionTimeTypeId, setNewPositionTimeTypeId] = useState(null);
 	const [positionAddOpen, setPositionAddOpen] = useState(false);
 
 	const { getL } = useLang();
@@ -98,10 +101,10 @@ function Tutor(props){
 					onChange={tabChange}
 					aria-label="tutor-tabs"
 				>
-					<Tab label="Данные о преподавателе" />
-					<Tab label="Позиции" />
+					<Tab label="Данные" />
+					<Tab label="Должности" />
 					<Tab label="Публикации" />
-					<Tab label="Обучение" />
+					<Tab label="Образование" />
 				</Tabs>
 			</Paper>
 			{tab===0 && <Box component="form" onSubmit={handleSubmit}>
@@ -248,22 +251,60 @@ function Tutor(props){
 					<Dialog
 						open={positionAddOpen}
 						onClose={() => {setPositionAddOpen(false)}}
+						fullWidth
+						maxWidth="sm"
 					>
-						<DialogTitle>Добавить новую должность</DialogTitle>
+						<DialogTitle>{firstname + " " +lastname}: Добавить новую должность</DialogTitle>
 						<DialogContent>
 							<Grid container spacing={3}>
 								<Grid item xs={12}>
 									<FormControl fullWidth variant="filled">
-										<InputLabel id="english-level-id-label">Должность</InputLabel>
+										<InputLabel id="position-type-id-label">Должность:</InputLabel>
 										<Select
-											labelId="english-level-id-label"
-											value={englishLevelId}
-											onChange={(event) => {setEnglishLevelId(event.target.value)}}
+											labelId="position-type-id-label"
+											value={newPositionTypeId}
+											onChange={(event) => {setNewPositionTypeId(event.target.value)}}
 										>
 											{formData.position_type.map((list, index) => {
 												return (
 													<MenuItem value={list.id} key={index}>
 														{list['description_'+getL]}
+													</MenuItem>
+												);
+											})}
+										</Select>
+									</FormControl>
+								</Grid>
+								<Grid item xs={12}>
+									<FormControl fullWidth variant="filled">
+										<InputLabel id="department-id-label">Подразделение:</InputLabel>
+										<Select
+											labelId="department-id-label"
+											value={newDepartmentId}
+											onChange={(event) => {setNewDepartmentId(event.target.value)}}
+										>
+											{formData.department.map((list, index) => {
+												return (
+													<MenuItem value={list.id} key={index}>
+														{list['title_'+getL]}
+													</MenuItem>
+												);
+											})}
+										</Select>
+									</FormControl>
+								</Grid>
+								<Grid item xs={12}>
+									<FormControl fullWidth variant="filled">
+										<InputLabel id="position-time-type-id-label">Условия найма:</InputLabel>
+										<Select
+											labelId="position-time-type-id-label"
+											value={newPositionTimeTypeId}
+											onChange={(event) => {setNewPositionTimeTypeId(event.target.value)}}
+										>
+											{formData.position_time_type.map((list, index) => {
+												return (
+													<MenuItem value={list.id} key={index}>
+														{list['title_'+getL]}
 													</MenuItem>
 												);
 											})}
@@ -295,4 +336,4 @@ function Tutor(props){
 	);
 }
 
-export default Tutor;
+export default Employee;

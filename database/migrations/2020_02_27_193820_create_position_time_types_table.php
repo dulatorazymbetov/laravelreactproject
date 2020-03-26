@@ -15,9 +15,9 @@ class CreatePositionTimeTypesTable extends Migration
     {
         Schema::create('position_time_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description_kk')->nullable();
-			$table->string('description_ru')->nullable();
-			$table->string('description_en')->nullable();
+            $table->string('title_kk')->nullable();
+			$table->string('title_ru')->nullable();
+			$table->string('title_en')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

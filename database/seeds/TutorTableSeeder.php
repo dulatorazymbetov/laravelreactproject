@@ -33,7 +33,6 @@ class TutorTableSeeder extends Seeder
             )
             ->join('staff_card', 'staff_card.user_id', '=', 'user.user_id')
             ->orderBy('user_id')
-            ->where('user.role_id', '3')
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {
                     if(!User::where('login', $row->username)->first()){

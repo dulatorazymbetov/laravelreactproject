@@ -64,7 +64,7 @@ function StudyPlan(){
 	
 	return (
 		<Box>
-			<Title content="Список Преподавателей" />
+			<Title content="Абитуриенты" />
 			{!isLoading && <Box mt={4}>
 				<Box my={2}>
 					Найдено: {total}

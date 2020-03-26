@@ -18,9 +18,9 @@ class CreatePositionsTable extends Migration
             $table->integer('user_id'); //пользователь
             $table->integer('department_id'); //подразделение
             $table->integer('position_type_id'); //должность
-            $table->integer('staff_time_type'); //условия найма
+            $table->integer('position_time_type'); //условия найма
             $table->float('time_rate',3,2); //ставка
-            $table->date('start_date'); //дата окончания работы
+            $table->date('start_date'); //дата начала работы
             $table->date('finish_date')->nullable(); //дата окончания работы
             $table->boolean('is_head')->default(false); //воглавляет данное подразделение
             $table->integer('chief_position_id')->nullable(); //непосредственный ркуоводитель

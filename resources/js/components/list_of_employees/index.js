@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Title from "@layouts/title";
+import CountCard from "@layouts/card";
 
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 function StudyPlan(){
 	const classes = useStyles();
 	const [isLoading, setIsLoading] = useState(true);
-	const [total, setTotal] = useState(0);
+	const [statistic, setStatistic] = useState(0);
 	const [tutors, setTutors] = useState([]);
 	const [selectTutor, setSelectTutor] = useState(null);
 	const [page, setPage] = useState(0);
@@ -53,7 +54,7 @@ function StudyPlan(){
 			params: {rows: rows,page: page}
 		}).then((response) => {
 			setTutors(response.data.list);
-			setTotal(response.data.total);
+			setStatistic(response.data.statistic);
 			setIsLoading(false);
         });
 	}
@@ -63,13 +64,17 @@ function StudyPlan(){
 	
 	return (
 		<Box>
-			<Title content="Список Преподавателей" />
+			<Title content="Список сотрудников" />
 			{!isLoading && <Box mt={4}>
-                <Box p={2}>
+				<CountCard items={[
+					{count: statistic.total, title: 'Сотрудников'},
+					{count: statistic.tutors, title: 'Преподавателей'}
+				]} />
+				<Box p={2}>
                     <TablePagination
                         rowsPerPageOptions={[15, 25, 50]}
                         component="div"
-                        count={total}
+                        count={statistic.total}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         labelRowsPerPage="Сотрудников на страницу"

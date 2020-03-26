@@ -12,7 +12,7 @@ class Role extends Model
         'created_at', 'updated_at', 'pivot'
     ];
 
-    protected $with = ['modules'];
+    //protected $with = ['modules'];
 
     public function users(){
     	return $this->belongsToMany(User::class);

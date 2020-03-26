@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Title from "@layouts/title";
+import CountCard from "@layouts/card";
 
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
@@ -54,8 +55,10 @@ function StudyPlan(){
 		<Box>
 			<Title content="Список студентов" />
 			{!isLoading && <Box mt={4}>
-				<Box my={2}>
-					Найдено: {students.length}
+				<Box mb={4}>
+					<CountCard items={[
+						{count: 4074, title: 'Студентов'},
+					]} />
 				</Box>
 				<TableContainer component={Paper}>
 					<Table stickyHeader>
@@ -83,13 +86,13 @@ function StudyPlan(){
 											{(user_index + 1)}
 										</TableCell>
 										<TableCell>
-											{user.lastname} {user.firstname} {user.patronymic}
+											{user.user.lastname} {user.user.firstname} {user.user.patronymic}
 										</TableCell>
 										<TableCell>
-											{user.student.study_status['description_'+getL]}
+											{user.study_status['description_'+getL]}
 										</TableCell>
 										<TableCell>
-											{user.student.course}
+											{user.course}
 										</TableCell>
 									</TableRow>
 								);

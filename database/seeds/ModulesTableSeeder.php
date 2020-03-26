@@ -67,7 +67,7 @@ class ModulesTableSeeder extends Seeder
             'id' => '4',
             'url' => 'list_of_students',
             'description_kk' => 'Stýdentter tizimi',
-            'description_ru' => 'Список студентов',
+            'description_ru' => 'Студенты',
             'description_en' => 'List of students',
             'icon' => 'people_alt'
         ]);
@@ -80,7 +80,7 @@ class ModulesTableSeeder extends Seeder
             'id' => '5',
             'url' => 'list_of_employees',
             'description_kk' => 'Qyzmetkerler tizimi',
-            'description_ru' => 'Список сотрудников',
+            'description_ru' => 'Сотрудники',
             'description_en' => 'List of employees',
             'icon' => 'assignment_ind'
         ]);
