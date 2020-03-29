@@ -16,10 +16,10 @@ class SubjectCyclesTableSeeder extends Seeder
             'id' => '1',
             'title_kk' => 'Жалпы білім беру пәндері',
             'title_ru' => 'Общеобразовательные дисциплины',
-            'title_en' => 'GER',
+            'title_en' => 'General educatiom subjects',
 			'short_title_kk' => 'ЖББП',
 			'short_title_ru' => 'ООД',
-			'short_title_en' => 'GER'
+			'short_title_en' => 'GES'
 			
         ]);
 		DB::table('subject_cycles')->insert([

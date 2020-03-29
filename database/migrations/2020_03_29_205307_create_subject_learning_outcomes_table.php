@@ -15,7 +15,10 @@ class CreateSubjectLearningOutcomesTable extends Migration
     {
         Schema::create('subject_learning_outcomes', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->integer('subject_id');	//subjects
+			$table->integer('learning_outcome_id');	//learning_outcomes
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 
