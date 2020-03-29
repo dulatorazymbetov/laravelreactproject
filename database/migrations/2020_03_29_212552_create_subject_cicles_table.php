@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLearningOutcomesTable extends Migration
+class CreateSubjectCiclesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateLearningOutcomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('learning_outcomes', function (Blueprint $table) {
+        Schema::create('subject_cicles', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->string('title_kk');
-            $table->string('title_ru');
-            $table->string('title_en');
-			$table->string('lo_code');
             $table->timestamps();
-			$table->softDeletes();
         });
     }
 
@@ -31,6 +26,6 @@ class CreateLearningOutcomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('learning_outcomes');
+        Schema::dropIfExists('subject_cicles');
     }
 }
