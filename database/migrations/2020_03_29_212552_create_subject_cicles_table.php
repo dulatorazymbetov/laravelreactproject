@@ -15,7 +15,14 @@ class CreateSubjectCiclesTable extends Migration
     {
         Schema::create('subject_cicles', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->string('title_kk');
+            $table->string('title_ru');
+            $table->string('title_en');
+			$table->string('short_title_kk');
+            $table->string('short_title_ru');
+            $table->string('short_title_en');
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 
