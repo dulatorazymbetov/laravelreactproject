@@ -32,12 +32,26 @@ class UserController extends Controller
     public function allTutors(Request $request){
         $rows = $request->rows;
         $offset = $request->page * $rows;
+        $search = $request->search;
+        $total_count = Staff::count();
+        $count_with_filter = isset($request->search) ? Staff::wherehas('user', function($q) use($request) {
+                $q->where('lastname', 'LIKE', '%'.$request->search.'%');
+            })
+            ->count()
+            : $total_count;
         return [
             'statistic' => [
-                'total' => Staff::count(),
-                'tutors' => Role::where('id', '3')->withCount('users')->first()->users_count
+                'total' => $total_count,
+                'with_filter' => $count_with_filter
             ],
-            'list' => Staff::with('academic_rank', 'academic_degree', 'user')
+            'list' => Staff::when($request->search, function($q) use($request){
+                    $q->whereHas(
+                        'user', function($q) use($request) {
+                            $q->where('lastname', 'LIKE', '%'.$request->search.'%');
+                        }
+                    );
+                })
+                ->with('user','academic_rank', 'academic_degree', 'english_level')
                 ->take($rows)
                 ->skip($offset)
                 ->orderBy('id', 'DESC')
@@ -55,7 +69,12 @@ class UserController extends Controller
                 'department' => Department::where('include_staff', true)->get(),
                 'position_time_type' => PositionTimeType::all()
             ],
-            'tutor' => Staff::with('academic_rank', 'academic_degree', 'english_level','user')->find($id)
+            'tutor' => Staff::with([
+                'academic_rank', 
+                'academic_degree', 
+                'english_level',
+                'user'
+            ])->find($id)
         ];
     }
     public function editTutor(Request $request){

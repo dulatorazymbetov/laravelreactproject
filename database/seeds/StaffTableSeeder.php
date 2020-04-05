@@ -6,7 +6,7 @@ use App\Models\User\Role;
 use App\Models\Student\Student;
 use App\Models\Staff\Staff;
 
-class TutorTableSeeder extends Seeder
+class StaffTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -32,6 +32,7 @@ class TutorTableSeeder extends Seeder
                 'staff_card.academic_status_id'
             )
             ->join('staff_card', 'staff_card.user_id', '=', 'user.user_id')
+            ->where('user.user_id', '<', '10')
             ->orderBy('user_id')
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {

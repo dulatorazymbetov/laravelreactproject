@@ -78,10 +78,10 @@ class ModulesTableSeeder extends Seeder
 
         DB::table('modules')->insert([
             'id' => '5',
-            'url' => 'list_of_employees',
+            'url' => 'list_of_staff',
             'description_kk' => 'Qyzmetkerler tizimi',
             'description_ru' => 'Сотрудники',
-            'description_en' => 'List of employees',
+            'description_en' => 'List of staff',
             'icon' => 'assignment_ind'
         ]);
         DB::table('module_role')->insert([
@@ -113,6 +113,19 @@ class ModulesTableSeeder extends Seeder
         DB::table('module_role')->insert([
             'role_id' => '7',
             'module_id' => '7'
+        ]);
+
+        DB::table('modules')->insert([
+            'id' => '8',
+            'url' => 'educational_programs',
+            'description_kk' => 'Обр. программы',
+            'description_ru' => 'Обр. программы',
+            'description_en' => 'Educational programs',
+            'icon' => 'chrome_reader_mode'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '5',
+            'module_id' => '8'
         ]);
     }
 }
