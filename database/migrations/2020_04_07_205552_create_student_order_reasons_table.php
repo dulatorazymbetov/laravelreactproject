@@ -18,9 +18,9 @@ class CreateStudentOrderReasonsTable extends Migration
 			$table->string('title_kz');
 			$table->string('title_ru');
 			$table->string('title_en')->nullable();
-			$table->boolean('is_income');
-			$table->boolean('is_outcome');
-			$table->boolean('is_graduation');
+			$table->boolean('is_income');		//признак приказа на зачисление
+			$table->boolean('is_outcome');		//признак приказа на отчисление
+			$table->boolean('is_graduation');	//признак приказа на выпуск
 			
             $table->timestamps();
 			$table->softDeletes();
