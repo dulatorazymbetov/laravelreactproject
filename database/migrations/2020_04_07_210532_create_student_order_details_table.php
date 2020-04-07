@@ -15,7 +15,11 @@ class CreateStudentOrderDetailsTable extends Migration
     {
         Schema::create('student_order_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->integer('student_order_section_id');	//глава приказа	- student_order_sections
+			$table->integer('student_id');					//студент - students
+			$table->dateTime('date_added')->default(DB::raw('CURRENT_TIMESTAMP'));	//дата добавления студента в приказ (поле для внутреннего пользования)
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 

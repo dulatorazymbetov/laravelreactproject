@@ -15,7 +15,13 @@ class CreateStudentOrdersTable extends Migration
     {
         Schema::create('student_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->string('order_number');	//номер приказа
+			$table->date('order_date');		//дата приказа
+			$table->date('order_signed_date')->nullable();	//дата подписания
+			$table->string('order_text')->nullable();		//текст приказа
+			$table->integer('student_order_status_id');		//статус приказа
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentOrderStatusesTable extends Migration
+class CreateStudyFormsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreateStudentOrderStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_order_statuses', function (Blueprint $table) {
+        Schema::create('study_forms', function (Blueprint $table) {
             $table->bigIncrements('id');
 			$table->string('description_kz');
 			$table->string('description_ru');
-			$table->string('description_en')->nullable();
+			$table->string('description_en');
+			$table->tinyInteger('course_count');
+			$table->integer('degree_id');
+			$table->integer('department_type_id');
+			
+			
             $table->timestamps();
 			$table->softDeletes();
         });
@@ -30,6 +35,6 @@ class CreateStudentOrderStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_order_statuses');
+        Schema::dropIfExists('study_forms');
     }
 }

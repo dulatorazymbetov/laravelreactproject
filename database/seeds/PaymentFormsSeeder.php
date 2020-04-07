@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class StudentOrderReasonsSeeder extends Seeder
+class PaymentFormsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

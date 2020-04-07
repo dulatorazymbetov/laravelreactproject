@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentOrderStatusesTable extends Migration
+class CreatePaymentFormsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateStudentOrderStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_order_statuses', function (Blueprint $table) {
+        Schema::create('payment_forms', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->string('description_kz');
-			$table->string('description_ru');
-			$table->string('description_en')->nullable();
             $table->timestamps();
-			$table->softDeletes();
         });
     }
 
@@ -30,6 +26,6 @@ class CreateStudentOrderStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_order_statuses');
+        Schema::dropIfExists('payment_forms');
     }
 }
