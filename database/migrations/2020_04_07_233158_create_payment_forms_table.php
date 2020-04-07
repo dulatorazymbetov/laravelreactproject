@@ -15,7 +15,11 @@ class CreatePaymentFormsTable extends Migration
     {
         Schema::create('payment_forms', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->string('description_kz');
+			$table->string('description_ru');
+			$table->string('description_en');
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 
