@@ -16,7 +16,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import DirectionsIcon from '@material-ui/icons/Directions';
+import TuneIcon from '@material-ui/icons/Tune';
 import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 
 import Title from "@layouts/title";
@@ -107,7 +107,7 @@ function ListOfStaff(){
       				</IconButton>
 					<Divider className={classes.divider} orientation="vertical" />
       				<IconButton color="primary" className={classes.iconButton} aria-label="directions">
-        				<DirectionsIcon />
+        				<TuneIcon />
       				</IconButton>
 				</Paper>
 				<Box my={2}>

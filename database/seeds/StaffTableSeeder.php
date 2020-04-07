@@ -32,7 +32,6 @@ class StaffTableSeeder extends Seeder
                 'staff_card.academic_status_id'
             )
             ->join('staff_card', 'staff_card.user_id', '=', 'user.user_id')
-            ->where('user.user_id', '<', '10')
             ->orderBy('user_id')
             ->chunk(100, function ($rows) {
                 foreach ($rows as $row) {

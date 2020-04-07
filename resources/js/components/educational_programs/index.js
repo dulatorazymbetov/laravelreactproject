@@ -43,14 +43,6 @@ function StudyPlan(){
        	});
     }, []);
 
-	const showDialog = (index) => {
-		setDialoguser(students[index]);
-		setDialogOpen(true);
-	}
-	const dialogClose = () => {
-		setDialogOpen(false);
-	}
-
 	return (
 		<Box>
 			<Title content="Образовательные программы" />
