@@ -52,7 +52,7 @@ function Employee(props){
 	const { getL } = useLang();
 
     async function getData() {
-		window.axios.get('tutors/' + props.id).then((response) => {
+		window.axios.get('staff/' + props.id).then((response) => {
 			setFormData(response.data.form);
 			setFirstname(response.data.tutor.user.firstname);
 			setLastname(response.data.tutor.user.lastname);
