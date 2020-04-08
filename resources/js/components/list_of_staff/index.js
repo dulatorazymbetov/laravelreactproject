@@ -47,8 +47,8 @@ function ListOfStaff(){
 	const classes = useStyles();
 	const [isLoading, setIsLoading] = useState(true);
 	const [statistic, setStatistic] = useState(0);
-	const [tutors, setTutors] = useState([]);
-	const [selectTutor, setSelectTutor] = useState(null);
+	const [staff, setStaff] = useState([]);
+	const [selectStaff, setSelectStaff] = useState(null);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(15);
 	const [searchString, setSearchString] = useState('');
@@ -78,7 +78,7 @@ function ListOfStaff(){
 		window.axios.get('staff', {
 			params: {rows,page, search}
 		}).then((response) => {
-			setTutors(response.data.list);
+			setStaff(response.data.list);
 			setStatistic(response.data.statistic);
 			setIsLoading(false);
         });
@@ -136,7 +136,7 @@ function ListOfStaff(){
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{tutors.map((tutor, tutor_index) => {
+							{staff.map((tutor, tutor_index) => {
 								return (
 									<TableRow hover key={"tutor_"+tutor_index}>
 										<TableCell>{tutor.id}</TableCell>
@@ -145,7 +145,7 @@ function ListOfStaff(){
 										<TableCell>{tutor.academic_degree['description_'+getL]}</TableCell>
 										<TableCell>{tutor.academic_rank['description_'+getL]}</TableCell>
 										<TableCell>
-											<IconButton onClick={() => {setSelectTutor(tutor.id)}} aria-label="Редактировать">
+											<IconButton onClick={() => {setSelectStaff(tutor.id)}} aria-label="Редактировать">
 												<PermContactCalendarIcon />
 											</IconButton>   
 										</TableCell>
@@ -156,7 +156,7 @@ function ListOfStaff(){
 					</Table>
 				</TableContainer>
 			</Box>}
-			{selectTutor && <Staff id={selectTutor} close={() => {setSelectTutor(null)}} refresh={refreshList}/>}
+			{selectStaff && <Staff id={selectStaff} close={() => {setSelectStaff(null)}} refresh={refreshList}/>}
 		</Box>
 	);
 }
