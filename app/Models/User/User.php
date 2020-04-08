@@ -26,7 +26,6 @@ class User extends Authenticatable implements JWTSubject
     public function getModulesAttribute($value){
         return $this->roles->pluck('modules')->flatten()->unique('id')->sortBy('url')->values();
     }
-
     public function roles(){
         return $this->belongsToMany(Role::class);
     }

@@ -22,7 +22,7 @@ import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 import Title from "@layouts/title";
 import { useLang } from "@contexts/lang";
 
-import Tutor from "./tutor.js";
+import Staff from "./staff.js";
 
 const useStyles = makeStyles(theme => ({
 	search: {
@@ -75,7 +75,7 @@ function ListOfStaff(){
 	}
     async function getData(rows, page, search=null) {
 		if(search === ''){search = null;}
-		window.axios.get('tutors', {
+		window.axios.get('staff', {
 			params: {rows,page, search}
 		}).then((response) => {
 			setTutors(response.data.list);
@@ -156,7 +156,7 @@ function ListOfStaff(){
 					</Table>
 				</TableContainer>
 			</Box>}
-			{selectTutor && <Tutor id={selectTutor} close={() => {setSelectTutor(null)}} refresh={refreshList}/>}
+			{selectTutor && <Staff id={selectTutor} close={() => {setSelectTutor(null)}} refresh={refreshList}/>}
 		</Box>
 	);
 }

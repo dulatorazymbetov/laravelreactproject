@@ -15,13 +15,14 @@ use Illuminate\Http\Request;
 
 Route::post('auth', 'Auth\LoginController@login');
 Route::get('auth', 'Auth\LoginController@status');
-
 Route::get('users', 'UserController@allUsers');
 Route::get('roles', 'UserController@allRoles');
 Route::get('modules', 'UserController@allModules');
-
 Route::get('students', 'UserController@allStudents');
 
-Route::get('tutors', 'UserController@allTutors');
-Route::get('tutors/{id}', 'UserController@getTutor')->where('id', '[0-9]+');
-Route::post('tutors/{id}/edit', 'UserController@editTutor')->where('id', '[0-9]+');
+Route::group(['middleware' => 'role:list_of_staff'], function() {
+    Route::get('staff', 'ListOfStaffController@all');
+    Route::get('staff/{id}', 'ListOfStaffController@get')->where('id', '[0-9]+');
+    Route::post('staff/{id}/edit', 'ListOfStaffController@edit')->where('id', '[0-9]+');
+});
+
