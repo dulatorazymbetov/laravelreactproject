@@ -12,6 +12,7 @@ class CreateStudentsTable extends Migration
             $table->tinyInteger('study_status_id')->unsigned()->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->tinyInteger('study_form_id')->unsigned()->nullable();
+			$table->tinyInteger('payment_form_id')->unsigned()->nullable();
             $table->tinyInteger('study_lang_id')->unsigned()->nullable();
             $table->tinyInteger('course')->unsigned()->nullable();
             $table->timestamps();
