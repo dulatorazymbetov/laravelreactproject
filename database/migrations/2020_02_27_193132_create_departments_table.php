@@ -19,6 +19,9 @@ class CreateDepartmentsTable extends Migration
             $table->string('title_kk')->nullable();
             $table->string('title_ru')->nullable();
             $table->string('title_en')->nullable();
+            $table->string('title_short_kk')->nullable();
+            $table->string('title_short_ru')->nullable();
+            $table->string('title_short_en')->nullable();
             $table->integer('parent_id')->nullable();
             $table->boolean('include_staff')->nullable();
             $table->timestamps();
