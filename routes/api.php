@@ -26,6 +26,6 @@ Route::group(['middleware' => 'role:list_of_staff'], function() {
     Route::post('staff/{id}/edit', 'ListOfStaffController@edit')->where('id', '[0-9]+');
 });
 
-Route::group(['middleware' => 'role:educational_programs'], function() {
-    //Route::get('staeducational_programsff', 'ListOfStaffController@all');
+Route::group(['middleware' => 'role:edu_programs'], function() {
+    Route::get('edu_programs/form', 'EduProgramsController@form');
 });

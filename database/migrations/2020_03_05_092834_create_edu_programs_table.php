@@ -18,7 +18,7 @@ class CreateEduProgramsTable extends Migration
             $table->string('title_kk');
             $table->string('title_ru');
             $table->string('title_en')->nullable();
-			$table->integer('edu_program_type_id');	//
+			$table->integer('edu_program_type_id');
 			
 			$table->integer('edu_programs_group_id');	//Группа образовательных программ	//edu_programs_groups
 			$table->string('goals_kk')->nullable();	//Цели ОП

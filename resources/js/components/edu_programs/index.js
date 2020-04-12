@@ -37,9 +37,9 @@ function StudyPlan(){
 	const { getL } = useLang();
 
 	useEffect(() => {
-       	window.axios.get('students').then((response) => {
-			setStudents(response.data);
-			setIsLoading(false);
+       	window.axios.get('edu_programs/form').then((response) => {
+			//setStudents(response.data);
+			//setIsLoading(false);
        	});
     }, []);
 
