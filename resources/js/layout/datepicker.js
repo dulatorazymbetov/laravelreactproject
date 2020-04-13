@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import moment from "moment";
-import "moment/locale/ru";
-moment.locale("ru");
+//import "moment/locale/ru";
+//moment.locale("ru");
 
 import { MuiPickersUtilsProvider, DatePicker} from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
