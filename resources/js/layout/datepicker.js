@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import moment from "moment";
-//import "moment/locale/ru";
-//moment.locale("ru");
+import ruLocale from "date-fns/locale/ru";
+import DateFnsUtils from "@date-io/date-fns";
+import enLocale from "date-fns/locale/en-US";
 
 import { MuiPickersUtilsProvider, DatePicker} from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
 
 function MyDatePicker(props){
 	return (
-		<MuiPickersUtilsProvider utils={MomentUtils}>
+		<MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
 			<DatePicker
 				value={props.value}
 				onChange={props.setValue}
@@ -18,9 +17,9 @@ function MyDatePicker(props){
 	 			autoOk
 	 			clearable
 	 			inputVariant="filled"
-	 			format="YYYY-MM-DD"
+	 			format="yyyy-MM-dd"
 	 			label={props.label}
-	 			 InputProps={{name: props.name}}
+	 			InputProps={{name: props.name}}
 			/>
 		</MuiPickersUtilsProvider>
 	);
