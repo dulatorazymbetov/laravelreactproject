@@ -28,4 +28,6 @@ Route::group(['middleware' => 'role:list_of_staff'], function() {
 
 Route::group(['middleware' => 'role:edu_programs'], function() {
     Route::get('edu_programs/form', 'EduProgramsController@form');
+    Route::get('edu_programs', 'EduProgramsController@all');
+    Route::post('edu_programs', 'EduProgramsController@add');
 });

@@ -10,9 +10,9 @@ class CreateAcademicDegreesTable extends Migration
         Schema::create('academic_degrees', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('sort_order')->nullable();
-            $table->string('description_kk')->nullable();
-			$table->string('description_ru')->nullable();
-            $table->string('description_en')->nullable();
+            $table->string('title_kk')->nullable();
+			$table->string('title_ru')->nullable();
+            $table->string('title_en')->nullable();
         });
     }
     public function down(){

@@ -117,7 +117,7 @@ class ModulesTableSeeder extends Seeder
 
         DB::table('modules')->insert([
             'id' => '8',
-            'url' => 'educational_programs',
+            'url' => 'edu_programs',
             'description_kk' => 'Обр. программы',
             'description_ru' => 'Обр. программы',
             'description_en' => 'Educational programs',

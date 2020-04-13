@@ -10,9 +10,9 @@ class CreateTeachingLanguagesTable extends Migration
         Schema::create('teaching_languages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-			$table->string('description_kk')->nullable();
-			$table->string('description_ru')->nullable();
-			$table->string('description_en')->nullable();
+			$table->string('title_kk')->nullable();
+			$table->string('title_ru')->nullable();
+			$table->string('title_en')->nullable();
         });
     }
     public function down(){

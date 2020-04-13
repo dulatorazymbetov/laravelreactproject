@@ -179,7 +179,7 @@ function Employee(props){
 									{formData.academic_degree.map((list, index) => {
 										return (
 											<MenuItem value={list.id} key={index}>
-												{list['description_'+getL]}
+												{list['title_'+getL]}
 											</MenuItem>
 										);
 									})}
