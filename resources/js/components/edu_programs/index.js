@@ -23,6 +23,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { useLang } from "@contexts/lang";
 import AddEduProgramsForm from "./add_form.js";
 
+
 const useStyles = makeStyles(theme => ({
 	
 }));
@@ -50,7 +51,6 @@ function EduPrograms(){
 	}
 
 	if(isLoading){return (<div />);}
-
 	return (
 		<Box>
 			<Title content="Образовательные программы" />
