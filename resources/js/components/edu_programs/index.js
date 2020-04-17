@@ -16,7 +16,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 import AddIcon from '@material-ui/icons/Add';
 
@@ -59,7 +58,6 @@ function EduPrograms(){
 					Добавить ОП
 				</Button>
 				<Dialog open={addOpen} fullWidth maxWidth="md" onClose={() => {setAddOpen(false)}}>
-					<DialogTitle>Добавить образовательную программу</DialogTitle>
 					<AddEduProgramsForm close={() => {setAddOpen(false)}} refresh={refreshList}/>
 				</Dialog>
 			</Box>
