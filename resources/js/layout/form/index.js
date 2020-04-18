@@ -70,69 +70,66 @@ function FormRespond(props){
 	let all_rows = 0;
 
 	return (
-		<Box className={classes.root}>
+		<Box component="form" className={classes.root} onSubmit={handleSubmit}>
 			<Box pt={3} pb={2} px={3} className={classes.title}>
 				Добавить образовательную программу
 			</Box>
 			<Box className={classes.content} px={3} py={1}>
 				<MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
-					<form onSubmit={handleSubmit}>
-						<Grid container spacing={3}>
-							{props.fields.map((list, index) => {
-								if(list.required!==false){
-									list.required = true;
-									all_rows++;
-									if(value[list.name]){enter_rows++}
-								}
-								return (
-									<Grid item key={index} xs={12} sm={12 * (list.width || 1)}>
-										{(list.type === 'string' || list.type === 'float' || !list.type) && <TextField
-											required={list.required}
-											name={list.name}
-											label={list.label || list.name}
-											fullWidth
-											onChange={(event) => {setFieldValue(event, list.type)}}
-											autoComplete={list.name}
+					<Grid container spacing={3}>
+						{props.fields.map((list, index) => {
+							if(list.required!==false){
+								list.required = true;
+								all_rows++;
+								if(value[list.name]){enter_rows++}
+							}
+							return (
+								<Grid item key={index} xs={12} sm={12 * (list.width || 1)}>
+									{(list.type === 'string' || list.type === 'float' || !list.type) && <TextField
+										required={list.required}
+										name={list.name}
+										label={list.label || list.name}
+										fullWidth
+										onChange={(event) => {setFieldValue(event, list.type)}}
+										autoComplete={list.name}
+										value={value[list.name]}
+										variant="filled"
+									/>}
+									{list.type === 'select' && <FormControl fullWidth variant="filled" required={list.required}>
+										<InputLabel id={list.name + "-label"}>
+											{list.label}
+										</InputLabel>
+										<Select
+											labelId={list.name + "-label"}
 											value={value[list.name]}
-											variant="filled"
-										/>}
-										{list.type === 'select' && <FormControl fullWidth variant="filled" required={list.required}>
-											<InputLabel id={list.name + "-label"}>
-												{list.label}
-											</InputLabel>
-											<Select
-												labelId={list.name + "-label"}
-												value={value[list.name]}
-												inputProps={{name: list.name}}
-												onChange={(event) => {setFieldValue(event, list.type)}}
-											>
-												{list.select.items.map((select_list, select_index) => {
-													return (
-														<MenuItem value={select_list.id} key={select_index}>
-															{select_list[list.select.label]}
-														</MenuItem>
-													);
-												})}
-											</Select>
-										</FormControl>}
-										{list.type === 'date' && <DatePicker
-											value={value[list.name] || null}
-											onChange={(date) => {setValue({...value, [list.name]: date})}}
-								 			animateYearScrolling
-								 			fullWidth
-								 			autoOk
-								 			clearable
-								 			inputVariant="filled"
-								 			format="yyyy-MM-dd"
-								 			label={list.label}
-								 			InputProps={{name: list.name}}
-										/>}
-									</Grid>
-								);
-							})}
-						</Grid>
-						
-					</form>
+											inputProps={{name: list.name}}
+											onChange={(event) => {setFieldValue(event, list.type)}}
+										>
+											{list.select.items.map((select_list, select_index) => {
+												return (
+													<MenuItem value={select_list.id} key={select_index}>
+														{select_list[list.select.label]}
+													</MenuItem>
+												);
+											})}
+										</Select>
+									</FormControl>}
+									{list.type === 'date' && <DatePicker
+										value={value[list.name] || null}
+										onChange={(date) => {setValue({...value, [list.name]: date})}}
+							 			animateYearScrolling
+							 			fullWidth
+							 			autoOk
+							 			clearable
+							 			inputVariant="filled"
+							 			format="yyyy-MM-dd"
+							 			label={list.label}
+							 			InputProps={{name: list.name}}
+									/>}
+								</Grid>
+							);
+						})}
+					</Grid>
 				</MuiPickersUtilsProvider>
 			</Box>
 			<Box className={classes.actions} px={3} pt={1} pb={2}>
