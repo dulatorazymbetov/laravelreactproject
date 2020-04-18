@@ -18,13 +18,13 @@ class CreateEduProgramsTable extends Migration
             $table->string('title_kk');
             $table->string('title_ru');
             $table->string('title_en')->nullable();
-			$table->integer('edu_program_type_id');
+			$table->integer('edu_programs_type_id');
 			
 			$table->integer('edu_programs_group_id');	//Группа образовательных программ	//edu_programs_groups
 			$table->string('goals_kk')->nullable();	//Цели ОП
 			$table->string('goals_ru')->nullable();
 			$table->string('goals_en')->nullable();
-			$table->integer('degree_id');	//Академическая степень
+			$table->integer('academic_degree_id');	//Академическая степень
 			$table->float('duration');	//продолжительность обучения в годах
 			$table->integer('credits');	//кредиты
 			$table->integer('study_language_id');	//язык обучения

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEduProgramTypesTable extends Migration
+class CreateEduAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateEduProgramTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('edu_program_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
-			$table->string('description_kz');
-			$table->string('description_ru');
-			$table->string('description_en')->nullable();
+        Schema::create('edu_areas', function (Blueprint $table) {
+            $table->bigInteger('id');
+			$table->string('code');	//код
+			$table->string('title_kk');
+            $table->string('title_ru');
+            $table->string('title_en')->nullable();
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 
@@ -29,6 +31,6 @@ class CreateEduProgramTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('edu_program_types');
+        Schema::dropIfExists('edu_areas');
     }
 }

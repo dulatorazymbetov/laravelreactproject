@@ -19,11 +19,11 @@ loadProgressBar();
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#3f51b5',
-            dark: '#002b70',
-            contrastText: '#ffff'
+            main: 'rgb(63, 81, 181)',
+            dark: 'rgb(0, 43, 112)',
+            contrastText: '#fff'
         },
-        secondary: {main: '#1B6CF3'},
+        secondary: {main: '#1b6cf3'},
         default: {main: '#fbfbfb'}
     },
     typography: {
