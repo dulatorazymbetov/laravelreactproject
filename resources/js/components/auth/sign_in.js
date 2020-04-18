@@ -66,7 +66,7 @@ function SignIn() {
 			en: 'Login'
 		},
 		lang: {
-			kk: 'Казахский',
+			kk: 'Qazaq tili',
 			ru: 'Русский',
 			en: 'English'
 		},
