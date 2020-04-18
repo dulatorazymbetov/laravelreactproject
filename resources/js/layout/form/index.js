@@ -9,8 +9,10 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { MuiPickersUtilsProvider, DatePicker} from '@material-ui/pickers';
 import DateFnsUtils from "@date-io/date-fns";
@@ -144,7 +146,10 @@ function FormRespond(props){
 				>
 						Отправить
 				</Button>
-				{(all_rows - enter_rows) > 0 && <Box ml={2}>* Заполните все важные поля (осталось: {all_rows - enter_rows})</Box>}
+				{(all_rows - enter_rows) > 0 && <Box ml={2} style={{flex: '1 1 auto',}}>
+					<Box mb={1}>* Заполните все важные поля (осталось: {all_rows - enter_rows})</Box>
+					<LinearProgress variant="determinate" value={(enter_rows/all_rows)*100} />
+				</Box>}
 			</Box>
 		</Box>
 	);
