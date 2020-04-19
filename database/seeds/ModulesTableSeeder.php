@@ -145,5 +145,20 @@ class ModulesTableSeeder extends Seeder
             'module_id' => '9'
         ]);
 		
+		//User_profile
+		DB::table('modules')->insert([
+            'id' => '10',
+            'url' => 'student_profile',
+            'description_kk' => 'Менің профилім',
+            'description_ru' => 'Мой профиль',
+            'description_en' => 'My profile',
+            'icon' => 'assignment_ind'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '2',
+            'role_id' => '2',
+            'module_id' => '10'
+        ]);
+		
     }
 }
