@@ -46,5 +46,6 @@ class DatabaseSeeder extends Seeder
 		$this->call(StudyFormsSeeder::class);		
 		$this->call(OrdersTableSeeder::class); 
         $this->call(OrdersTypesTableSeeder::class);   
+		$this->call(GendersTableSeeder::class); 
     }
 }
