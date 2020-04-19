@@ -18,6 +18,8 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
+import Alert from '@material-ui/lab/Alert';
+
 import { useLang } from "@contexts/lang";
 import { useAuth } from "@contexts/auth";
 
@@ -34,7 +36,7 @@ function SignIn() {
 	const classes = useStyles();
 	const [menuAnchor, setMenuAnchor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-
+	const [errorMessage, setErrorMessage] = useState(false);
 	const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
@@ -44,25 +46,39 @@ function SignIn() {
 	const { setW, getW, setL } = useLang();
 	setW({
 		title: {
+			kk: 'Sizdiń tirkelgińizge kirý',
 			ru: 'Войти в ваш аккаунт',
 			en: 'Sign into your account'
 		},
 		account: {
-			ru: 'Ученая запись IITU',
+			kk: 'IITU tirkelgisi',
+			ru: 'Учетная запись IITU',
 			en: 'IITU account'
 		},
 		password: {
+			kk: 'Qupıasóz',
 			ru: 'Пароль',
 			en: 'Password'
 		},
 		send: {
+			kk: 'Kirý',
 			ru: 'Отправить',
 			en: 'Login'
 		},
 		lang: {
+			kk: 'Qazaq tili',
 			ru: 'Русский',
-			en: 'English',
-			kk: 'Казахский'
+			en: 'English'
+		},
+		applicant: {
+			kk: 'Qabyldaý komısıasy',
+			ru: 'Приемная комиссия', 
+			en: 'Admission Committee'
+		},
+		invalid_login_or_password: {
+			kk: 'Qate logın nemese qupıasóz',
+			ru: 'Неверный логин или пароль',
+			en: 'Invalid username or password'
 		}
 	});
 
@@ -88,7 +104,14 @@ function SignIn() {
 				setIsLoading(false);
 				setToken(response.data.token.access_token);
 				setUserInfo(response.data.user);
-            });
+            })
+            .catch(function (error) {
+    			console.log(error.response);
+    			setIsLoading(false);
+    			if(error.response.data === "invalid login or password"){
+    				setErrorMessage('invalid_login_or_password');
+    			}
+  			});
 		}
 	}
 
@@ -104,8 +127,11 @@ function SignIn() {
 			>
 				<Box textAlign="center" width="100%" maxWidth="350px">
 					<Typography variant="h1">IITU CAMPUS</Typography>
-					<Box color="text.secondary">{getW('title')}</Box>
-					<Box my={5} component="form" onSubmit={submitForm}>
+					<Box mb={4} color="text.secondary">{getW('title')}</Box>
+					{errorMessage && <Alert variant="filled" severity="error">
+        				{getW(errorMessage)}
+      				</Alert>}
+					<Box mt={2} mb={5} component="form" onSubmit={submitForm}>
 						<TextField
 							name="login"
 							label={getW('account')}
@@ -160,6 +186,7 @@ function SignIn() {
 						open={Boolean(menuAnchor)}
 						onClose={handleLangMenuClose}
 					>
+						<MenuItem onClick={() => {langSelect('kk')}}>Qazaq tili</MenuItem>
 						<MenuItem onClick={() => {langSelect('ru')}}>Русский</MenuItem>
 						<MenuItem onClick={() => {langSelect('en')}}>English</MenuItem>
 					</Menu>
@@ -184,7 +211,7 @@ function SignIn() {
 						size="large"
 						startIcon={<EmojiPeopleIcon />}
 					>
-						Приемная комиссия
+						{getW('applicant')}
 					</Button>
 				</Box>
 			</Box>
