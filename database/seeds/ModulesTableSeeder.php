@@ -11,6 +11,10 @@ class ModulesTableSeeder extends Seeder
      */
     public function run()
     {
+		DB::table('modules')->truncate();
+		DB::table('module_role')->truncate();	
+		
+		
         DB::table('modules')->insert([
             'id' => '1',
             'url' => 'role_manager',
@@ -127,5 +131,19 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '5',
             'module_id' => '8'
         ]);
+		
+		DB::table('modules')->insert([
+            'id' => '9',
+            'url' => 'hr_orders',
+            'description_kk' => 'Приказы сотруников',
+            'description_ru' => 'Приказы сотруников',
+            'description_en' => 'Приказы сотруников',
+            'icon' => 'assignment_ind'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '11',
+            'module_id' => '9'
+        ]);
+		
     }
 }

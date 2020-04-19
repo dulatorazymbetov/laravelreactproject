@@ -31,3 +31,9 @@ Route::group(['middleware' => 'role:edu_programs'], function() {
     Route::get('edu_programs', 'EduProgramsController@all');
     Route::post('edu_programs', 'EduProgramsController@add');
 });
+
+Route::group(['middleware' => 'role:hr_orders'], function() {
+    Route::get('hr_orders/form', 'HrOrderController@form');
+    Route::get('hr_orders', 'HrOrderController@all');
+    Route::post('hr_orders/add', 'HrOrderController@add');
+});
