@@ -72,11 +72,11 @@ function FormRespond(props){
 	return (
 		<Box component="form" className={classes.root} onSubmit={handleSubmit}>
 			<Box pt={3} pb={2} px={3} className={classes.title}>
-				Добавить образовательную программу
+				{props.title}
 			</Box>
 			<Box className={classes.content} px={3} py={1}>
 				<MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
-					<Grid container spacing={3}>
+					<Grid container spacing={2}>
 						{props.fields.map((list, index) => {
 							if(list.required!==false){
 								list.required = true;
