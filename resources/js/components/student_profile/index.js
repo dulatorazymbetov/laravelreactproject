@@ -41,12 +41,17 @@ function EditProfile(){
 					name: 'birth_date',
 					type: 'date',
 					label: 'Дата рождения'
-				}/*,
+				},
 				{
-					name: 'gender',
+					name: 'gender_id',
+					label: 'Пол',
 					type: 'select',
-					label: 'Пол'
-				}*/
+					select: {
+						items: response.data.staff_type,
+						label: 'description_kk',
+						value: 'id'
+					}
+				}
 			]);
 			setIsLoading(false);
 		})

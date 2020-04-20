@@ -37,3 +37,9 @@ Route::group(['middleware' => 'role:hr_orders'], function() {
     Route::get('hr_orders', 'HrOrderController@all');
     Route::post('hr_orders/add', 'HrOrderController@add');
 });
+
+Route::group(['middleware' => 'role:student_profile'], function() {
+    Route::get('student_profile/form', 'StudentProfileController@form');
+    Route::get('student_profile', 'StudentProfileController@all');
+    Route::post('student_profile/add', 'StudentProfileController@add');
+});
