@@ -47,7 +47,7 @@ function EditProfile(){
 					label: 'Пол',
 					type: 'select',
 					select: {
-						items: response.data.staff_type,
+						items: response.data.genders,
 						label: 'description_kk',
 						value: 'id'
 					}
