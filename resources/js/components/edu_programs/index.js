@@ -7,10 +7,9 @@ import Title from "@layouts/title";
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-
 import { useLang } from "@contexts/lang";
 import EduProgramsList from "./programs/index.js";
-
+import SubjectsList from "./subjects/index.js";
 
 const useStyles = makeStyles(theme => ({
 	
@@ -19,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 function EduPrograms(){
 	const classes = useStyles();
 	const { getL } = useLang();
-	const [tab, setTab] = useState(0);
+	const [tab, setTab] = useState(1);
 	useEffect(() => {
        	
     }, []);
@@ -41,7 +40,8 @@ function EduPrograms(){
 			        <Tab label="Заявки от кафедр" disabled />
       			</Tabs>
     		</Box>
-			<EduProgramsList />
+			{tab===0 && <EduProgramsList />}
+			{tab===1 && <SubjectsList />}
 		</Box>
 	);
 }

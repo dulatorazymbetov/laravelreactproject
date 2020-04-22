@@ -21,7 +21,7 @@ class CreateSubjectsTable extends Migration
 			$table->string('description_kk');
 			$table->string('description_ru');
 			$table->string('description_en');
-			$table->integer('subject_cicle_id');	//Цикл дисциплины - subject_cycles
+			$table->integer('subject_cycle_id');	//Цикл дисциплины - subject_cycles
 			$table->integer('subject_component_id');	//Компонент - subject_components
 			$table->integer('credits');			//кредиты
             $table->timestamps();

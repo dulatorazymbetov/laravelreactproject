@@ -8,16 +8,24 @@ use App\Models\EduProgram\EduProgramsGroup;
 use App\Models\EduProgram\EduProgramsType;
 use App\Models\Staff\AcademicDegree;
 use App\Models\Staff\TeachingLanguage;
+use App\Models\EduProgram\SubjectCycle;
+use App\Models\EduProgram\SubjectComponent;
 
 class EduProgramsController extends Controller
 {
-    public function form(Request $request){
+    public function edu_programs_form(Request $request){
         return [
             'edu_programs_group' => EduProgramsGroup::orderBy('code')->get(),
             'edu_programs_type' => EduProgramsType::all(),
             'academic_degree' => AcademicDegree::all(),
             'teaching_language' => TeachingLanguage::all()
         ];
+    }
+    public function subjects_form(Request $request){
+    	return [
+    		'subject_cicles' => SubjectCycle::all(),
+    		'subject_components' => SubjectComponent::all()
+    	];
     }
     public function add(Request $request){
     	$title_kk = $request->title_kk;
