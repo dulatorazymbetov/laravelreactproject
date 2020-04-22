@@ -18,8 +18,8 @@ class CreateLearningOutcomesTable extends Migration
 			$table->string('title_kk');
             $table->string('title_ru');
             $table->string('title_en');
-			$table->string('lo_code');			//Код результата обучения
-			$table->integer('edu_program_id'); //образовательная программа - edu_programs
+			$table->string('code');			//Код результата обучения
+			$table->integer('edu_programs_id'); //образовательная программа - edu_programs
             $table->timestamps();
 			$table->softDeletes();
         });

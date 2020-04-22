@@ -10,6 +10,7 @@ import Tab from '@material-ui/core/Tab';
 import { useLang } from "@contexts/lang";
 import EduProgramsList from "./programs/index.js";
 import SubjectsList from "./subjects/index.js";
+import OutcomesList from "./outcomes/index.js";
 
 const useStyles = makeStyles(theme => ({
 	
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 function EduPrograms(){
 	const classes = useStyles();
 	const { getL } = useLang();
-	const [tab, setTab] = useState(1);
+	const [tab, setTab] = useState(0);
 	useEffect(() => {
        	
     }, []);
@@ -36,12 +37,14 @@ function EduPrograms(){
 			        onChange={tabChange}
       			>
 			        <Tab label="Программы" />
+			        <Tab label="Направления" />
 			        <Tab label="Дисциплины" />
 			        <Tab label="Заявки от кафедр" disabled />
       			</Tabs>
     		</Box>
 			{tab===0 && <EduProgramsList />}
-			{tab===1 && <SubjectsList />}
+			{tab===1 && <OutcomesList />}
+			{tab===2 && <SubjectsList />}
 		</Box>
 	);
 }

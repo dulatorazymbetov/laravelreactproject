@@ -27,6 +27,11 @@ class EduProgramsController extends Controller
     		'subject_components' => SubjectComponent::all()
     	];
     }
+    public function outcomes_form(Request $request){
+    	return [
+    		'edu_programs' => EduProgram::all()
+    	];
+    }
     public function add(Request $request){
     	$title_kk = $request->title_kk;
 		$title_ru = $request->title_ru;

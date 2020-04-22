@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function AddSubjectsForm(props){
+function AddOutcomesForm(props){
 	const classes = useStyles();
 
 	const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +17,7 @@ function AddSubjectsForm(props){
 
 	const { getL } = useLang();
 	useEffect(() => {
-       	window.axios.get('subjects/form').then((response) => {
+       	window.axios.get('learning_outcomes/form').then((response) => {
 			setFields([
 				{
 					name: 'title_kk',
@@ -32,42 +32,19 @@ function AddSubjectsForm(props){
 					label: 'Название на английском языке',
 				},
 				{
-					name: 'description_kk',
-					label: 'Описание на казахском языке',
-				},
-				{
-					name: 'description_ru',
-					label: 'Описание на русском языке',
-				},
-				{
-					name: 'description_en',
-					label: 'Описание на английском языке',
-				},
-				{
-					name: 'subject_cicle_id',
-					label: 'Цикл дисциплины',
+					name: 'edu_programs_id',
+					label: 'Образовательная программа',
 					type: 'select',
 					select: {
-						items: response.data.subject_cicles,
+						items: response.data.edu_programs,
 						label: 'title_'+getL,
 						value: 'id'
 					}
 				},
 				{
-					name: 'subject_component_id',
-					label: 'Компонент',
-					type: 'select',
-					select: {
-						items: response.data.subject_components,
-						label: 'title_'+getL,
-						value: 'id'
-					}
+					name: 'code',
+					label: 'Код результата обучения',
 				},
-				{
-					name: 'credits',
-					label: 'Кредиты',
-					type: 'float'
-				}
 			]);
 			setIsLoading(false);
        	});
@@ -85,11 +62,11 @@ function AddSubjectsForm(props){
 
 	return (
 		<FormBuilder 
-			title="Добавить новую дисциплину"
+			title="Добавить новое направление"
 			fields={fields}
 			handleSubmit={handleSubmit}
 		/>
 	);
 }
 
-export default AddSubjectsForm;
+export default AddOutcomesForm;
