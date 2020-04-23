@@ -28,10 +28,10 @@ class CreateSubjectsTable extends Migration
 			$table->integer('subject_cycle_id');	//Цикл дисциплины - subject_cycles
 			$table->integer('subject_component_id');	//Компонент - subject_components
 			$table->integer('degree_id');	//Идентификатор академической степени, для которой предусмотрена дисциплина
-			$table->bool('is_language_discipline');	//Метка, показывающая является ли заданная дисциплиной языковой
-			$table->integer('is_multilingual');	//Метка, показывающая является ли заданная дисциплиной полиязычной
-			$table->integer('is_research');		//Метка, показывающая является ли заданная дисциплиной научно-исследовательской/ экспериментально-исследовательской работой
-			$table->integer('ispractice');		//Метка, показывающая является ли заданная дисциплиной практикой
+			$table->boolean('is_language_discipline');	//Метка, показывающая является ли заданная дисциплиной языковой
+			$table->boolean('is_multilingual');	//Метка, показывающая является ли заданная дисциплиной полиязычной
+			$table->boolean('is_research');		//Метка, показывающая является ли заданная дисциплиной научно-исследовательской/ экспериментально-исследовательской работой
+			$table->boolean('ispractice');		//Метка, показывающая является ли заданная дисциплиной практикой
 			
 			$table->integer('credits')->nullable();			//кредиты
             $table->timestamps();
