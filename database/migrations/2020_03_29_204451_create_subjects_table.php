@@ -15,15 +15,25 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->string('title_kk');
-            $table->string('title_ru');
-            $table->string('title_en');
-			$table->string('description_kk');
-			$table->string('description_ru');
-			$table->string('description_en');
+			$table->string('title_kk');	//Название дисциплины на казахском языке
+            $table->string('title_ru');	//	Название дисциплины на русском языке
+            $table->string('title_en');	//Название дисциплины на английском языке
+			$table->string('subject_code_kk');	//Код дисциплины на казахском языке
+			$table->string('subject_code_ru');	//Код дисциплины на русском языке
+			$table->string('subject_code_en');	//Код дисциплины на английском языке
+			
+			$table->string('description_kk');	//Краткое описание дисциплины на казахском языке
+			$table->string('description_ru');	//краткое описание дисциплины на русском языке
+			$table->string('description_en');	//краткое описание дисциплины на английском языке
 			$table->integer('subject_cycle_id');	//Цикл дисциплины - subject_cycles
 			$table->integer('subject_component_id');	//Компонент - subject_components
-			$table->integer('credits');			//кредиты
+			$table->integer('degree_id');	//Идентификатор академической степени, для которой предусмотрена дисциплина
+			$table->bool('is_language_discipline');	//Метка, показывающая является ли заданная дисциплиной языковой
+			$table->integer('is_multilingual');	//Метка, показывающая является ли заданная дисциплиной полиязычной
+			$table->integer('is_research');		//Метка, показывающая является ли заданная дисциплиной научно-исследовательской/ экспериментально-исследовательской работой
+			$table->integer('ispractice');		//Метка, показывающая является ли заданная дисциплиной практикой
+			
+			$table->integer('credits')->nullable();			//кредиты
             $table->timestamps();
 			$table->softDeletes();
         });
