@@ -14,7 +14,7 @@ class ModulesTableSeeder extends Seeder
 		DB::table('modules')->truncate();
 		DB::table('module_role')->truncate();	
 		
-		
+		//МЕНЕДЖЕР РОЛЕЙ --НАЧАЛО
         DB::table('modules')->insert([
             'id' => '1',
             'url' => 'role_manager',
@@ -27,7 +27,7 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '1',
             'module_id' => '1'
         ]);
-
+        //МЕНЕДЖЕР РОЛЕЙ --КОНЕЦ
 
         DB::table('modules')->insert([
             'id' => '2',
@@ -118,7 +118,7 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '7',
             'module_id' => '7'
         ]);
-
+        //ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ --НАЧАЛО
         DB::table('modules')->insert([
             'id' => '8',
             'url' => 'edu_programs',
@@ -131,9 +131,18 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '5',
             'module_id' => '8'
         ]);
-		
-		DB::table('modules')->insert([
+        DB::table('modules')->insert([
             'id' => '9',
+            'url' => 'edu_programs/:id',
+            'without_params' => 'edu_programs'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '5',
+            'module_id' => '9'
+        ]);
+		//ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ --КОНЕЦ
+		DB::table('modules')->insert([
+            'id' => '10',
             'url' => 'hr_orders',
             'description_kk' => 'Приказы сотруников',
             'description_ru' => 'Приказы сотруников',
@@ -142,12 +151,12 @@ class ModulesTableSeeder extends Seeder
         ]);
         DB::table('module_role')->insert([
             'role_id' => '11',
-            'module_id' => '9'
+            'module_id' => '10'
         ]);
 		
 		//User_profile
 		DB::table('modules')->insert([
-            'id' => '10',
+            'id' => '11',
             'url' => 'student_profile',
             'description_kk' => 'Менің профилім',
             'description_ru' => 'Мой профиль',
@@ -156,8 +165,7 @@ class ModulesTableSeeder extends Seeder
         ]);
         DB::table('module_role')->insert([
             'role_id' => '2',
-            'role_id' => '2',
-            'module_id' => '10'
+            'module_id' => '11'
         ]);
 		
     }

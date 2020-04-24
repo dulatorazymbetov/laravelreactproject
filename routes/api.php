@@ -30,6 +30,7 @@ Route::group(['middleware' => 'role:edu_programs'], function() {
     Route::get('edu_programs/form', 'EduProgramsController@edu_programs_form');
     Route::get('edu_programs', 'EduProgramsController@all');
     Route::post('edu_programs', 'EduProgramsController@add');
+    Route::get('edu_programs/{id}', 'EduProgramsController@get')->where('id', '[0-9]+');
     Route::get('subjects/form', 'EduProgramsController@subjects_form');
     Route::get('learning_outcomes/form', 'EduProgramsController@outcomes_form');
 });

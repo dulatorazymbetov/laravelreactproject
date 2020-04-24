@@ -33,6 +33,7 @@ class EduProgramsController extends Controller
     	];
     }
     public function add(Request $request){
+    	$reg_num = $request->reg_num;
     	$title_kk = $request->title_kk;
 		$title_ru = $request->title_ru;
 		$title_en = $request->title_en;
@@ -50,6 +51,7 @@ class EduProgramsController extends Controller
 		$ork_level = $request->ork_level;
 
 		$edu_program = new EduProgram;
+		$edu_program->reg_num = $reg_num;
 		$edu_program->title_kk = $title_kk;
 		$edu_program->title_kk = $title_kk;
 		$edu_program->title_ru = $title_ru;
@@ -72,5 +74,8 @@ class EduProgramsController extends Controller
     }
     public function all(){
     	return EduProgram::all();
+    }
+    public function get(Request $request){
+    	return EduProgram::find($request->id);
     }
 }

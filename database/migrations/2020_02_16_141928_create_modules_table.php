@@ -10,10 +10,11 @@ class CreateModulesTable extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->increments('id');
             $table->string('url')->unique();
-            $table->string('description_kk');
-            $table->string('description_ru');
-            $table->string('description_en');
-            $table->string('icon');
+            $table->string('description_kk')->nullable();
+            $table->string('description_ru')->nullable();
+            $table->string('description_en')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('without_params')->nullable();
             $table->timestamps();
         });
     }

@@ -20,6 +20,10 @@ function AddEduProgramsForm(props){
        	window.axios.get('edu_programs/form').then((response) => {
 			setFields([
 				{
+					name: 'reg_num',
+					label: 'Шифр, регистрационный номер',
+				},
+				{
 					name: 'title_kk',
 					label: 'Название на казахском языке',
 				},
@@ -67,7 +71,7 @@ function AddEduProgramsForm(props){
 				},
 				{
 					name: 'academic_degree_id',
-					label: 'Академ. степень',
+					label: 'Присуждаемая академическая степень',
 					type: 'select',
 					select: {
 						items: response.data.academic_degree,

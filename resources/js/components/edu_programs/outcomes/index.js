@@ -35,7 +35,7 @@ function OutcomesList(){
 		<Box>
 			<Box my={4}>
 				<Button size="large" startIcon={<AddIcon />} onClick={() => {setAddOpen(true)}} variant="contained" color="secondary">
-					Добавить направление
+					Добавить результаты
 				</Button>
 				<Dialog open={addOpen} fullWidth maxWidth="md" onClose={() => {setAddOpen(false)}}>
 					<AddOutcomesForm close={() => {setAddOpen(false)}} refresh={refreshList}/>

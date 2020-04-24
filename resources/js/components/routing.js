@@ -17,7 +17,7 @@ function PrivateRoute({ component: Component, ...rest }){
         <Route
             {...rest}
             render={props => {
-                const OtherComponent = lazy(() => import('.'+rest.path+'/index.js'));
+                const OtherComponent = lazy(() => import('.'+rest.module+'/index.js'));
                 return (
                     <Suspense fallback={<div></div>}>
                         <OtherComponent />
@@ -49,8 +49,9 @@ function Routing(){
                     <Box mt={12} mx={5} width="100%">
                         <Switch>
                             {userInfo.modules.map((list, index) => {
+                                let module = list.without_params ? '/'+list.without_params : '/'+list.url;
                                 return (
-                                    <PrivateRoute key={index} path={'/'+list.url} exact component={list.name} />
+                                    <PrivateRoute key={index} path={'/'+list.url} exact module={module} />
                                 );
                             })}
                         </Switch>

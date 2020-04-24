@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -62,7 +63,9 @@ function EduPrograms(){
 					<TableHead>
 						<TableRow>
 							<TableCell>#</TableCell>
+							<TableCell>Регистрационный номер</TableCell>
 							<TableCell>Название</TableCell>
+							<TableCell>Редактирование</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -70,10 +73,10 @@ function EduPrograms(){
 							return (
 								<TableRow hover key={"tutor_"+tutor_index}>
 									<TableCell>{program.id}</TableCell>
+									<TableCell>{program.reg_num}</TableCell>
+									<TableCell>{program.title_kk}</TableCell>
 									<TableCell>
-										{program.title_kk} <br/>
-										{program.title_ru} <br/>
-										{program.title_en}
+										<Button component={Link} to={'/edu_programs/'+program.id} variant='outlined'>Редактировать</Button>
 									</TableCell>
 								</TableRow>
 							);

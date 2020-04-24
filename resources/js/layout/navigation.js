@@ -103,15 +103,17 @@ function Navigation(props){
 			</Toolbar>
 			<Box p={3}>
 				{modules.map((list, index) => {
-					return (
-						<ListItem 
-							className={classes.item} 
-							content={list["description_"+getL]}
-							icon={list.icon}
-							url={list.url}
-							key={index}
-						/>
-					);
+					if(!list.without_params){
+						return (
+							<ListItem 
+								className={classes.item} 
+								content={list["description_"+getL]}
+								icon={list.icon}
+								url={list.url}
+								key={index}
+							/>
+						);	
+					}
 				})}
 				<Box className={classes.item}  component={Link} to="#" onClick={logOut}>
 					<Box>Выйти</Box>
