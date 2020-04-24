@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 	
 }));
 
-function EduProgramsList(){
+function EduPrograms(){
 	const classes = useStyles();
 	const [programs, setPrograms] = useState([]);
 	const [addOpen, setAddOpen] = useState(false);
@@ -88,4 +88,4 @@ function EduProgramsList(){
 	);
 }
 
-export default EduProgramsList;
+export default EduPrograms;

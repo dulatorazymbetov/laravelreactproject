@@ -13,7 +13,7 @@ use App\Models\EduProgram\SubjectComponent;
 
 class EduProgramsController extends Controller
 {
-    public function edu_programs_form(Request $request){
+    public function edu_programs_form(){
         return [
             'edu_programs_group' => EduProgramsGroup::orderBy('code')->get(),
             'edu_programs_type' => EduProgramsType::all(),
@@ -76,6 +76,9 @@ class EduProgramsController extends Controller
     	return EduProgram::all();
     }
     public function get(Request $request){
-    	return EduProgram::find($request->id);
+    	return [
+    		'info' => EduProgram::find($request->id),
+    		'form' => $this->edu_programs_form()
+    	];
     }
 }

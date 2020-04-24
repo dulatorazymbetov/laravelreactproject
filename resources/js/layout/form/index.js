@@ -48,6 +48,7 @@ function FormRespond(props){
 	props.fields.forEach(element => {
 		initVal[element.name] = element.value || '';
 	});
+
 	const classes = useStyles();
 	const [value, setValue] = useState(initVal);
 
@@ -72,7 +73,7 @@ function FormRespond(props){
 	return (
 		<Box component="form" className={classes.root} onSubmit={handleSubmit}>
 			<Box pt={3} pb={2} px={3} className={classes.title}>
-				{props.title}
+				{props.title || "Новая форма"}
 			</Box>
 			<Box className={classes.content} px={3} py={1}>
 				<MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
@@ -90,6 +91,7 @@ function FormRespond(props){
 										name={list.name}
 										label={list.label || list.name}
 										fullWidth
+										disabled={props.disabled}
 										onChange={(event) => {setFieldValue(event, list.type)}}
 										autoComplete={list.name}
 										value={value[list.name]}
@@ -102,6 +104,7 @@ function FormRespond(props){
 										<Select
 											labelId={list.name + "-label"}
 											value={value[list.name]}
+											disabled={props.disabled}
 											inputProps={{name: list.name}}
 											onChange={(event) => {setFieldValue(event, list.type)}}
 										>
@@ -120,11 +123,12 @@ function FormRespond(props){
 							 			animateYearScrolling
 							 			fullWidth
 							 			autoOk
+							 			readOnly={props.disabled}
 							 			clearable
 							 			inputVariant="filled"
 							 			format="yyyy-MM-dd"
 							 			label={list.label}
-							 			InputProps={{name: list.name}}
+							 			InputProps={{name: list.name, disabled: props.disabled}}
 									/>}
 								</Grid>
 							);
@@ -132,7 +136,7 @@ function FormRespond(props){
 					</Grid>
 				</MuiPickersUtilsProvider>
 			</Box>
-			<Box className={classes.actions} px={3} pt={1} pb={2}>
+			{props.disabled!==true && <Box className={classes.actions} px={3} pt={1} pb={2}>
 				<Button 
 					type="submit" 
 					size="large" 
@@ -147,7 +151,7 @@ function FormRespond(props){
 					<Box mb={1}>* Заполните все важные поля (осталось: {all_rows - enter_rows})</Box>
 					<LinearProgress variant="determinate" value={(enter_rows/all_rows)*100} />
 				</Box>}
-			</Box>
+			</Box>}
 		</Box>
 	);
 }
