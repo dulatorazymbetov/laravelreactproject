@@ -22,7 +22,8 @@ class CreateEduProgramSubjectsTable extends Migration
 			$table->integer('ects_credits')->nullable();			//кредиты
 
 			$table->integer('subject_cycle_id');	//Цикл дисциплины - subject_cycles - справочник
-			$table->integer('subject_component_id');	//Компонент - subject_components - справочник
+			$table->boolean('is_university_subjects');	//Компонент - subject_components 
+			$table->boolean('is_selective');	//Компонент - subject_components - справочник
 			$table->integer('controlformid');	//Форма итоговой аттетстации по дисциплине в заданный период изучения дисциплины - control_forms - справочник
 			$table->integer('exam_type');	//Форма проведения итоговой аттестации -exam_types - справочник
 			$table->integer('ratingcount');	//Количество рейтинговых контролей по дисциплине в заданный период изучения дисциплины

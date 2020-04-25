@@ -17,8 +17,6 @@ class DatabaseSeeder extends Seeder
         //$this->call(StaffTableSeeder::class);
         //$this->call(StudentTableSeeder::class);
 //=======
-		$this->call(ExamTypeSeeder::class); 
-		$this->call(ControlFormSeeder::class); 
         $this->call(StaffTableSeeder::class);
         $this->call(StudentTableSeeder::class);
 //>>>>>>> b66698857c2fbbd930e1502665f4e11a5b6f5868
@@ -49,5 +47,7 @@ class DatabaseSeeder extends Seeder
 		$this->call(OrdersTableSeeder::class); 
         $this->call(OrdersTypesTableSeeder::class);   
 		$this->call(GendersTableSeeder::class); 
+		$this->call(ExamTypeSeeder::class); 
+		$this->call(ControlFormSeeder::class); 
     }
 }
