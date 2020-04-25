@@ -65,16 +65,18 @@ function EduProgramsList(){
 							<TableCell>#</TableCell>
 							<TableCell>Регистрационный номер</TableCell>
 							<TableCell>Название</TableCell>
+							<TableCell>Количество результатов обучения</TableCell>
 							<TableCell>Редактирование</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{programs.map((program, tutor_index) => {
+						{programs.map((program, index) => {
 							return (
-								<TableRow hover key={"tutor_"+tutor_index}>
+								<TableRow hover key={"program_"+index}>
 									<TableCell>{program.id}</TableCell>
 									<TableCell>{program.reg_num}</TableCell>
 									<TableCell>{program.title_kk}</TableCell>
+									<TableCell>{program.learning_outcomes_count}</TableCell>
 									<TableCell>
 										<Button component={Link} to={'/edu_programs/'+program.id} variant='outlined'>Редактировать</Button>
 									</TableCell>

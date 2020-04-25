@@ -39,7 +39,11 @@ Route::group(['middleware' => 'role:edu_programs'], function() {
     Route::post('edu_programs/{id}', 'EduProgramsController@update')
         ->where('id', '[0-9]+');
     //РЕЗУЛЬТАТЫ ОБУЧЕНИЯ
-    Route::post('edu_programs/{id}/learning_outcomes', 'EduProgramsController@createOutcome')
+    Route::post('edu_programs/{id}/learning_outcomes', 'EduProgramsController@addOutcome')
+        ->where('id', '[0-9]+');
+    Route::get('learning_outcomes/{id}', 'EduProgramsController@getOutcome')
+        ->where('id', '[0-9]+');
+    Route::post('learning_outcomes/{id}', 'EduProgramsController@updateOutcome')
         ->where('id', '[0-9]+');
 });
 

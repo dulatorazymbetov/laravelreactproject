@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 	title: {
 		flex: '0 0 auto',
 		fontWeight: '900',
-		fontSize: '1.25rem'
+		fontSize: '1.45rem'
 	},
 }));
 
@@ -24,6 +24,7 @@ function EduProgramsItem(props){
 	const [isLoading, setIsLoading] = useState(true);
 	const [data, setData] = useState({});
 	const [form, setForm] = useState({});
+	const [outcomesList, setOutcomesList] = useState([]);
 	const [formDisabled, setFormDisabled] = useState(true);
 
 	const { getL } = useLang();
@@ -36,7 +37,8 @@ function EduProgramsItem(props){
 		window.axios.get('edu_programs/'+props.id)
 			.then((response) => {
 				setData(response.data.info);
-				setForm(response.data.form)
+				setForm(response.data.form);
+				setOutcomesList(response.data.outcomes);
 				setIsLoading(false);
 			});
 	}
@@ -192,12 +194,12 @@ function EduProgramsItem(props){
 						</Button>
 				</Box>}
 			</Box>
-			<Box component={Paper} mt={2}>
-				<Box pt={3} pb={1} px={3} className={classes.title}>
+			<Box mt={5}>
+				<Box className={classes.title} mb={3}>
 					Формируемые результаты обучения
 				</Box>
-				<Box p={3}>
-					<LearningOutcomes programId={props.id} />
+				<Box>
+					<LearningOutcomes programId={props.id} outcomesList={outcomesList}/>
 				</Box>
 			</Box>
 		</div>
