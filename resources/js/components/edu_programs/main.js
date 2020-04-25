@@ -12,7 +12,7 @@ import { useLang } from "@contexts/lang";
 import EduProgramsList from "./programs/index.js";
 
 const useStyles = makeStyles(theme => ({
-	
+		
 }));
 
 function EduProgramsMain(props){

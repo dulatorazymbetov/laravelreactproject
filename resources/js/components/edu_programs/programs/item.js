@@ -5,12 +5,18 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
+import LearningOutcomes from "../learning_outcomes/index.js";
+
 import Title from "@layouts/title";
 import FormBuilder from "@layouts/form";
 import { useLang } from "@contexts/lang";
 
 const useStyles = makeStyles(theme => ({
-	
+	title: {
+		flex: '0 0 auto',
+		fontWeight: '900',
+		fontSize: '1.25rem'
+	},
 }));
 
 function EduProgramsItem(props){
@@ -35,7 +41,10 @@ function EduProgramsItem(props){
 			});
 	}
 	const handleSubmit = (data) => {
-
+		window.axios.post('edu_programs/'+props.id, data)
+			.then((response) => {
+				setData(response.data);
+			});
 	}
 
 	if(isLoading){ return (<div />); }
@@ -181,7 +190,15 @@ function EduProgramsItem(props){
 						>
 							Редактировать
 						</Button>
-					</Box>}
+				</Box>}
+			</Box>
+			<Box component={Paper} mt={2}>
+				<Box pt={3} pb={1} px={3} className={classes.title}>
+					Формируемые результаты обучения
+				</Box>
+				<Box p={3}>
+					<LearningOutcomes programId={props.id} />
+				</Box>
 			</Box>
 		</div>
 	);
