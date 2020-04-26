@@ -22,9 +22,9 @@ class CreateSubjectsTable extends Migration
 			$table->string('subject_code_ru');	//Код дисциплины на русском языке
 			$table->string('subject_code_en');	//Код дисциплины на английском языке
 			
-			$table->string('description_kk');	//Краткое описание дисциплины на казахском языке
-			$table->string('description_ru');	//краткое описание дисциплины на русском языке
-			$table->string('description_en');	//краткое описание дисциплины на английском языке
+			$table->text('description_kk');	//Краткое описание дисциплины на казахском языке
+			$table->text('description_ru');	//краткое описание дисциплины на русском языке
+			$table->text('description_en');	//краткое описание дисциплины на английском языке
 			//$table->integer('subject_cycle_id');	//Цикл дисциплины - subject_cycles
 			//$table->integer('subject_component_id');	//Компонент - subject_components
 			$table->integer('degree_id');	//Идентификатор академической степени, для которой предусмотрена дисциплина
