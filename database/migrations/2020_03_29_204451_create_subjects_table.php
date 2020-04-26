@@ -31,7 +31,7 @@ class CreateSubjectsTable extends Migration
 			$table->boolean('is_language_discipline');	//Метка, показывающая является ли заданная дисциплиной языковой
 			$table->boolean('is_multilingual');	//Метка, показывающая является ли заданная дисциплиной полиязычной
 			$table->boolean('is_research');		//Метка, показывающая является ли заданная дисциплиной научно-исследовательской/ экспериментально-исследовательской работой
-			$table->boolean('ispractice');		//Метка, показывающая является ли заданная дисциплиной практикой
+			$table->boolean('is_practice');		//Метка, показывающая является ли заданная дисциплиной практикой
 			
 			//$table->integer('credits')->nullable();			//кредиты
             $table->timestamps();

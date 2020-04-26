@@ -51,66 +51,64 @@ function LearningOutcomesList(props){
 	}
 	return (
 		<Box>
-			<Box>
-				<Button size="large" startIcon={<AddIcon />} onClick={() => {setAddOpen(true)}} variant="contained" color="secondary">
-					Добавить результаты
-				</Button>
-				<Dialog open={addOpen} fullWidth maxWidth="md" onClose={() => {setAddOpen(false)}}>
+			<Button size="large" startIcon={<AddIcon />} onClick={() => {setAddOpen(true)}} variant="contained" color="secondary">
+				Добавить результаты
+			</Button>
+			<Dialog open={addOpen} fullWidth maxWidth="md" onClose={() => {setAddOpen(false)}}>
+				<FormBuilder 
+					title="Добавить результаты обучения"
+					fields={[
+						{name: 'title_kk', label: 'Название на казахском языке'},
+						{name: 'title_ru', label: 'Название на русском языке'},
+						{name: 'title_en', label: 'Название на английском языке'},
+						{name: 'code', label: 'Код результата обучения'}
+					]}
+					handleSubmit={handleAddSubmit}
+				/>
+			</Dialog>
+			<Box mt={3}>
+				<TableContainer component={Paper}>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>#</TableCell>
+								<TableCell>Код результата обучения</TableCell>
+								<TableCell>Название</TableCell>
+								<TableCell></TableCell>
+								<TableCell></TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{items.map((list, index) => {
+								return (
+									<TableRow hover key={"outcome_"+index}>
+										<TableCell>{list.id}</TableCell>
+										<TableCell>{list.code}</TableCell>
+										<TableCell>{list['title_'+getL]}</TableCell>
+										<TableCell>
+											<Button variant="outlined" onClick={() => {handleEdit(list.id)}} startIcon={<SettingsIcon />}>Редактировать</Button>
+										</TableCell>
+										<TableCell>
+											<Button color="secondary" startIcon={<DeleteIcon />}>Удалить результат</Button>
+										</TableCell>
+									</TableRow>
+								);
+							})}
+						</TableBody>
+					</Table>
+				</TableContainer>
+				<Dialog open={Boolean(editItem)} fullWidth maxWidth="md" onClose={() => {setEditItem(false)}}>
 					<FormBuilder 
-						title="Добавить результаты обучения"
+						title={editItem['title_'+getL]}
 						fields={[
-							{name: 'title_kk', label: 'Название на казахском языке'},
-							{name: 'title_ru', label: 'Название на русском языке'},
-							{name: 'title_en', label: 'Название на английском языке'},
-							{name: 'code', label: 'Код результата обучения'}
+							{name: 'title_kk', label: 'Название на казахском языке', value: editItem.title_kk},
+							{name: 'title_ru', label: 'Название на русском языке', value: editItem.title_ru},
+							{name: 'title_en', label: 'Название на английском языке', value: editItem.title_en},
+							{name: 'code', label: 'Код результата обучения', value: editItem.code}
 						]}
-						handleSubmit={handleAddSubmit}
+						handleSubmit={handleEditSubmit}
 					/>
 				</Dialog>
-				<Box mt={3}>
-					<TableContainer component={Paper}>
-						<Table>
-							<TableHead>
-								<TableRow>
-									<TableCell>#</TableCell>
-									<TableCell>Код результата обучения</TableCell>
-									<TableCell>Название</TableCell>
-									<TableCell></TableCell>
-									<TableCell></TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{items.map((list, index) => {
-									return (
-										<TableRow hover key={"outcome_"+index}>
-											<TableCell>{list.id}</TableCell>
-											<TableCell>{list.code}</TableCell>
-											<TableCell>{list['title_'+getL]}</TableCell>
-											<TableCell>
-												<Button variant="outlined" onClick={() => {handleEdit(list.id)}} startIcon={<SettingsIcon />}>Редактировать</Button>
-											</TableCell>
-											<TableCell>
-												<Button color="secondary" startIcon={<DeleteIcon />}>Удалить результат</Button>
-											</TableCell>
-										</TableRow>
-									);
-								})}
-							</TableBody>
-						</Table>
-					</TableContainer>
-					<Dialog open={Boolean(editItem)} fullWidth maxWidth="md" onClose={() => {setEditItem(false)}}>
-						<FormBuilder 
-							title={editItem['title_'+getL]}
-							fields={[
-								{name: 'title_kk', label: 'Название на казахском языке', value: editItem.title_kk},
-								{name: 'title_ru', label: 'Название на русском языке', value: editItem.title_ru},
-								{name: 'title_en', label: 'Название на английском языке', value: editItem.title_en},
-								{name: 'code', label: 'Код результата обучения', value: editItem.code}
-							]}
-							handleSubmit={handleEditSubmit}
-						/>
-					</Dialog>
-				</Box>
 			</Box>
 		</Box>
 	);

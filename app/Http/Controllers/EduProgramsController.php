@@ -8,13 +8,15 @@ use App\Models\EduProgram\EduProgram;
 use App\Models\EduProgram\EduProgramsGroup;
 use App\Models\EduProgram\EduProgramsType;
 use App\Models\EduProgram\LearningOutcome;
-use App\Models\Staff\AcademicDegree;
+use App\Models\EduProgram\DegreeType;
 use App\Models\Staff\TeachingLanguage;
+use App\Models\EduProgram\Subject;
 use App\Models\EduProgram\SubjectCycle;
 use App\Models\EduProgram\SubjectComponent;
 //REQUESTS
 use App\Http\Requests\EduPrograms;
 use App\Http\Requests\LearningOutcomes;
+use App\Http\Requests\Subjects;
 
 class EduProgramsController extends Controller
 {
@@ -22,7 +24,7 @@ class EduProgramsController extends Controller
         return [
             'edu_programs_group' => EduProgramsGroup::orderBy('code')->get(),
             'edu_programs_type' => EduProgramsType::all(),
-            'academic_degree' => AcademicDegree::all(),
+            'academic_degree' => DegreeType::all(),
             'teaching_language' => TeachingLanguage::all()
         ];
     }
@@ -74,5 +76,18 @@ class EduProgramsController extends Controller
     	$learning_outcome->fill($data);
     	$learning_outcome->save();
     	return LearningOutcome::where('edu_program_id', $learning_outcome->edu_program_id)->get();
+    }
+    public function allSubjects(){
+    	return [
+    		'items' => Subject::all(),
+    		'form' => [
+    			'degree' => DegreeType::all(),
+    		]
+    	];
+    }
+    public function addSubject(Subjects $request){
+    	$data = $request->validated();
+    	$subject = Subject::create($data);
+		return Subject::all();
     }
 }

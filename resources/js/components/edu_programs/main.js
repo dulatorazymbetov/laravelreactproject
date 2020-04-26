@@ -10,6 +10,7 @@ import Tab from '@material-ui/core/Tab';
 
 import { useLang } from "@contexts/lang";
 import EduProgramsList from "./programs/index.js";
+import SubjectsList from "./subjects/index.js";
 
 const useStyles = makeStyles(theme => ({
 		
@@ -50,6 +51,7 @@ function EduProgramsMain(props){
 	      			</Tabs>
 	    		</Box>
 				{tab===0 && <EduProgramsList />}
+				{tab===1 && <SubjectsList />}
 			</Box>
 		);
 	}

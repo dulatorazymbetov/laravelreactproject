@@ -16,6 +16,7 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 
 import AddIcon from '@material-ui/icons/Add';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import { useLang } from "@contexts/lang";
 import AddEduProgramsForm from "./add_form.js";
@@ -78,7 +79,7 @@ function EduProgramsList(){
 									<TableCell>{program.title_kk}</TableCell>
 									<TableCell>{program.learning_outcomes_count}</TableCell>
 									<TableCell>
-										<Button component={Link} to={'/edu_programs/'+program.id} variant='outlined'>Редактировать</Button>
+										<Button startIcon={<SettingsIcon />} component={Link} to={'/edu_programs/'+program.id} variant='outlined'>Редактировать</Button>
 									</TableCell>
 								</TableRow>
 							);

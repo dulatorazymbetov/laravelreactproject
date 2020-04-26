@@ -6,26 +6,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class EduPrograms extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
+    public function rules() {
         return [
             'reg_num' => 'required',
-            'title_kk' => 'required',
             'title_kk' => 'required',
             'title_ru' => 'required',
             'title_en' => 'required',

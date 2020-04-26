@@ -9,6 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
@@ -79,7 +81,7 @@ function FormRespond(props){
 				<MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
 					<Grid container spacing={2}>
 						{props.fields.map((list, index) => {
-							if(list.required!==false){
+							if(list.required!==false && list.type!=='checkbox'){
 								list.required = true;
 								all_rows++;
 								if(value[list.name]){enter_rows++}
@@ -117,6 +119,19 @@ function FormRespond(props){
 											})}
 										</Select>
 									</FormControl>}
+									{list.type === 'checkbox' && <Box>
+										<FormControlLabel
+        									control={
+        										<Checkbox 
+        											disabled={props.disabled} 
+        											required={list.required}
+        											onChange={(event) => {setValue({...value, [list.name]: event.target.checked})}}
+        											checked={Boolean(value[list.name])}
+        										/>}
+        									label={list.label}
+      									/>
+      									<input readOnly hidden name={list.name} value={value[list.name] ? 1:0} />
+      								</Box>}
 									{list.type === 'date' && <DatePicker
 										value={value[list.name] || null}
 										onChange={(date) => {setValue({...value, [list.name]: date})}}

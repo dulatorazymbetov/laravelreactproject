@@ -47,6 +47,7 @@ function EduProgramsItem(props){
 			});
 	}
 	const handleSubmit = (data) => {
+		setFormDisabled(true);
 		window.axios.post('edu_programs/'+props.id, data)
 			.then((response) => {
 				setData(response.data);

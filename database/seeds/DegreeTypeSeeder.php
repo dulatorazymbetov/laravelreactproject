@@ -14,27 +14,27 @@ class DegreeTypeSeeder extends Seeder
         //
 		DB::table('degree_types')->insert([
             'id' => '1',
-            'name_kk' => 'Бакалавр',
-            'name_ru' => 'Бакалавр',
-            'name_en' => 'Bachelor'
+            'title_kk' => 'Бакалавр',
+            'title_ru' => 'Бакалавр',
+            'title_en' => 'Bachelor'
         ]);
 		DB::table('degree_types')->insert([
             'id' => '2',
-            'name_kk' => 'Магистр ғылыми-педагогикалық бағыт бойынша',
-            'name_ru' => 'Магистрант по научно-педагогическому направлению',
-            'name_en' => 'Master of scientific and pedagogical direction'
+            'title_kk' => 'Магистр ғылыми-педагогикалық бағыт бойынша',
+            'title_ru' => 'Магистрант по научно-педагогическому направлению',
+            'title_en' => 'Master of scientific and pedagogical direction'
         ]);
 		DB::table('degree_types')->insert([
             'id' => '3',
-            'name_kk' => 'Бейіндік бағыт бойынша магистр',
-            'name_ru' => 'Магистрант по профильному направлению',
-            'name_en' => 'Master of the core area'
+            'title_kk' => 'Бейіндік бағыт бойынша магистр',
+            'title_ru' => 'Магистрант по профильному направлению',
+            'title_en' => 'Master of the core area'
         ]);
 		DB::table('degree_types')->insert([
             'id' => '6',
-            'name_kk' => 'PhD докторы',
-            'name_ru' => 'Докторант PhD',
-            'name_en' => 'Doctor PhD'
+            'title_kk' => 'PhD докторы',
+            'title_ru' => 'Докторант PhD',
+            'title_en' => 'Doctor PhD'
         ]);
 		
     }

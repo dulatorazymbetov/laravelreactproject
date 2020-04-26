@@ -15,9 +15,9 @@ class CreateDegreeTypesTable extends Migration
     {
         Schema::create('degree_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->string('name_kk');	//Название  на казахском языке
-            $table->string('name_ru');	//	Название на русском языке
-            $table->string('name_en');	//Название на английском языке
+			$table->string('title_kk');	//Название  на казахском языке
+            $table->string('title_ru');	//	Название на русском языке
+            $table->string('title_en');	//Название на английском языке
             $table->timestamps();
 			$table->softDeletes();
         });
