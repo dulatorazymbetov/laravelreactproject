@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
-import FormBuilder from "@layouts/form";
+
 import { useLang } from "@contexts/lang";
 
 const useStyles = makeStyles(theme => ({
@@ -21,29 +21,7 @@ function AddOutcomesForm(props){
 	}
 
 	return (
-		<FormBuilder 
-			title="Добавить новое направление"
-			fields={[
-				{
-					name: 'title_kk',
-					label: 'Название на казахском языке',
-				},
-				{
-					name: 'title_ru',
-					label: 'Название на русском языке',
-				},
-				{
-					name: 'title_en',
-					label: 'Название на английском языке',
-				},
-
-				{
-					name: 'code',
-					label: 'Код результата обучения',
-				},
-			]}
-			handleSubmit={handleSubmit}
-		/>
+		
 	);
 }
 
