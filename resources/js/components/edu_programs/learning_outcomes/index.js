@@ -13,6 +13,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
 import AddIcon from '@material-ui/icons/Add';
+import SettingsIcon from '@material-ui/icons/Settings';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import FormBuilder from "@layouts/form";
 import { useLang } from "@contexts/lang";
@@ -73,7 +75,8 @@ function LearningOutcomesList(props){
 									<TableCell>#</TableCell>
 									<TableCell>Код результата обучения</TableCell>
 									<TableCell>Название</TableCell>
-									<TableCell>Редактирование</TableCell>
+									<TableCell></TableCell>
+									<TableCell></TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>
@@ -84,7 +87,10 @@ function LearningOutcomesList(props){
 											<TableCell>{list.code}</TableCell>
 											<TableCell>{list['title_'+getL]}</TableCell>
 											<TableCell>
-												<Button variant="outlined" onClick={() => {handleEdit(list.id)}}>Редактировать</Button>
+												<Button variant="outlined" onClick={() => {handleEdit(list.id)}} startIcon={<SettingsIcon />}>Редактировать</Button>
+											</TableCell>
+											<TableCell>
+												<Button color="secondary" startIcon={<DeleteIcon />}>Удалить результат</Button>
 											</TableCell>
 										</TableRow>
 									);

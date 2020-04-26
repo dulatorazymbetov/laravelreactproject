@@ -4,6 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import LearningOutcomes from "../learning_outcomes/index.js";
 
@@ -48,7 +52,12 @@ function EduProgramsItem(props){
 				setData(response.data);
 			});
 	}
-
+	const deleteProgram = () => {
+		const question = confirm("Вы уверены, что хотите удалить данную программу?");
+		if(question){
+			alert("Принято");
+		}
+	}
 	if(isLoading){ return (<div />); }
 
 	return (
@@ -183,15 +192,16 @@ function EduProgramsItem(props){
 							width: 1/2,
 							value: data.ork_level
 						}
-					]} />
-					{formDisabled && <Box p={3}>
-						<Button 
-							variant="contained" 
-							size="large"
-							onClick={() => {setFormDisabled(false)}}
-						>
-							Редактировать
-						</Button>
+					]} 
+				/>
+				{formDisabled && <Box p={3}>
+					<Button startIcon={<SettingsIcon />} variant="contained" size="large" onClick={() => {setFormDisabled(false)}}>Редактировать</Button>
+				</Box>}
+				{!formDisabled && <Box px={3} pb={2}>
+					<Divider />
+					<Box pt={2}>
+						<Button onClick={deleteProgram} size="large" startIcon={<DeleteIcon />} color="secondary">Удалить программу</Button>
+					</Box>
 				</Box>}
 			</Box>
 			<Box mt={5}>
