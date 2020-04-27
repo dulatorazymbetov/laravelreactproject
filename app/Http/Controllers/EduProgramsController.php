@@ -46,7 +46,7 @@ class EduProgramsController extends Controller
     }
     public function eduProgramSubjectsForm(Request $request){
     	return [
-    		'subjects' => Subject::all(),
+    		'subjects' => Subject::orderBy('subject_code_ru')->get(),
     		'subject_cycles' => SubjectCycle::all(),
     		'control_forms' => ControlForm::all()
     	];
@@ -94,7 +94,7 @@ class EduProgramsController extends Controller
     }
     public function allSubjects(){
     	return [
-    		'items' => Subject::orderBy('id', 'DESC')->get(),
+    		'items' => Subject::orderBy('subject_code_ru')->get(),
     		'form' => [
     			'degree' => DegreeType::all(),
     		]
@@ -103,7 +103,7 @@ class EduProgramsController extends Controller
     public function addSubject(Subjects $request){
     	$data = $request->validated();
     	$subject = Subject::create($data);
-		return Subject::all();
+		return Subject::orderBy('subject_code_ru')->get();
     }
     public function getSubject(Request $request){
     	return Subject::find($request->id);
