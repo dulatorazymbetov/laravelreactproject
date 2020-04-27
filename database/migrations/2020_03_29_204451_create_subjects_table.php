@@ -33,7 +33,7 @@ class CreateSubjectsTable extends Migration
 			$table->boolean('is_research');		//Метка, показывающая является ли заданная дисциплиной научно-исследовательской/ экспериментально-исследовательской работой
 			$table->boolean('is_practice');		//Метка, показывающая является ли заданная дисциплиной практикой
 			
-			//$table->integer('credits')->nullable();			//кредиты
+			$table->integer('ects_credits')->nullable();			//кредиты
             $table->timestamps();
 			$table->softDeletes();
         });

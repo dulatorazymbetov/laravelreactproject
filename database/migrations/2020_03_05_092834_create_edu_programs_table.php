@@ -14,10 +14,10 @@ class CreateEduProgramsTable extends Migration
     public function up()
     {
         Schema::create('edu_programs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+                $table->bigIncrements('id');
 			$table->string('reg_num'); //шифр. регистрационный номер.
             $table->string('title_kk');
-            $table->string('title_ru');
+                $table->string('title_ru');
             $table->string('title_en')->nullable();
 			$table->integer('edu_programs_type_id');
 			
@@ -29,7 +29,7 @@ class CreateEduProgramsTable extends Migration
 			$table->float('duration');	//продолжительность обучения в годах
 			$table->integer('credits');	//кредиты
 			$table->integer('study_language_id');	//язык обучения
-			$table->date('app_date');	//дата утверждения ОП
+			    $table->date('app_date');	//дата утверждения ОП
 			
 			
 			$table->tinyInteger('nrk_level');

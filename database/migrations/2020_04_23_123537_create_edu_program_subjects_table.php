@@ -19,7 +19,7 @@ class CreateEduProgramSubjectsTable extends Migration
 			$table->integer('subject_id');	//subjects
 			$table->integer('year');	//Курс изучения дисциплины. Значение 0 предполагает изучение дисциплины в курсе по выбору обучающегося
 			$table->integer('term');	//Семестр изучения дисциплины. Значение «-3» предполагает изучение дисциплины в курсе по выбору обучающегося, значение 0 предполагает изучение дисциплины в дополнительном семестре
-			$table->integer('ects_credits')->nullable();			//кредиты
+			//$table->integer('ects_credits')->nullable();			//кредиты
 
 			$table->integer('subject_cycle_id');	//Цикл дисциплины - subject_cycles - справочник
 			$table->boolean('is_university_subjects');	//Компонент - subject_components 
