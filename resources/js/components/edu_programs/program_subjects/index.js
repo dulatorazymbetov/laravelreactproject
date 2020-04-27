@@ -134,7 +134,7 @@ function ProgramSubjectsList(props){
 			type: 'select',
 			value: editItem.exam_type_id,
 			select: {
-				items: form.control_forms,
+				items: form.exam_types,
 				label: 'title_'+getL,
 				value: 'id'
 			}

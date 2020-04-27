@@ -45,6 +45,7 @@ function SubjectsList(props){
 	if(isLoading){return (<div/>);}
 
 	const handleAddSubmit = (data) => {
+		setAddOpen(false);
 		window.axios.post('subjects', data).then((response) => {
 			setItems(response.data);
 		})

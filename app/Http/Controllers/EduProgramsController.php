@@ -48,7 +48,8 @@ class EduProgramsController extends Controller
     	return [
     		'subjects' => Subject::orderBy('subject_code_ru')->get(),
     		'subject_cycles' => SubjectCycle::all(),
-    		'control_forms' => ControlForm::all()
+    		'control_forms' => ControlForm::all(),
+    		'exam_types' => ExamType::all()
     	];
     }
     public function all(){
@@ -113,7 +114,7 @@ class EduProgramsController extends Controller
     	$subject = Subject::find($request->id);
     	$subject->fill($data);
     	$subject->save();
-    	return Subject::orderBy('id', 'DESC')->get();
+    	return Subject::orderBy('subject_code_ru')->get();
     }
     public function addEduProgramSubject(EduProgramSubjects $request){
     	$data = $request->validated();
