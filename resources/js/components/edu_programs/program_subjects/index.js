@@ -61,9 +61,9 @@ function ProgramSubjectsList(props){
 		{
 			name: 'subject_id',
 			label: 'Выберите дисциплину',
-			type: 'select',
+			type: 'autocomplete',
 			value: editItem.subject_id,
-			select: {
+			autocomplete: {
 				items: form.subjects,
 				label: 'title_'+getL,
 				value: 'id',

@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
@@ -115,6 +116,7 @@ function FormRespond(props){
 												if(list.select.prefix_label){
 													label = select_list[list.select.prefix_label] + " " + label;
 												}
+												
 												return (
 													<MenuItem value={select_list.id} key={select_index}>
 														{label}
@@ -123,6 +125,25 @@ function FormRespond(props){
 											})}
 										</Select>
 									</FormControl>}
+									{list.type === 'autocomplete' && <Box>
+										<Autocomplete
+      										id={list.name}
+      										fullWidth
+      										disabled={props.disabled}
+      										disableClearable
+      										openOnFocus
+      										options={list.autocomplete.items}
+      										getOptionLabel={(option) => option[list.autocomplete.label]+" "+option[list.autocomplete.prefix_label]}
+      										value={list.autocomplete.items[list.autocomplete.items.findIndex((element, index, array) => {
+      											return element.id === value[list.name];
+      										})]}
+      										onChange={(event, newValue) => {setValue({...value, [list.name]: newValue.id})}}
+      										renderInput={(params) => {
+      											return (<TextField required={list.required} {...params} label={list.label} variant="filled" />);
+      										}}
+    									/>
+    									<input name={list.name} hidden value={value[list.name]} readOnly />
+    								</Box>}
 									{list.type === 'checkbox' && <Box>
 										<FormControlLabel
         									control={
