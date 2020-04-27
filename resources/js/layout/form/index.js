@@ -50,7 +50,6 @@ function FormRespond(props){
 	props.fields.forEach(element => {
 		initVal[element.name] = element.value || '';
 	});
-
 	const classes = useStyles();
 	const [value, setValue] = useState(initVal);
 
@@ -98,6 +97,7 @@ function FormRespond(props){
 										autoComplete={list.name}
 										value={value[list.name]}
 										variant="filled"
+										helperText={list.helper}
 									/>}
 									{list.type === 'select' && <FormControl fullWidth variant="filled" required={list.required}>
 										<InputLabel id={list.name + "-label"}>
@@ -111,9 +111,13 @@ function FormRespond(props){
 											onChange={(event) => {setFieldValue(event, list.type)}}
 										>
 											{list.select.items.map((select_list, select_index) => {
+												let label = select_list[list.select.label];
+												if(list.select.prefix_label){
+													label = select_list[list.select.prefix_label] + " " + label;
+												}
 												return (
 													<MenuItem value={select_list.id} key={select_index}>
-														{select_list[list.select.label]}
+														{label}
 													</MenuItem>
 												);
 											})}

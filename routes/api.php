@@ -28,9 +28,10 @@ Route::group(['middleware' => 'role:list_of_staff'], function() {
 
 Route::group(['middleware' => 'role:edu_programs'], function() {
     //ДАННЫЕ ДЛЯ СОЗДАНИЯ ФОРМ
-    Route::get('edu_programs/form', 'EduProgramsController@edu_programs_form');
-    Route::get('subjects/form', 'EduProgramsController@subjects_form');
-    Route::get('learning_outcomes/form', 'EduProgramsController@outcomes_form');
+    Route::get('edu_programs/form', 'EduProgramsController@eduProgramsForm');
+    Route::get('subjects/form', 'EduProgramsController@subjectsForm');
+    Route::get('learning_outcomes/form', 'EduProgramsController@outcomesForm');
+    Route::get('edu_program_subjects/form', 'EduProgramsController@eduProgramSubjectsForm');
     //ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ
     Route::get('edu_programs', 'EduProgramsController@all');
     Route::post('edu_programs', 'EduProgramsController@add');
@@ -48,6 +49,17 @@ Route::group(['middleware' => 'role:edu_programs'], function() {
     //ДИСЦИПЛИНЫ
     Route::get('subjects', 'EduProgramsController@allSubjects');
     Route::post('subjects', 'EduProgramsController@addSubject');
+    Route::get('subjects/{id}', 'EduProgramsController@getSubject')
+        ->where('id', '[0-9]+');
+    Route::post('subjects/{id}', 'EduProgramsController@updateSubject')
+        ->where('id', '[0-9]+');
+    //ДИСЦИПЛИНЫ+ПРОГРАММЫ
+    Route::post('edu_programs/{id}/subjects', 'EduProgramsController@addEduProgramSubject')
+        ->where('id', '[0-9]+');
+    Route::get('program_subjects/{id}', 'EduProgramsController@getEduProgramSubject')
+        ->where('id', '[0-9]+');
+    Route::post('program_subjects/{id}', 'EduProgramsController@updateEduProgramSubject')
+        ->where('id', '[0-9]+');
 });
 
 Route::group(['middleware' => 'role:hr_orders'], function() {

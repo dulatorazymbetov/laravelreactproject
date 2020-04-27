@@ -14,45 +14,45 @@ class ExamTypeSeeder extends Seeder
         //
 		DB::table('exam_types')->insert([
             'id' => '1',
-            'name_kk' => 'Компьютерлік тестілеу',
-            'name_ru' => 'Компьютерное тестирование',
-            'name_en' => 'Computer testing'
+            'title_kk' => 'Компьютерлік тестілеу',
+            'title_ru' => 'Компьютерное тестирование',
+            'title_en' => 'Computer testing'
         ]);
 		DB::table('exam_types')->insert([
             'id' => '2',
-            'name_kk' => 'Матрицалық тестілеу',
-            'name_ru' => 'Матричное тестирование',
-            'name_en' => 'Matrix testing'
+            'title_kk' => 'Матрицалық тестілеу',
+            'title_ru' => 'Матричное тестирование',
+            'title_en' => 'Matrix testing'
         ]);
 		DB::table('exam_types')->insert([
             'id' => '3',
-            'name_kk' => 'Ауызша',
-            'name_ru' => 'Устный',
-            'name_en' => 'Oral exam'
+            'title_kk' => 'Ауызша',
+            'title_ru' => 'Устный',
+            'title_en' => 'Oral exam'
         ]);
 		DB::table('exam_types')->insert([
             'id' => '4',
-            'name_kk' => 'Жазбаша',
-            'name_ru' => 'Письменный',
-            'name_en' => 'Written exam'
+            'title_kk' => 'Жазбаша',
+            'title_ru' => 'Письменный',
+            'title_en' => 'Written exam'
         ]);
 		DB::table('exam_types')->insert([
             'id' => '5',
-            'name_kk' => 'Аралас',
-            'name_ru' => 'Комбинированный',
-            'name_en' => 'Composite exam'
+            'title_kk' => 'Аралас',
+            'title_ru' => 'Комбинированный',
+            'title_en' => 'Composite exam'
         ]);
 		DB::table('exam_types')->insert([
             'id' => '6',
-            'name_kk' => 'Шығармашылық',
-            'name_ru' => 'Творческий',
-            'name_en' => 'Constructive exam	'
+            'title_kk' => 'Шығармашылық',
+            'title_ru' => 'Творческий',
+            'title_en' => 'Constructive exam	'
         ]);
 		DB::table('exam_types')->insert([
             'id' => '7',
-            'name_kk' => 'Басқа',
-            'name_ru' => 'Другое',
-            'name_en' => 'Other exam'
+            'title_kk' => 'Басқа',
+            'title_ru' => 'Другое',
+            'title_en' => 'Other exam'
         ]);
     }
 }

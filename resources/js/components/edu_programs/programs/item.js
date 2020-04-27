@@ -10,6 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import LearningOutcomes from "../learning_outcomes/index.js";
+import ProgramSubjectsList from "../program_subjects/index.js";
 
 import Title from "@layouts/title";
 import FormBuilder from "@layouts/form";
@@ -29,6 +30,7 @@ function EduProgramsItem(props){
 	const [data, setData] = useState({});
 	const [form, setForm] = useState({});
 	const [outcomesList, setOutcomesList] = useState([]);
+	const [programSubjectsList , setProgramSubjectsList ] = useState([]);
 	const [formDisabled, setFormDisabled] = useState(true);
 
 	const { getL } = useLang();
@@ -43,6 +45,7 @@ function EduProgramsItem(props){
 				setData(response.data.info);
 				setForm(response.data.form);
 				setOutcomesList(response.data.outcomes);
+				setProgramSubjectsList(response.data.subjects);
 				setIsLoading(false);
 			});
 	}
@@ -211,6 +214,14 @@ function EduProgramsItem(props){
 				</Box>
 				<Box>
 					<LearningOutcomes programId={props.id} outcomesList={outcomesList}/>
+				</Box>
+			</Box>
+			<Box mt={5}>
+				<Box className={classes.title} mb={3}>
+					Сведения о дисциплинах
+				</Box>
+				<Box>
+					<ProgramSubjectsList programId={props.id} outcomesList={programSubjectsList} />
 				</Box>
 			</Box>
 		</div>

@@ -15,12 +15,12 @@ class CreateControlFormsTable extends Migration
     {
         Schema::create('control_forms', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->string('name_kk');	//Название формы контроля на казахском языке
-            $table->string('name_ru');	//	Название формы контроля на русском языке
-            $table->string('name_en');	//Название формы контроля на английском языке
-			$table->string('name_short_kk');	//Название формы контроля на казахском языке
-            $table->string('name_short_ru');	//	Название формы контроля на русском языке
-            $table->string('name_short_en');	//Название формы контроля на английском языке
+			$table->string('title_kk');	//Название формы контроля на казахском языке
+            $table->string('title_ru');	//	Название формы контроля на русском языке
+            $table->string('title_en');	//Название формы контроля на английском языке
+			$table->string('title_short_kk');	//Название формы контроля на казахском языке
+            $table->string('title_short_ru');	//	Название формы контроля на русском языке
+            $table->string('title_short_en');	//Название формы контроля на английском языке
             $table->timestamps();
 			$table->softDeletes();
         });

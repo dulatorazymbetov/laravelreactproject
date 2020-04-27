@@ -29,6 +29,8 @@ function SubjectsList(props){
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [addOpen, setAddOpen] = useState(false);
+	const [editItem, setEditItem] = useState(false);
+
 	const [form, setForm] = useState({});
 	const [items, setItems] = useState([]);
 
@@ -42,13 +44,72 @@ function SubjectsList(props){
 
 	if(isLoading){return (<div/>);}
 
-	const handleSubmit = (data) => {
+	const handleAddSubmit = (data) => {
 		window.axios.post('subjects', data).then((response) => {
 			setItems(response.data);
 		})
-	} 
-	const handleEdit = () => {}
-
+	}
+	const handleEditSubmit = (data) => {
+		window.axios.post('subjects/'+editItem.id, data).then((response) => {
+			setEditItem(false);
+			setItems(response.data);
+		})
+	}
+	const handleEdit = (id) => {
+		window.axios.get('subjects/'+id).then((response) => {
+			setEditItem(response.data);
+		});
+	}
+	const fields = [
+		{name: 'title_kk', label: 'Название на казахском языке', value: editItem.title_kk},
+		{name: 'title_ru', label: 'Название на русском языке', value: editItem.title_ru},
+		{name: 'title_en', label: 'Название на английском языке', value: editItem.title_en},
+		{name: 'subject_code_kk', label: 'Код дисциплины на казахском языке', value: editItem.subject_code_kk},
+		{name: 'subject_code_ru', label: 'Код дисциплины на русском языке', value: editItem.subject_code_ru},
+		{name: 'subject_code_en', label: 'Код дисциплины на английском языке', value: editItem.subject_code_en},
+		{name: 'description_kk', label: 'Краткое описание дисциплины на казахском языке', value: editItem.description_kk},
+		{name: 'description_ru', label: 'Краткое описание дисциплины на русском языке', value: editItem.description_ru},
+		{name: 'description_en', label: 'Краткое описание дисциплины на английском языке', value: editItem.description_en},
+		{
+			name: 'degree_id', 
+			label: 'Академическая степень, для которой предусмотрена дисциплина',
+			type: 'select',
+			select: {label: 'title_'+getL,value: 'id',items: form.degree}, 
+			value: editItem.degree_id
+		},
+		{
+			name: 'is_language_discipline',
+			label: 'Языковая дисциплина',
+			type: 'checkbox',
+			required: false,
+			width: 1/2, 
+			value: editItem.is_language_discipline
+		},
+		{
+			name: 'is_multilingual',
+			label: 'Полиязычная дисциплина',
+			type: 'checkbox',
+			required: false,
+			width: 1/2, 
+			value: editItem.is_multilingual
+		},
+		{
+			name: 'is_research',
+			label: 'Научно-исследовательская дисциплина',
+			type: 'checkbox',
+			required: false,
+			width: 1/2, 
+			value: editItem.is_research
+		},
+		{
+			name: 'is_practice',
+			label: 'Практика',
+			type: 'checkbox',
+			required: false,
+			width: 1/2, 
+			value: editItem.is_practice
+		}
+	];
 	return (
 		<Box mt={4}>
 			<Button size="large" startIcon={<AddIcon />} onClick={() => {setAddOpen(true)}} variant="contained" color="secondary">
@@ -57,52 +118,8 @@ function SubjectsList(props){
 			<Dialog open={addOpen} fullWidth maxWidth="md" onClose={() => {setAddOpen(false)}}>
 				<FormBuilder 
 					title="Добавить дисциплину"
-					handleSubmit={handleSubmit}
-					fields={[
-						{name: 'title_kk', label: 'Название на казахском языке'},
-						{name: 'title_ru', label: 'Название на русском языке'},
-						{name: 'title_en', label: 'Название на английском языке'},
-						{name: 'subject_code_kk', label: 'Код дисциплины на казахском языке'},
-						{name: 'subject_code_ru', label: 'Код дисциплины на русском языке'},
-						{name: 'subject_code_en', label: 'Код дисциплины на английском языке'},
-						{name: 'description_kk', label: 'Краткое описание дисциплины на казахском языке'},
-						{name: 'description_ru', label: 'Краткое описание дисциплины на русском языке'},
-						{name: 'description_en', label: 'Краткое описание дисциплины на английском языке'},
-						{
-							name: 'degree_id', 
-							label: 'Академическая степень, для которой предусмотрена дисциплина',
-							type: 'select',
-							select: {label: 'title_'+getL,value: 'id',items: form.degree}
-						},
-						{
-							name: 'is_language_discipline',
-							label: 'Языковая дисциплина',
-							type: 'checkbox',
-							required: false,
-							width: 1/2
-						},
-						{
-							name: 'is_multilingual',
-							label: 'Полиязычная дисциплина',
-							type: 'checkbox',
-							required: false,
-							width: 1/2
-						},
-						{
-							name: 'is_research',
-							label: 'Научно-исследовательская дисциплина',
-							type: 'checkbox',
-							required: false,
-							width: 1/2
-						},
-						{
-							name: 'is_practice',
-							label: 'Практика',
-							type: 'checkbox',
-							required: false,
-							width: 1/2
-						}
-					]}
+					handleSubmit={handleAddSubmit}
+					fields={fields}
 				/>
 			</Dialog>
 			<Box mt={3}>
@@ -128,7 +145,7 @@ function SubjectsList(props){
 										<Button variant="outlined" onClick={() => {handleEdit(list.id)}} startIcon={<SettingsIcon />}>Редактировать</Button>
 									</TableCell>
 									<TableCell>
-										<Button color="secondary" startIcon={<DeleteIcon />}>Удалить дисциплину</Button>
+										<Button color="secondary" startIcon={<DeleteIcon />}>Удалить</Button>
 									</TableCell>
 								</TableRow>
 							);
@@ -137,6 +154,13 @@ function SubjectsList(props){
 					</Table>
 				</TableContainer>
 			</Box>
+			<Dialog open={Boolean(editItem)} fullWidth maxWidth="md" onClose={() => {setEditItem(false)}}>
+				<FormBuilder 
+					title="Добавить дисциплину"
+					handleSubmit={handleEditSubmit}
+					fields={fields}
+				/>
+			</Dialog>
 		</Box>
 	);
 }
