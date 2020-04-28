@@ -93,6 +93,12 @@ class EduProgramsController extends Controller
     	$learning_outcome->save();
     	return LearningOutcome::where('edu_program_id', $learning_outcome->edu_program_id)->get();
     }
+    public function deleteOutcome(Request $request){
+    	$learning_outcome = LearningOutcome::find($request->id);
+    	$edu_program_id = $learning_outcome->edu_program_id;
+    	$learning_outcome->delete();
+    	return LearningOutcome::where('edu_program_id', $edu_program_id)->get();
+    }
     public function allSubjects(){
     	return [
     		'items' => Subject::orderBy('subject_code_ru')->get(),
@@ -116,6 +122,12 @@ class EduProgramsController extends Controller
     	$subject->save();
     	return Subject::orderBy('subject_code_ru')->get();
     }
+    public function deleteSubject(Request $request){
+    	$subject = Subject::find($request->id);
+    	$subject->edu_program_subjects()->delete();
+    	$subject->delete();
+    	return Subject::orderBy('subject_code_ru')->get();
+    }
     public function addEduProgramSubject(EduProgramSubjects $request){
     	$data = $request->validated();
     	$data['edu_program_id'] = $request->id;
@@ -128,6 +140,12 @@ class EduProgramsController extends Controller
     	$subject->fill($data);
     	$subject->save();
     	return EduProgramSubject::with('subject')->where('edu_program_id', $subject->edu_program_id)->get();
+    }
+    public function deleteEduProgramSubject(Request $request){
+    	$subject = EduProgramSubject::find($request->id);
+    	$edu_program_id = $subject->edu_program_id;
+    	$subject->delete();
+    	return EduProgramSubject::with('subject')->where('edu_program_id', $edu_program_id)->get();
     }
     public function getEduProgramSubject(Request $request){
     	return [

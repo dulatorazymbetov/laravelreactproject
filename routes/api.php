@@ -46,6 +46,8 @@ Route::group(['middleware' => 'role:edu_programs'], function() {
         ->where('id', '[0-9]+');
     Route::post('learning_outcomes/{id}', 'EduProgramsController@updateOutcome')
         ->where('id', '[0-9]+');
+    Route::delete('learning_outcomes/{id}', 'EduProgramsController@deleteOutcome')
+        ->where('id', '[0-9]+');
     //ДИСЦИПЛИНЫ
     Route::get('subjects', 'EduProgramsController@allSubjects');
     Route::post('subjects', 'EduProgramsController@addSubject');
@@ -53,12 +55,16 @@ Route::group(['middleware' => 'role:edu_programs'], function() {
         ->where('id', '[0-9]+');
     Route::post('subjects/{id}', 'EduProgramsController@updateSubject')
         ->where('id', '[0-9]+');
+    Route::delete('subjects/{id}', 'EduProgramsController@deleteSubject')
+        ->where('id', '[0-9]+');
     //ДИСЦИПЛИНЫ+ПРОГРАММЫ
     Route::post('edu_programs/{id}/subjects', 'EduProgramsController@addEduProgramSubject')
         ->where('id', '[0-9]+');
     Route::get('program_subjects/{id}', 'EduProgramsController@getEduProgramSubject')
         ->where('id', '[0-9]+');
     Route::post('program_subjects/{id}', 'EduProgramsController@updateEduProgramSubject')
+        ->where('id', '[0-9]+');
+    Route::delete('program_subjects/{id}', 'EduProgramsController@deleteEduProgramSubject')
         ->where('id', '[0-9]+');
 });
 

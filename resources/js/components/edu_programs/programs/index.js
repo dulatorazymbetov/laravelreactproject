@@ -76,7 +76,7 @@ function EduProgramsList(){
 								<TableRow hover key={"program_"+index}>
 									<TableCell>{program.id}</TableCell>
 									<TableCell>{program.reg_num}</TableCell>
-									<TableCell>{program.title_kk}</TableCell>
+									<TableCell>{program['title_'+getL]}</TableCell>
 									<TableCell>{program.learning_outcomes_count}</TableCell>
 									<TableCell>
 										<Button startIcon={<SettingsIcon />} component={Link} to={'/edu_programs/'+program.id} variant='outlined'>Редактировать</Button>

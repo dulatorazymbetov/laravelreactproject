@@ -15,7 +15,6 @@ class EduProgramSubjects extends FormRequest {
             'subject_id' => 'required|integer',
             'year' => 'required|integer',
             'term' => 'required|integer',
-            'ects_credits' => 'integer|nullable',
             'subject_cycle_id' => 'required|integer',
             'is_university_subjects' => 'boolean',
             'is_selective' => 'boolean',

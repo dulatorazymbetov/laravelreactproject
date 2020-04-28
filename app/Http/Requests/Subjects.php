@@ -21,6 +21,7 @@ class Subjects extends FormRequest
             'description_kk' => 'string|nullable',
             'description_ru' => 'string|nullable',
             'description_en' => 'string|nullable',
+            'ects_credits' => 'integer|nullable',
             'degree_id' => 'required|integer',
             'is_language_discipline' => 'boolean',
             'is_multilingual' => 'boolean',

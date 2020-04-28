@@ -45,6 +45,14 @@ function ProgramSubjectsList(props){
 			setEditItem(response.data.item);
 		});
 	}
+	const deleteSubject = (id) => {
+		const question = confirm("Вы уверены, что хотите удалить данную дисциплину?");
+		if(question){
+			window.axios.delete('program_subjects/'+id).then((response) => {
+				setItems(response.data);
+			});
+		}
+	}
 	const handleEditSubmit = (data) => {
 		window.axios.post('program_subjects/'+editItem.id, data).then((response) => {
 			setItems(response.data);
@@ -83,12 +91,6 @@ function ProgramSubjectsList(props){
 			type: 'float',
 			helper: 'Значение «-3» предполагает изучение дисциплины в курсе по выбору обучающегося, значение 0 предполагает изучение дисциплины в дополнительном семестре',
 			value: editItem.term
-		},
-		{
-			name: 'ects_credits',
-			label: 'Кредиты',
-			type: 'float',
-			value: editItem.ects_credits
 		},
 		{
 			name: 'subject_cycle_id',
@@ -183,7 +185,7 @@ function ProgramSubjectsList(props){
 											<Button variant="outlined" onClick={() => {handleEdit(list.id)}} startIcon={<SettingsIcon />}>Редактировать</Button>
 										</TableCell>
 										<TableCell>
-											<Button color="secondary" startIcon={<DeleteIcon />}>Удалить</Button>
+											<Button onClick={() => {deleteSubject(list.id)}} color="secondary" startIcon={<DeleteIcon />}>Удалить</Button>
 										</TableCell>
 									</TableRow>
 								);

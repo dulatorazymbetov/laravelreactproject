@@ -49,6 +49,15 @@ function LearningOutcomesList(props){
 			setEditItem(false);
 		});
 	}
+	const deleteOutcome = (id) => {
+		const question = confirm("Вы уверены, что хотите удалить данный результат обучения?");
+		if(question){
+			window.axios.delete('learning_outcomes/'+id).then((response) => {
+				setItems(response.data);
+			});
+		}
+		
+	}
 	return (
 		<Box>
 			<Button size="large" startIcon={<AddIcon />} onClick={() => {setAddOpen(true)}} variant="contained" color="secondary">
@@ -89,7 +98,7 @@ function LearningOutcomesList(props){
 											<Button variant="outlined" onClick={() => {handleEdit(list.id)}} startIcon={<SettingsIcon />}>Редактировать</Button>
 										</TableCell>
 										<TableCell>
-											<Button color="secondary" startIcon={<DeleteIcon />}>Удалить результат</Button>
+											<Button onClick={() => {deleteOutcome(list.id)}} color="secondary" startIcon={<DeleteIcon />}>Удалить</Button>
 										</TableCell>
 									</TableRow>
 								);

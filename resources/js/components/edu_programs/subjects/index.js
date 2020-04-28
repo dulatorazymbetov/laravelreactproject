@@ -61,6 +61,14 @@ function SubjectsList(props){
 			setEditItem(response.data);
 		});
 	}
+	const deleteSubject = (id) => {
+		const question = confirm("Вы уверены, что хотите удалить данную дисциплину?");
+		if(question){
+			window.axios.delete('subjects/'+id).then((response) => {
+				setItems(response.data);
+			});
+		}
+	}
 	const fields = [
 		{name: 'title_kk', label: 'Название на казахском языке', value: editItem.title_kk},
 		{name: 'title_ru', label: 'Название на русском языке', value: editItem.title_ru},
@@ -77,6 +85,12 @@ function SubjectsList(props){
 			type: 'select',
 			select: {label: 'title_'+getL,value: 'id',items: form.degree}, 
 			value: editItem.degree_id
+		},
+		{
+			name: 'ects_credits',
+			label: 'Кредиты',
+			type: 'float',
+			value: editItem.ects_credits
 		},
 		{
 			name: 'is_language_discipline',
@@ -109,7 +123,7 @@ function SubjectsList(props){
 			required: false,
 			width: 1/2, 
 			value: editItem.is_practice
-		}
+		},
 	];
 	return (
 		<Box mt={4}>
@@ -146,7 +160,7 @@ function SubjectsList(props){
 										<Button variant="outlined" onClick={() => {handleEdit(list.id)}} startIcon={<SettingsIcon />}>Редактировать</Button>
 									</TableCell>
 									<TableCell>
-										<Button color="secondary" startIcon={<DeleteIcon />}>Удалить</Button>
+										<Button onClick={() => {deleteSubject(list.id)}} color="secondary" startIcon={<DeleteIcon />}>Удалить</Button>
 									</TableCell>
 								</TableRow>
 							);
