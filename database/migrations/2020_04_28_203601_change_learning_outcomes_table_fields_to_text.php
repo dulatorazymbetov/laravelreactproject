@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class ChangeLearningOutcomesTableFieldsToText extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('learning_outcomes', function (Blueprint $table) {
@@ -20,11 +15,6 @@ class ChangeLearningOutcomesTableFieldsToText extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('learning_outcomes', function (Blueprint $table) {

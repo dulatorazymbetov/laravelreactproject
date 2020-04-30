@@ -87,6 +87,17 @@ function SubjectsList(props){
 			value: editItem.degree_id
 		},
 		{
+			name: 'department_id',
+			label: 'Кафедра',
+			type: 'select',
+			select: {
+				label: 'title_'+getL,
+				value: 'id',
+				items: form.departments
+			},
+			value: editItem.department_id
+		},
+		{
 			name: 'ects_credits',
 			label: 'Кредиты',
 			type: 'float',
@@ -123,6 +134,13 @@ function SubjectsList(props){
 			required: false,
 			width: 1/2, 
 			value: editItem.is_practice
+		},
+		{
+			name: 'is_additional',
+			label: 'Дополнительная дисциплина',
+			type: 'checkbox',
+			required: false,
+			value: editItem.is_additional
 		},
 	];
 	return (

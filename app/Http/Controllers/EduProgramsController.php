@@ -13,7 +13,9 @@ use App\Models\EduProgram\DegreeType;
 use App\Models\EduProgram\ControlForm;
 use App\Models\EduProgram\ExamType;
 
+use App\Models\Department\Department;
 use App\Models\Staff\TeachingLanguage;
+
 use App\Models\EduProgram\Subject;
 use App\Models\EduProgram\SubjectCycle;
 use App\Models\EduProgram\SubjectComponent;
@@ -32,12 +34,6 @@ class EduProgramsController extends Controller
             'academic_degree' => DegreeType::all(),
             'teaching_language' => TeachingLanguage::all()
         ];
-    }
-    public function subjectsForm(Request $request){
-    	return [
-    		'subject_cicles' => SubjectCycle::all(),
-    		'subject_components' => SubjectComponent::all()
-    	];
     }
     public function outcomesForm(Request $request){
     	return [
@@ -104,6 +100,7 @@ class EduProgramsController extends Controller
     		'items' => Subject::orderBy('subject_code_ru')->get(),
     		'form' => [
     			'degree' => DegreeType::all(),
+    			'departments' => Department::all()
     		]
     	];
     }

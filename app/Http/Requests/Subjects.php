@@ -23,6 +23,8 @@ class Subjects extends FormRequest
             'description_en' => 'string|nullable',
             'ects_credits' => 'integer|nullable',
             'degree_id' => 'required|integer',
+            'department_id' => 'required|integer',
+            'is_additional' => 'required|boolean',
             'is_language_discipline' => 'boolean',
             'is_multilingual' => 'boolean',
             'is_research' => 'boolean',
