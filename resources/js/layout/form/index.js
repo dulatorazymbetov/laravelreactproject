@@ -93,6 +93,9 @@ function FormRespond(props){
 										name={list.name}
 										label={list.label || list.name}
 										fullWidth
+										InputProps={{
+            								readOnly: list.readOnly || false,
+          								}}
 										disabled={props.disabled}
 										onChange={(event) => {setFieldValue(event, list.type)}}
 										autoComplete={list.name}
