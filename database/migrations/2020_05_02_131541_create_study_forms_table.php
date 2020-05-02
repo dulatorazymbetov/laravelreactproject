@@ -14,17 +14,13 @@ class CreateStudyFormsTable extends Migration
     public function up()
     {
         Schema::create('study_forms', function (Blueprint $table) {
-            $table->bigIncrements('id');
-			$table->string('description_kz');
-			$table->string('description_ru');
-			$table->string('description_en');
-			$table->tinyInteger('course_count');
-			$table->integer('degree_id');
-			$table->integer('department_type_id');
-			
-			
-            $table->timestamps();
-			$table->softDeletes();
+            $table->tinyInteger('id');
+            $table->string('description_kz');
+            $table->string('description_ru');
+            $table->string('description_en');
+            $table->tinyInteger('course_count');
+            $table->integer('degree_id');
+            $table->integer('department_type_id');
         });
     }
 

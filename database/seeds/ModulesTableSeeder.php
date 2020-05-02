@@ -115,7 +115,7 @@ class ModulesTableSeeder extends Seeder
             'icon' => 'assignment'
         ]);
         DB::table('module_role')->insert([
-            'role_id' => '7',
+            'role_id' => '4',
             'module_id' => '7'
         ]);
         //ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ --НАЧАЛО
@@ -167,6 +167,18 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '2',
             'module_id' => '11'
         ]);
-		
+
+        DB::table('modules')->insert([
+            'id' => '12',
+            'url' => 'diploma_supplement',
+            'description_kk' => 'Diplom qosymshasy',
+            'description_ru' => 'Приложение к диплому',
+            'description_en' => 'Diploma Supplement',
+            'icon' => 'description'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '5',
+            'module_id' => '12'
+        ]);
     }
 }
