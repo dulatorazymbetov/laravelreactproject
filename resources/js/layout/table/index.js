@@ -1,0 +1,132 @@
+import React, { useState, useEffect } from "react";
+
+import { makeStyles } from '@material-ui/core/styles';
+
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+
+import TableContainer from '@material-ui/core/TableContainer';
+import Table from '@material-ui/core/Table';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+
+function TableBuilder(props){
+	const [items, setItems] = useState([]);
+	const [page, setPage] = useState(0);
+	const [rowsPerPage, setRowsPerPage] = useState(15);
+	const [count, setCount] = useState(0);
+
+	useEffect(() => {
+       	getData(rowsPerPage, page);
+    }, []);
+
+	const handleChangePage = (event, newPage) => {
+		setPage(newPage);
+		getData(rowsPerPage, newPage);
+	}
+
+	const handleChangeRowsPerPage = (event) => {
+		const newValue = parseInt(event.target.value, 10);
+		setRowsPerPage(newValue);
+		setPage(0);
+		getData(newValue, 0);
+	}
+
+	const getData = (rows, page) => {
+		window.axios.get(props.url, {params: {rows, page}})
+			.then((response) => {
+       			setItems(response.data.items);
+       			setCount(response.data.total);
+       		});
+	}
+
+	return (
+		<Box>
+			<Box mb={2}>
+				<TablePagination
+					rowsPerPageOptions={[15, 25, 50]}
+					component="div"
+					count={count}
+					rowsPerPage={rowsPerPage}
+					page={page}
+					labelRowsPerPage="На страницу"
+					labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
+					onChangePage={handleChangePage}
+					onChangeRowsPerPage={handleChangeRowsPerPage}
+				/>
+			</Box>
+			<TableContainer component={Paper}>
+				<Table>
+					<TableHead>
+						<TableRow>
+							<TableCell>#</TableCell>
+							{props.rows.map((list,index) => {
+								return (
+									<TableCell key={"header_item_" + index}>{list.label}</TableCell>
+								);
+							})}
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{items.map((item,item_index) => {
+							return (
+								<TableRow hover key={"row_"+item_index}>
+									<TableCell>{rowsPerPage*page+item_index+1}</TableCell>
+									{props.rows.map((row, row_index) => {
+										if(row.type==='string' || !row.type){
+											return (
+												<TableCell key={"row_"+row_index+"_item_"+item_index}>
+													{item[row.value]}
+												</TableCell>
+											);
+										}
+										else if(row.type==='action' || row.type==='link'){
+											let params = {
+												onClick: () => {
+													if(row.action.confirm){
+														if(!confirm(row.action.confirm)){ return false; }
+													}
+													row.action.handle(item[row.action.param] || item)
+												},
+												variant: row.action.variant || "text",
+											}
+											if(row.action.icon){params.startIcon = <Icon>{row.action.icon}</Icon>;}
+											return (
+												<TableCell key={"row_"+row_index+"_item_"+item_index}>
+													<Button {...params}
+														color={row.action.color || "default"}
+													>
+														{row.action.label}
+													</Button>
+												</TableCell>
+											);
+										}
+									})}
+								</TableRow>
+							);
+						})}
+					</TableBody>
+				</Table>
+			</TableContainer>
+			<Box mt={2}>
+				<TablePagination
+					rowsPerPageOptions={[15, 25, 50]}
+					component="div"
+					count={count}
+					rowsPerPage={rowsPerPage}
+					page={page}
+					labelRowsPerPage="На страницу"
+					labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
+					onChangePage={handleChangePage}
+					onChangeRowsPerPage={handleChangeRowsPerPage}
+				/>
+			</Box>
+		</Box>
+	);
+}
+export default TableBuilder;

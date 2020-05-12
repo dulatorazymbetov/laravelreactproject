@@ -22,8 +22,10 @@ Route::get('students', 'UserController@allStudents');
 
 Route::group(['middleware' => 'role:list_of_staff'], function() {
     Route::get('staff', 'ListOfStaffController@all');
-    Route::get('staff/{id}', 'ListOfStaffController@get')->where('id', '[0-9]+');
-    Route::post('staff/{id}/edit', 'ListOfStaffController@edit')->where('id', '[0-9]+');
+    Route::get('staff/{id}', 'ListOfStaffController@get')
+        ->where('id', '[0-9]+');
+    Route::post('staff/{id}/edit', 'ListOfStaffController@edit')
+        ->where('id', '[0-9]+');
 });
 
 Route::group(['middleware' => 'role:edu_programs'], function() {

@@ -4,19 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import Paper from '@material-ui/core/Paper';
-import TableContainer from '@material-ui/core/TableContainer';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
 
 import AddIcon from '@material-ui/icons/Add';
-import SettingsIcon from '@material-ui/icons/Settings';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 import FormBuilder from "@layouts/form";
+import TableBuilder from "@layouts/table";
 import { useLang } from "@contexts/lang";
 
 const useStyles = makeStyles(theme => ({
@@ -26,8 +18,7 @@ const useStyles = makeStyles(theme => ({
 function SubjectsList(props){
 	const classes = useStyles();
 	const { getL } = useLang();
-
-	const [isLoading, setIsLoading] = useState(true);
+	
 	const [addOpen, setAddOpen] = useState(false);
 	const [editItem, setEditItem] = useState(false);
 
@@ -35,14 +26,9 @@ function SubjectsList(props){
 	const [items, setItems] = useState([]);
 
 	useEffect(() => {
-       	window.axios.get('subjects').then((response) => {
-       		setForm(response.data.form);
-       		setItems(response.data.items);
-       		setIsLoading(false);
-       	});
+
     }, []);
 
-	if(isLoading){return (<div/>);}
 
 	const handleAddSubmit = (data) => {
 		setAddOpen(false);
@@ -56,18 +42,22 @@ function SubjectsList(props){
 			setItems(response.data);
 		})
 	}
+	const handleAddOpen = () => {
+		window.axios.get('subjects/form').then((response) => {
+			setForm(response.data);
+			setAddOpen(true);
+		});
+	}
 	const handleEdit = (id) => {
 		window.axios.get('subjects/'+id).then((response) => {
-			setEditItem(response.data);
+			setForm(response.data.form);
+			setEditItem(response.data.items);
 		});
 	}
 	const deleteSubject = (id) => {
-		const question = confirm("Вы уверены, что хотите удалить данную дисциплину?");
-		if(question){
-			window.axios.delete('subjects/'+id).then((response) => {
-				setItems(response.data);
-			});
-		}
+		window.axios.delete('subjects/'+id).then((response) => {
+			setItems(response.data);
+		});
 	}
 	const fields = [
 		{name: 'title_kk', label: 'Название на казахском языке', value: editItem.title_kk},
@@ -143,9 +133,10 @@ function SubjectsList(props){
 			value: editItem.is_additional
 		},
 	];
+
 	return (
 		<Box mt={4}>
-			<Button size="large" startIcon={<AddIcon />} onClick={() => {setAddOpen(true)}} variant="contained" color="secondary">
+			<Button size="large" startIcon={<AddIcon />} onClick={handleAddOpen} variant="contained" color="secondary">
 				Новая дисциплина
 			</Button>
 			<Dialog open={addOpen} fullWidth maxWidth="md" onClose={() => {setAddOpen(false)}}>
@@ -156,36 +147,37 @@ function SubjectsList(props){
 				/>
 			</Dialog>
 			<Box mt={3}>
-				<TableContainer component={Paper}>
-					<Table>
-						<TableHead>
-							<TableRow>
-								<TableCell>#</TableCell>
-								<TableCell>Код дисциплины</TableCell>
-								<TableCell>Название</TableCell>
-								<TableCell></TableCell>
-								<TableCell></TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
-						{items.map((list, index) => {
-							return (
-								<TableRow hover key={"subject_"+index}>
-									<TableCell>{list.id}</TableCell>
-									<TableCell>{list['subject_code_'+getL]}</TableCell>
-									<TableCell>{list['title_'+getL]}</TableCell>
-									<TableCell>
-										<Button variant="outlined" onClick={() => {handleEdit(list.id)}} startIcon={<SettingsIcon />}>Редактировать</Button>
-									</TableCell>
-									<TableCell>
-										<Button onClick={() => {deleteSubject(list.id)}} color="secondary" startIcon={<DeleteIcon />}>Удалить</Button>
-									</TableCell>
-								</TableRow>
-							);
-						})}
-					</TableBody>
-					</Table>
-				</TableContainer>
+				<TableBuilder 
+					rows={[
+						{label: 'Код дисциплины', value: 'subject_code_'+getL},
+						{label: 'Название', value: 'title_'+getL},
+						{
+							label: 'Редактирование',
+							type: 'action',
+							action: {
+								handle: handleEdit, 
+								param: 'id', 
+								label: 'Редактировать', 
+								variant: 'outlined', 
+								icon: 'settings'
+							}
+						},
+						{
+							label: 'Удаление', 
+							type: 'action',
+							action: { 
+								handle: deleteSubject, 
+								param: 'id', 
+								label: 'Удалить', 
+								color: 'secondary', 
+								icon: 'delete_outline',
+								confirm: "Вы уверены, что хотите удалить данную дисциплину?"
+							}
+						}
+					]}
+					items={items} 
+					url="subjects"
+				/>
 			</Box>
 			<Dialog open={Boolean(editItem)} fullWidth maxWidth="md" onClose={() => {setEditItem(false)}}>
 				<FormBuilder 

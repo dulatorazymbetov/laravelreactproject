@@ -40,6 +40,12 @@ class EduProgramsController extends Controller
     		'edu_programs' => EduProgram::all()
     	];
     }
+    public function subjectsForm(){
+        return [
+            'degree' => DegreeType::all(),
+            'departments' => Department::all()
+        ];
+    }
     public function eduProgramSubjectsForm(Request $request){
     	return [
     		'subjects' => Subject::orderBy('subject_code_ru')->get(),
@@ -95,13 +101,17 @@ class EduProgramsController extends Controller
     	$learning_outcome->delete();
     	return LearningOutcome::where('edu_program_id', $edu_program_id)->get();
     }
-    public function allSubjects(){
-    	return [
-    		'items' => Subject::orderBy('subject_code_ru')->get(),
-    		'form' => [
-    			'degree' => DegreeType::all(),
-    			'departments' => Department::all()
-    		]
+    public function allSubjects(Request $request){
+    	$rows = $request->rows;
+        $offset = $request->page * $rows;
+        $items = Subject::orderBy('subject_code_ru')
+            ->limit(10)
+            ->take($rows)
+            ->skip($offset)
+            ->get();
+        return [
+    		'items' => $items,
+            'total' => Subject::count()
     	];
     }
     public function addSubject(Subjects $request){
@@ -110,7 +120,10 @@ class EduProgramsController extends Controller
 		return Subject::orderBy('subject_code_ru')->get();
     }
     public function getSubject(Request $request){
-    	return Subject::find($request->id);
+        return [
+            'items' => Subject::find($request->id),
+            'form' => $this->subjectsForm()
+        ];
     }
     public function updateSubject(Subjects $request){
     	$data = $request->validated();
