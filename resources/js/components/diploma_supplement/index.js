@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Title from "@layouts/title";
-import MaterialTable from 'material-table';
+import MaterialTable, { MTableToolbar } from 'material-table';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -74,133 +74,146 @@ function DiplomaSupplement(){
 		<Box>
 			<Title content="Приложение к диплому" />
 			{!isLoading && <Box mt={3}>
-				<MaterialTable
-		      		title="Список студентов"
-		      		localization={{
-		      			body: {
-		      				emptyDataSourceMessage: "Не найдено"
-		      			},
-	                    toolbar: {
-	                        searchPlaceholder: "Поиск",
-	                        searchTooltip: "Поиск"
-	                    },
-	                    pagination: {
-	                    	labelRowsSelect: "строк",
-	                    	labelDisplayedRows: "{from}-{to} из {count}",
-	                    	firstTooltip: "Первая страница",
-	                    	previousTooltip: "Предыдущая страница",
-	                    	nextTooltip: "Следующая страница",
-	                    	lastTooltip: "Последняя страница"
-	                    }
-	                }}
-		      		columns={[
-		      			{ title: '№', field: 'id' },
-		      			{ title: 'ID', field: 'login' },
-				        { title: 'Имя', field: 'name' },
-				        { title: 'Фамилия', field: 'surname' },
-				        { title: 'Отчество', field: 'patronymic' },
-				        { title: 'Дата рождения', field: 'birthdate', type: 'date' },
-		      			{ title: 'ИИН', field: 'iin' },
-				        { title: 'Статус студента', field: 'status' },
-				        // { title: 'Академическая степень', field: 'form'}
-	      			]}
-			      	data=
-			      	{
-			      		data
-		      		}
-			      	detailPanel =
-			      	{[
-		      			{
-				      		icon: 'description',
-					      	render: rowData => {
-				      			return (
-				      				<Box m={3}>
-				      					<Box>
-				      						<form className={classes.root} noValidate autoComplete="off">
-					      						<TextField
-					      							required
-													id="outlined-required"
-													label="Имя"
-													defaultValue={rowData.name}
-													variant="outlined"
-												/>
-												<TextField
-													required
-													id="outlined-required"
-													label="Фамилия"
-													defaultValue={rowData.surname}
-													variant="outlined"
-												/>
-												<TextField
-													required
-													id="outlined-required"
-													label="Отчество"
-													defaultValue={rowData.patronymic}
-													variant="outlined"
-												/>
-												<TextField
-													required											
-													id="outlined-required"
-													label="Дата рождения"
-													defaultValue={rowData.birthdate}
-													type="date"
-													variant="outlined"
-												/>
-												<TextField
-													required											
-													id="outlined-required"
-													label="ID Студента"
-													defaultValue={rowData.login}
-													variant="outlined"
-												/>
-											</form>
-				      					</Box>
-				      					<Box mt={3}>
-					      					<TableContainer component={Paper}>
-										      <Table className={classes.table} aria-label="simple table">
-										        <TableHead>
-										          <TableRow>
-										            <TableCell>Названия дисциплины</TableCell>
-										            <TableCell align="right">Кол-во кредитов</TableCell>
-										            <TableCell align="right">ECTS</TableCell>
-										            <TableCell align="right">Буква</TableCell>
-										            <TableCell align="right">Цифра</TableCell>
-										            <TableCell align="right">Традиц.</TableCell>
-										          </TableRow>
-										        </TableHead>
-										        <TableBody>
-										          {rows.map((row) => (
-										            <TableRow key={row.name}>
-										              <TableCell component="th" scope="row">
-										                {row.name}
-										              </TableCell>
-										              <TableCell align="right">{row.credit_count}</TableCell>
-										              <TableCell align="right">{row.ECTS}</TableCell>
-										              <TableCell align="right">{row.letter_mark}</TableCell>
-										              <TableCell align="right">{row.mark}</TableCell>
-										              <TableCell align="right">{row.trad_mark}</TableCell>
-										            </TableRow>
-										          ))}
-										        </TableBody>
-										      </Table>
-										    </TableContainer>
-									    </Box>
-									    <Box mt={3}>
-									    	<Button
-										        variant="contained"
-										        color="primary"
-										        size="small"
-										        startIcon={<SaveIcon />}
-									      	>
-										    	Скачать
-									      	</Button>
-									    </Box>
-				      				</Box>
-								);
-						    }
-						},
-					]}
-			    />
+				<Paper elevation={3}>
+					<MaterialTable
+			      		title="Список студентов"
+			      		localization={{
+			      			body: {
+			      				emptyDataSourceMessage: "Не найдено"
+			      			},
+		                    toolbar: {
+		                        searchPlaceholder: "Поиск",
+		                        searchTooltip: "Поиск",
+		                        exportTitle: "Скачать",
+		                        exportName: "Скачать как CSV"
+		                    },
+		                    pagination: {
+		                    	labelRowsSelect: "строк",
+		                    	labelDisplayedRows: "{from}-{to} из {count}",
+		                    	firstTooltip: "Первая страница",
+		                    	previousTooltip: "Предыдущая страница",
+		                    	nextTooltip: "Следующая страница",
+		                    	lastTooltip: "Последняя страница"
+		                    }
+		                }}
+			      		columns={[
+			      			{ title: '№', field: 'id' },
+			      			{ title: 'ID', field: 'login' },
+					        { title: 'Имя', field: 'name' },
+					        { title: 'Фамилия', field: 'surname' },
+					        { title: 'Отчество', field: 'patronymic' },
+					        { title: 'Дата рождения', field: 'birthdate', type: 'date' },
+			      			{ title: 'ИИН', field: 'iin' },
+					        { title: 'Статус студента', field: 'status' },
+					        // { title: 'Академическая степень', field: 'form'}
+		      			]}
+				      	data=
+				      	{
+				      		data
+			      		}
+				      	detailPanel =
+				      	{[
+			      			{
+					      		icon: 'description',
+						      	render: rowData => {
+					      			return (
+					      				<Box m={3}>
+					      					<Box>
+					      						<form className={classes.root} noValidate autoComplete="off">
+						      						<TextField
+														id="outlined"
+														label="Имя"
+														defaultValue={rowData.name}
+														variant="outlined"
+													/>
+													<TextField
+														id="outlined"
+														label="Фамилия"
+														defaultValue={rowData.surname}
+														variant="outlined"
+													/>
+													<TextField
+														id="outlined"
+														label="Отчество"
+														defaultValue={rowData.patronymic}
+														variant="outlined"
+													/>
+													<TextField
+														InputLabelProps={{ shrink: true }}									
+														id="outlined"
+														label="Дата рождения"
+														defaultValue={rowData.birthdate}
+														type="date"
+														variant="outlined"
+													/>
+													<TextField									
+														id="outlined"
+														label="ID Студента"
+														defaultValue={rowData.login}
+														variant="outlined"
+													/>
+												</form>
+					      					</Box>
+					      					<Paper elevation={3}>
+						      					<Box mt={3}>
+							      					<TableContainer>
+												      <Table className={classes.table} aria-label="simple table">
+												        <TableHead>
+												          <TableRow>
+												            <TableCell>Названия дисциплины</TableCell>
+												            <TableCell align="right">Кол-во кредитов</TableCell>
+												            <TableCell align="right">ECTS</TableCell>
+												            <TableCell align="right">Буква</TableCell>
+												            <TableCell align="right">Цифра</TableCell>
+												            <TableCell align="right">Традиц.</TableCell>
+												          </TableRow>
+												        </TableHead>
+												        <TableBody>
+												          {rows.map((row) => (
+												            <TableRow key={row.name}>
+												              <TableCell component="th" scope="row">
+												                {row.name}
+												              </TableCell>
+												              <TableCell align="right">{row.credit_count}</TableCell>
+												              <TableCell align="right">{row.ECTS}</TableCell>
+												              <TableCell align="right">{row.letter_mark}</TableCell>
+												              <TableCell align="right">{row.mark}</TableCell>
+												              <TableCell align="right">{row.trad_mark}</TableCell>
+												            </TableRow>
+												          ))}
+												        </TableBody>
+												      </Table>
+												    </TableContainer>
+											    </Box>
+											</Paper>
+											<Box mt={3}>
+										    	<Button
+										    		href="/downloadDiplomaSupplement"
+											        variant="contained"
+											        color="primary"
+											        size="small"
+											        startIcon={<SaveIcon />}
+										      	>
+											    	Скачать
+										      	</Button>
+										    </Box>
+					      				</Box>
+									);
+							    }
+							},
+						]}
+						components={{
+					        Toolbar: props => (
+					            <div style={{  }}>
+					                <MTableToolbar {...props} />
+					            </div>
+					        )
+					    }}
+					    options={{
+				      		exportButton: true
+					    }}
+				    />
+				</Paper>
 			</Box>}
 		</Box>
 	);

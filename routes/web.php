@@ -13,9 +13,12 @@
 
 Route::get('/', function () {return view('welcome');});
 
+Route::get('/dd', function () {return view('diploma_supplement');});
+
 Route::get('downloadReport1PDF/{id}', 'DownloadPdfController@downloadReport1PDF');
 Route::get('downloadReport2PDF/{id}', 'DownloadPdfController@downloadReport2PDF');
 Route::get('downloadReport3PDF/{id}', 'DownloadPdfController@downloadReport3PDF');
 Route::get('downloadReport4PDF/{id}', 'DownloadPdfController@downloadReport4PDF');
 Route::get('downloadReport5PDF/{id}', 'DownloadPdfController@downloadReport5PDF');
 Route::get('downloadReport6PDF/{id}', 'DownloadPdfController@downloadReport6PDF');
+Route::get('downloadDiplomaSupplement', 'DownloadPdfController@downloadDiplomaSupplement');

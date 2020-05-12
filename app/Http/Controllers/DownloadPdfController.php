@@ -55,4 +55,9 @@ class DownloadPdfController extends Controller
         
         return $pdf->download('Report.pdf');
     }
+
+    public function downloadDiplomaSupplement() {
+        $pdf = PDF::loadView('diploma_supplement');
+        return $pdf->download('diploma_supplement.pdf');
+    }
 }
