@@ -1,3 +1,32 @@
+# Кастомные библиотеки:
+
+## Конструктор форм
+
+<b>IMPORT</b>
+```js
+import FormBuilder from "@layouts/form";
+```
+<b>JSX</B>
+```html
+<FormBuilder 
+    title="Заголовок формы"
+    handleSubmit={handleAddSubmit}
+    fields={fields}
+/>
+```
+<b>API</b>
+fields - array
+```js
+const fields = [
+    {
+        name: 'name',
+        label: 'Описание',
+        type: 'string(default) || select || autocomplete || checkbox || date'
+    }
+];
+```
+
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
