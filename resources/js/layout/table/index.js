@@ -20,7 +20,7 @@ function TableBuilder(props){
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(15);
 	const [count, setCount] = useState(0);
-
+	const [showFilter, setShowFilter] = useState(false);
 	useEffect(() => {
        	getData(rowsPerPage, page);
     }, []);
@@ -47,7 +47,14 @@ function TableBuilder(props){
 
 	return (
 		<Box>
-			<Box mb={2}>
+			<Box mb={2} display="flex">
+				<Button 
+					variant={showFilter ? "contained" : "outlined"}
+					startIcon={<Icon>{showFilter ? "close" : "filter_list"}</Icon>}
+					onClick={() => {setShowFilter(!showFilter)}}
+				>
+					Расширенный поиск
+				</Button>
 				<TablePagination
 					rowsPerPageOptions={[15, 25, 50]}
 					component="div"
@@ -60,6 +67,9 @@ function TableBuilder(props){
 					onChangeRowsPerPage={handleChangeRowsPerPage}
 				/>
 			</Box>
+			{showFilter && <Box component={Paper} p={2} my={2}>
+				Фильтры		
+			</Box>}
 			<TableContainer component={Paper}>
 				<Table>
 					<TableHead>
