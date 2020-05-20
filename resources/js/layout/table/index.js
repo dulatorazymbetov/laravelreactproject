@@ -43,12 +43,16 @@ function TableBuilder(props){
 	}
 
 	const getData = (rows, page, filter) => {
-		console.log(searchInputTimer);
 		window.axios.get(props.url, {params: {rows, page, filter}})
 			.then((response) => {
        			setItems(response.data.items);
        			setCount(response.data.total);
        		});
+	}
+	const handleShowFilter = () => {
+		setShowFilter(!showFilter); 
+		setFilter({});
+		getData(rowsPerPage, page, {});
 	}
 	const handleSearch = (event) => {
 		setFilter({...filter, search: event.target.value});
@@ -70,7 +74,7 @@ function TableBuilder(props){
 				<Button 
 					variant={showFilter ? "contained" : "outlined"}
 					startIcon={<Icon>{showFilter ? "close" : "filter_list"}</Icon>}
-					onClick={() => {setShowFilter(!showFilter)}}
+					onClick={handleShowFilter}
 				>
 					Расширенный поиск
 				</Button>

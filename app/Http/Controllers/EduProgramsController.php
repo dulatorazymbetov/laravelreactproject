@@ -114,9 +114,10 @@ class EduProgramsController extends Controller
                 return $query->where('title_ru', 'like', '%'.$filter->search.'%');
             })
             ->get();
+        $total = Subject::when(isset($filter->search), function ($query) use ($filter) {return $query->where('title_ru', 'like', '%'.$filter->search.'%');})->count();
         return [
     		'items' => $items,
-            'total' => Subject::count()
+            'total' => $total
     	];
     }
     public function addSubject(Subjects $request){
