@@ -104,10 +104,15 @@ class EduProgramsController extends Controller
     public function allSubjects(Request $request){
     	$rows = $request->rows;
         $offset = $request->page * $rows;
+        $filter = json_decode($request->filter);
         $items = Subject::orderBy('subject_code_ru')
+            ->with('department')
             ->limit(10)
             ->take($rows)
             ->skip($offset)
+            ->when(isset($filter->search), function ($query) use ($filter) {
+                return $query->where('title_ru', 'like', '%'.$filter->search.'%');
+            })
             ->get();
         return [
     		'items' => $items,

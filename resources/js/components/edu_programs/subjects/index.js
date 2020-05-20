@@ -23,8 +23,8 @@ function SubjectsList(props){
 	const [editItem, setEditItem] = useState(false);
 
 	const [form, setForm] = useState({});
-	const [items, setItems] = useState([]);
-
+	const [isLoading, setIsLoading] = useState(false);
+	const [refreshDate, setRefreshDate] = useState(new Date);
 	useEffect(() => {
 
     }, []);
@@ -33,13 +33,14 @@ function SubjectsList(props){
 	const handleAddSubmit = (data) => {
 		setAddOpen(false);
 		window.axios.post('subjects', data).then((response) => {
-			setItems(response.data);
+			setRefreshDate(new Date);
 		})
 	}
 	const handleEditSubmit = (data) => {
+		setIsLoading(true);
 		window.axios.post('subjects/'+editItem.id, data).then((response) => {
 			setEditItem(false);
-			setItems(response.data);
+			setRefreshDate(new Date);
 		})
 	}
 	const handleAddOpen = () => {
@@ -55,8 +56,9 @@ function SubjectsList(props){
 		});
 	}
 	const deleteSubject = (id) => {
+		setIsLoading(true);
 		window.axios.delete('subjects/'+id).then((response) => {
-			setItems(response.data);
+			setRefreshDate(new Date);
 		});
 	}
 	const fields = [
@@ -151,6 +153,7 @@ function SubjectsList(props){
 					rows={[
 						{label: 'Код дисциплины', value: 'subject_code_'+getL},
 						{label: 'Название', value: 'title_'+getL},
+						{label: 'Кафедра', value: ['department', 'title_'+getL]},
 						{
 							label: 'Редактирование',
 							type: 'action',
@@ -175,8 +178,8 @@ function SubjectsList(props){
 							}
 						}
 					]}
-					items={items} 
 					url="subjects"
+					refreshDate={refreshDate}
 				/>
 			</Box>
 			<Dialog open={Boolean(editItem)} fullWidth maxWidth="md" onClose={() => {setEditItem(false)}}>

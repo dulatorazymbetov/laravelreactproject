@@ -67,6 +67,7 @@ function App() {
     const [userInfo, setUserInfo] = useState(null);
     const [lang, setLang] = useState(language);
     const [isLoading, setIsLoading] = useState(true);
+    const [authTimerInterval, setAuthTimerInterval] = useState();
 
     let words = {};
     const setW = (e) => {words = e;}

@@ -12,4 +12,7 @@ class Subject extends Model {
     public function edu_program_subjects(){
     	return $this->hasMany('App\Models\EduProgram\EduProgramSubject');
     }
+    public function department(){
+    	return $this->belongsTo('App\Models\Department\Department');
+    }
 }

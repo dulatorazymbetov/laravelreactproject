@@ -15,19 +15,24 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
+import TextField from '@material-ui/core/TextField';
+
 function TableBuilder(props){
 	const [items, setItems] = useState([]);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(15);
 	const [count, setCount] = useState(0);
 	const [showFilter, setShowFilter] = useState(false);
+	const [filter, setFilter] = useState({});
+	const [searchInputTimer, setSearchInputTimer] = useState();
+
 	useEffect(() => {
-       	getData(rowsPerPage, page);
-    }, []);
+       	getData(rowsPerPage, page, filter);
+    }, [props.refreshDate]);
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
-		getData(rowsPerPage, newPage);
+		getData(rowsPerPage, newPage, filter);
 	}
 
 	const handleChangeRowsPerPage = (event) => {
@@ -37,14 +42,28 @@ function TableBuilder(props){
 		getData(newValue, 0);
 	}
 
-	const getData = (rows, page) => {
-		window.axios.get(props.url, {params: {rows, page}})
+	const getData = (rows, page, filter) => {
+		console.log(searchInputTimer);
+		window.axios.get(props.url, {params: {rows, page, filter}})
 			.then((response) => {
        			setItems(response.data.items);
        			setCount(response.data.total);
        		});
 	}
-
+	const handleSearch = (event) => {
+		setFilter({...filter, search: event.target.value});
+		clearTimeout(searchInputTimer);
+		setSearchInputTimer(
+			setTimeout(
+				getData, 
+				3000, 
+				rowsPerPage, 
+				page, 
+				{...filter, search: event.target.value}
+			)
+		);
+		
+	}
 	return (
 		<Box>
 			<Box mb={2} display="flex">
@@ -68,7 +87,12 @@ function TableBuilder(props){
 				/>
 			</Box>
 			{showFilter && <Box component={Paper} p={2} my={2}>
-				Фильтры		
+				<TextField 
+					value={filter['search'] || ''} 
+					onChange={handleSearch} 
+					label="Поиск" 
+					variant="outlined" 
+				/>	
 			</Box>}
 			<TableContainer component={Paper}>
 				<Table>
@@ -91,7 +115,12 @@ function TableBuilder(props){
 										if(row.type==='string' || !row.type){
 											return (
 												<TableCell key={"row_"+row_index+"_item_"+item_index}>
-													{item[row.value]}
+													{Array.isArray(row.value) 
+														? 
+														(item[row.value[0]] ? item[row.value[0]][row.value[1]] : '-')
+														: 
+														item[row.value]
+													}
 												</TableCell>
 											);
 										}
