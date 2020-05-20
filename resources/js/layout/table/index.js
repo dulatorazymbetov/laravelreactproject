@@ -39,7 +39,7 @@ function TableBuilder(props){
 		const newValue = parseInt(event.target.value, 10);
 		setRowsPerPage(newValue);
 		setPage(0);
-		getData(newValue, 0);
+		getData(newValue, 0, filter);
 	}
 
 	const getData = (rows, page, filter) => {
