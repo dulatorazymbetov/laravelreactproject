@@ -39,10 +39,12 @@ class UserController extends Controller
             ->skip($offset)
             ->when(isset($filter->search), function ($q) use ($filter) {
                 $q->whereRaw("concat(firstname, ' ', lastname, ' ', patronymic) like '%".$filter->search."%' ");
+                $q->orWhereRaw("login like '%".$filter->search."%' ");
             })
             ->get();
         $total = User::when(isset($filter->search), function ($q) use ($filter) {
                 $q->whereRaw("concat(firstname, ' ', lastname, ' ', patronymic) like '%".$filter->search."%' ");
+                $q->orWhereRaw("login like '%".$filter->search."%' ");
             })->count();
 
         return [
@@ -61,6 +63,7 @@ class UserController extends Controller
     public function updateUser(Request $request){
         $user = User::with('roles')->find($request->id);
         $user->lastname = $request->lastname;
+        $user->firstname = $request->firstname;
         $user->roles()->sync(Role::findMany(explode(',', $request->roles)));
         $user->save();
         
