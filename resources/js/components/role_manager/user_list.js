@@ -2,15 +2,11 @@ import React, { useState, useEffect } from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import Paper from '@material-ui/core/Paper';
-import TableContainer from '@material-ui/core/TableContainer';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-
 import { useLang } from "@contexts/lang";
+import TableBuilder from "@layouts/table";
+import FormBuilder from "@layouts/form";
+
+import Dialog from '@material-ui/core/Dialog';
 
 const useStyles = makeStyles(theme => ({
 	
@@ -18,61 +14,90 @@ const useStyles = makeStyles(theme => ({
 
 function UserList(props) {
 	const classes = useStyles();
-	const [users, setUsers] = useState([]);
+	const { getL } = useLang();
+
+	const [editItem, setEditItem] = useState(false);
+	const [form, setForm] = useState({});
 
 	useEffect(() => {
-    	window.axios('/users').then((response) => {
-    		setUsers(response.data);
-    	});
+
     }, []);
 
+	const editSubject = (id) => {
+		window.axios.get('users/'+id).then((response) => {
+			setForm(response.data.form);
+			setEditItem(response.data.items);
+		});
+	}
+	const handleEditSubmit = (data) => {
+		window.axios.post('users/'+editItem.id, data);
+	}
 	return (
-		<TableContainer component={Paper}>
-			<Table stickyHeader>
-				<TableHead>
-					<TableRow>
-						<TableCell>
-							ID
-						</TableCell>
-						<TableCell>
-							Учетная запись
-						</TableCell>
-						<TableCell>
-							ФИО
-						</TableCell>
-						<TableCell>
-							Доступные роли
-						</TableCell>
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{users.map((user, user_index) => {
-						return (
-							<TableRow hover key={"user_"+user_index}>
-								<TableCell>
-									{user.id}
-								</TableCell>
-								<TableCell>
-									{user.login}
-								</TableCell>
-								<TableCell>
-									{user.firstname} {user.lastname}
-								</TableCell>
-								<TableCell>
-									{user.roles.map((role, role_index) =>{
-										return (
-											<div key={"role_"+role_index}>
-												{role.name}
-											</div>
-										);
-									})}
-								</TableCell>
-							</TableRow>
-						);
-					})}
-				</TableBody>
-			</Table>
-		</TableContainer>
+		<div>
+			<TableBuilder 
+				rows={[
+					{label: 'Учетная запись', value: 'login'},
+					{label: 'ФИО', value: row => row.lastname + " " + row.firstname + " " + row.patronymic},
+					{
+						label: 'Редактирование', 
+						type: 'action', 
+						action: {
+							handle: editSubject,
+							icon: 'settings',
+							variant: 'outlined',
+							param: 'id',
+							label: 'Редактировать'
+						}
+					}
+				]}
+				url="users"
+			/>
+			<Dialog open={Boolean(editItem)} onClose={() => {setEditItem(false)}} fullWidth maxWidth="md">
+				<FormBuilder 
+					title="Данные о пользователе"
+					handleSubmit={handleEditSubmit}
+					fields={[
+						{
+							label: "Фамилия",
+							name: 'lastname',
+							value: editItem.lastname
+						},
+						{
+							label: 'Имя',
+							name: 'firstname',
+							value: editItem.firstname
+						},
+						{
+							label: 'Отчество',
+							name: 'patronymic',
+							value: editItem.patronymic
+						},
+						{
+							label: 'E-mail',
+							name: 'email',
+							value: editItem.email
+						},
+						{
+							label: 'ИИН',
+							name: 'iin',
+							value: editItem.iin
+						},
+						{
+							label: 'Добавленные роли',
+							name: 'roles',
+							type: 'select',
+							value: editItem.roles,
+							select: {
+								label: 'description_'+getL,
+								items: form.roles,
+								multiple: true,
+								value: 'id'
+							}
+						}
+					]}
+				/>
+			</Dialog>
+		</div>
 	);
 
 } 

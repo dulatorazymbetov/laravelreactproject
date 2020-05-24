@@ -13,6 +13,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
+import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -21,6 +22,8 @@ import { MuiPickersUtilsProvider, DatePicker} from '@material-ui/pickers';
 import DateFnsUtils from "@date-io/date-fns";
 import enLocale from "date-fns/locale/en-US";
 import ruLocale from "date-fns/locale/ru";
+
+import FormBuilderSelect from "./select.js";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -68,7 +71,10 @@ function FormRespond(props){
 		if(type === 'float'){newValue = parseFloat(newValue) || '';}
 		setValue({...value, [event.target.name]: newValue});
 	}
-
+	const handleChangeValue = (name, newValue) => {
+		console.log(name);
+		setValue({...value, [name]: newValue});
+	}
 	let enter_rows = 0;
 	let all_rows = 0;
 
@@ -86,6 +92,8 @@ function FormRespond(props){
 								all_rows++;
 								if(value[list.name]){enter_rows++}
 							}
+							if(props.disabled){list.disabled = true;}
+							list.handleChange =  handleChangeValue;
 							return (
 								<Grid item key={index} xs={12} sm={12 * (list.width || 1)}>
 									{(list.type === 'string' || list.type === 'float' || !list.type) && <TextField
@@ -103,31 +111,9 @@ function FormRespond(props){
 										variant="filled"
 										helperText={list.helper}
 									/>}
-									{list.type === 'select' && <FormControl fullWidth variant="filled" required={list.required}>
-										<InputLabel id={list.name + "-label"}>
-											{list.label}
-										</InputLabel>
-										<Select
-											labelId={list.name + "-label"}
-											value={value[list.name]}
-											disabled={props.disabled}
-											inputProps={{name: list.name}}
-											onChange={(event) => {setFieldValue(event, list.type)}}
-										>
-											{list.select.items.map((select_list, select_index) => {
-												let label = select_list[list.select.label];
-												if(list.select.prefix_label){
-													label = select_list[list.select.prefix_label] + " " + label;
-												}
-												
-												return (
-													<MenuItem value={select_list.id} key={select_index}>
-														{label}
-													</MenuItem>
-												);
-											})}
-										</Select>
-									</FormControl>}
+									{list.type === 'select' && <FormBuilderSelect   
+										{...list}
+									/>}
 									{list.type === 'autocomplete' && <Box>
 										<Autocomplete
       										id={list.name}

@@ -23,8 +23,8 @@ function SubjectsList(props){
 	const [editItem, setEditItem] = useState(false);
 
 	const [form, setForm] = useState({});
-	const [isLoading, setIsLoading] = useState(false);
 	const [refreshDate, setRefreshDate] = useState(new Date);
+	
 	useEffect(() => {
 
     }, []);
@@ -37,7 +37,6 @@ function SubjectsList(props){
 		})
 	}
 	const handleEditSubmit = (data) => {
-		setIsLoading(true);
 		window.axios.post('subjects/'+editItem.id, data).then((response) => {
 			setEditItem(false);
 			setRefreshDate(new Date);
@@ -56,7 +55,6 @@ function SubjectsList(props){
 		});
 	}
 	const deleteSubject = (id) => {
-		setIsLoading(true);
 		window.axios.delete('subjects/'+id).then((response) => {
 			setRefreshDate(new Date);
 		});

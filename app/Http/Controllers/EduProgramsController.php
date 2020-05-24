@@ -107,14 +107,15 @@ class EduProgramsController extends Controller
         $filter = json_decode($request->filter);
         $items = Subject::orderBy('subject_code_ru')
             ->with('department')
-            ->limit(10)
             ->take($rows)
             ->skip($offset)
             ->when(isset($filter->search), function ($query) use ($filter) {
                 return $query->where('title_ru', 'like', '%'.$filter->search.'%');
             })
             ->get();
-        $total = Subject::when(isset($filter->search), function ($query) use ($filter) {return $query->where('title_ru', 'like', '%'.$filter->search.'%');})->count();
+        $total = Subject::when(isset($filter->search), function ($query) use ($filter) {
+				return $query->where('title_ru', 'like', '%'.$filter->search.'%');
+			})->count();
         return [
     		'items' => $items,
             'total' => $total

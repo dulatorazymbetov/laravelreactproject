@@ -15,10 +15,16 @@ use Illuminate\Http\Request;
 
 Route::post('auth', 'Auth\LoginController@login');
 Route::get('auth', 'Auth\LoginController@status');
-Route::get('users', 'UserController@allUsers');
+
 Route::get('roles', 'UserController@allRoles');
 Route::get('modules', 'UserController@allModules');
 Route::get('students', 'UserController@allStudents');
+
+Route::group(['middleware' => 'role:role_manager'], function() {
+    Route::get('users', 'UserController@users');
+    Route::get('users/{id}', 'UserController@getUser');
+    Route::post('users/{id}', 'UserController@updateUser');
+});
 
 Route::group(['middleware' => 'role:list_of_staff'], function() {
     Route::get('staff', 'ListOfStaffController@all');

@@ -119,11 +119,11 @@ function TableBuilder(props){
 										if(row.type==='string' || !row.type){
 											return (
 												<TableCell key={"row_"+row_index+"_item_"+item_index}>
-													{Array.isArray(row.value) 
+													{Array.isArray(row.value)
 														? 
 														(item[row.value[0]] ? item[row.value[0]][row.value[1]] : '-')
 														: 
-														item[row.value]
+														typeof row.value === "function" ? row.value(item) : item[row.value]
 													}
 												</TableCell>
 											);
