@@ -27,11 +27,14 @@ Route::group(['middleware' => 'role:role_manager'], function() {
 });
 
 Route::group(['middleware' => 'role:list_of_staff'], function() {
-    Route::get('staff', 'ListOfStaffController@all');
-    Route::get('staff/{id}', 'ListOfStaffController@get')
+    Route::get('list_of_staff', 'ListOfStaffController@staff');
+    Route::get('list_of_staff/{id}', 'ListOfStaffController@get')
         ->where('id', '[0-9]+');
-    Route::post('staff/{id}/edit', 'ListOfStaffController@edit')
+    Route::post('list_of_staff/{id}', 'ListOfStaffController@edit')
         ->where('id', '[0-9]+');
+    Route::get('list_of_staff/{id}/positions', 'ListOfStaffController@getPositions')
+        ->where('id', '[0-9]+');
+    Route::get('list_of_staff/positions_form', 'ListOfStaffController@positionsForm');
 });
 
 Route::group(['middleware' => 'role:edu_programs'], function() {

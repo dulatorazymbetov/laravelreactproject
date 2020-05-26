@@ -137,13 +137,11 @@ class EduProgramsController extends Controller
     	$subject = Subject::find($request->id);
     	$subject->fill($data);
     	$subject->save();
-    	return Subject::orderBy('subject_code_ru')->get();
     }
     public function deleteSubject(Request $request){
     	$subject = Subject::find($request->id);
     	$subject->edu_program_subjects()->delete();
     	$subject->delete();
-    	return Subject::orderBy('subject_code_ru')->get();
     }
     public function addEduProgramSubject(EduProgramSubjects $request){
     	$data = $request->validated();

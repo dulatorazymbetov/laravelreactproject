@@ -29,32 +29,25 @@ function EduProgramsMain(props){
 	const tabChange =(event, newValue) => {
 		setTab(newValue);
 	}
-	if(id){
-		return (
-			<EduProgramsItem id={id} />
-		);
-	}
-	else {
-		return (
-			<Box>
-				<Title content="Образовательные программы" />
-				<Box component={Paper} mt={4} square>
-	      			<Tabs
-				        value={tab}
-				        indicatorColor="primary"
-				        textColor="primary"
-				        onChange={tabChange}
-	      			>
-				        <Tab label="Программы" />
-				        <Tab label="Дисциплины" />
-				        <Tab label="Заявки от кафедр" disabled />
-	      			</Tabs>
-	    		</Box>
-				{tab===0 && <EduProgramsList />}
-				{tab===1 && <SubjectsList />}
+	return (
+		<Box>
+			<Title content="Образовательные программы" />
+			<Box component={Paper} mt={4} square>
+				<Tabs
+					value={tab}
+					indicatorColor="primary"
+					textColor="primary"
+					onChange={tabChange}
+				>
+					<Tab label="Программы" />
+					<Tab label="Дисциплины" />
+					<Tab label="Заявки от кафедр" disabled />
+				</Tabs>
 			</Box>
-		);
-	}
+			{tab===0 && <EduProgramsList />}
+			{tab===1 && <SubjectsList />}
+		</Box>
+	);
 }
 
 export default EduProgramsMain;

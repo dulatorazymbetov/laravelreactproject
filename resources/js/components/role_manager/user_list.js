@@ -18,7 +18,8 @@ function UserList(props) {
 
 	const [editItem, setEditItem] = useState(false);
 	const [form, setForm] = useState({});
-
+	const [refreshDate, setRefreshDate] = useState(new Date);
+	
 	useEffect(() => {
 
     }, []);
@@ -30,7 +31,11 @@ function UserList(props) {
 		});
 	}
 	const handleEditSubmit = (data) => {
-		window.axios.post('users/'+editItem.id, data);
+		window.axios.post('users/'+editItem.id, data)
+			.then((response) => {
+				setRefreshDate(new Date);
+				setEditItem(false);
+			});
 	}
 	return (
 		<div>
@@ -38,6 +43,10 @@ function UserList(props) {
 				rows={[
 					{label: 'Учетная запись', value: 'login'},
 					{label: 'ФИО', value: row => row.lastname + " " + row.firstname + " " + row.patronymic},
+					{
+						label: 'Доступные роли', 
+						value: row => row.roles.map(list => <div key={list.id}>{list['description_'+getL]}</div>)
+					},
 					{
 						label: 'Редактирование', 
 						type: 'action', 
@@ -51,6 +60,7 @@ function UserList(props) {
 					}
 				]}
 				url="users"
+				refreshDate={refreshDate}
 			/>
 			<Dialog open={Boolean(editItem)} onClose={() => {setEditItem(false)}} fullWidth maxWidth="md">
 				<FormBuilder 

@@ -17,6 +17,23 @@ use App\Models\Department\Department;
 
 class ListOfStaffController extends Controller
 {
+    public function staff(Request $request){
+        $rows = $request->rows;
+        $offset = $request->page * $rows;
+        $filter = json_decode($request->filter);
+
+        $items = Staff::with('user')
+            ->take($rows)
+            ->skip($offset)
+            ->get();
+        $total = Staff::count();
+
+        return [
+            'items' => $items,
+            'total' => $total
+        ];
+    }
+
     public function all(Request $request){
         $rows = $request->rows;
         $offset = $request->page * $rows;
@@ -57,12 +74,7 @@ class ListOfStaffController extends Controller
                 'department' => Department::where('include_staff', true)->get(),
                 'position_time_type' => PositionTimeType::all()
             ],
-            'tutor' => Staff::with([
-                'academic_rank', 
-                'academic_degree', 
-                'english_level',
-                'user'
-            ])->find($id)
+            'item' => Staff::with('user')->find($id)
         ];
     }
     public function edit(Request $request){
@@ -80,5 +92,12 @@ class ListOfStaffController extends Controller
         $user->iin = $request->iin;
         $user->email = $request->email;
         $user->save();
+    }
+    public function positionsForm(){
+        return [
+            'departments' => Department::where('include_staff', true)->get(),
+            'position_time_types' => PositionTimeType::all(),
+            'position_types' => PositionType::all()
+        ];
     }
 }

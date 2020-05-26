@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -50,9 +51,11 @@ function TableBuilder(props){
        		});
 	}
 	const handleShowFilter = () => {
+		if(showFilter){
+			getData(rowsPerPage, page, {});
+		}
 		setShowFilter(!showFilter); 
 		setFilter({});
-		getData(rowsPerPage, page, {});
 	}
 	const handleSearch = (event) => {
 		setFilter({...filter, search: event.target.value});
@@ -60,7 +63,7 @@ function TableBuilder(props){
 		setSearchInputTimer(
 			setTimeout(
 				getData, 
-				3000, 
+				2000, 
 				rowsPerPage, 
 				page, 
 				{...filter, search: event.target.value}
@@ -70,11 +73,12 @@ function TableBuilder(props){
 	}
 	return (
 		<Box>
-			<Box mb={2} display="flex">
+			<Box mb={2} display="flex" alignItems="center">
 				<Button 
 					variant={showFilter ? "contained" : "outlined"}
 					startIcon={<Icon>{showFilter ? "close" : "filter_list"}</Icon>}
 					onClick={handleShowFilter}
+					size="large"
 				>
 					Расширенный поиск
 				</Button>
@@ -119,26 +123,25 @@ function TableBuilder(props){
 										if(row.type==='string' || !row.type){
 											return (
 												<TableCell key={"row_"+row_index+"_item_"+item_index}>
-													{Array.isArray(row.value)
-														? 
-														(item[row.value[0]] ? item[row.value[0]][row.value[1]] : '-')
-														: 
-														typeof row.value === "function" ? row.value(item) : item[row.value]
-													}
+													{typeof row.value === "function" ? row.value(item) : item[row.value]}
 												</TableCell>
 											);
 										}
 										else if(row.type==='action' || row.type==='link'){
 											let params = {
-												onClick: () => {
-													if(row.action.confirm){
-														if(!confirm(row.action.confirm)){ return false; }
-													}
-													row.action.handle(item[row.action.param] || item)
-												},
-												variant: row.action.variant || "text",
+												variant: row.action.variant || "text"
 											}
 											if(row.action.icon){params.startIcon = <Icon>{row.action.icon}</Icon>;}
+											if(row.type === 'link'){
+												params.component = Link;
+												params.to = '/' + row.action.url_prefix + '/' + item[row.action.param];
+											}
+											else {
+												params.onClick = () => {
+													if(row.action.confirm){if(!confirm(row.action.confirm)){ return false; }}
+													row.action.handle(item[row.action.param] || item)
+												}
+											}
 											return (
 												<TableCell key={"row_"+row_index+"_item_"+item_index}>
 													<Button {...params}

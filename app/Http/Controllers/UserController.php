@@ -66,7 +66,5 @@ class UserController extends Controller
         $user->firstname = $request->firstname;
         $user->roles()->sync(Role::findMany(explode(',', $request->roles)));
         $user->save();
-        
-        return $user;
     }
 }

@@ -151,7 +151,10 @@ function SubjectsList(props){
 					rows={[
 						{label: 'Код дисциплины', value: 'subject_code_'+getL},
 						{label: 'Название', value: 'title_'+getL},
-						{label: 'Кафедра', value: ['department', 'title_'+getL]},
+						{
+							label: 'Кафедра', 
+							value: row => row.department ? row.department['title_'+getL] : '-'
+						},
 						{
 							label: 'Редактирование',
 							type: 'action',
