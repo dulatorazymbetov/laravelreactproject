@@ -57,7 +57,8 @@ function DiplomaSupplement(){
 
     const data = students.map((student, index) => (
 		{
-			id: index + 1,
+			index: index + 1,
+			id: student.id,
 			login: student.user.login,
 			name: student.user.firstname,
 			surname: student.user.lastname,
@@ -97,7 +98,7 @@ function DiplomaSupplement(){
 		                    }
 		                }}
 			      		columns={[
-			      			{ title: '№', field: 'id' },
+			      			{ title: '№', field: 'index' },
 			      			{ title: 'ID', field: 'login' },
 					        { title: 'Имя', field: 'name' },
 					        { title: 'Фамилия', field: 'surname' },
@@ -188,7 +189,7 @@ function DiplomaSupplement(){
 											</Paper>
 											<Box mt={3}>
 										    	<Button
-										    		href="/downloadDiplomaSupplement"
+										    		href={'/downloadDiplomaSupplement/' + rowData.id }
 											        variant="contained"
 											        color="primary"
 											        size="small"

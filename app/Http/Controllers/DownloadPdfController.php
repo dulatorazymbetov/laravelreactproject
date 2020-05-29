@@ -56,8 +56,10 @@ class DownloadPdfController extends Controller
         return $pdf->download('Report.pdf');
     }
 
-    public function downloadDiplomaSupplement() {
-        $pdf = PDF::loadView('diploma_supplement');
+    public function downloadDiplomaSupplement($id) {
+        $student = Student::find($id);
+        $user = User::where('id', $student->user_id)->first();
+        $pdf = PDF::loadView('diploma_supplement', compact('user', 'student'));
         return $pdf->download('diploma_supplement.pdf');
     }
 }

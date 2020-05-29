@@ -21,4 +21,5 @@ Route::get('downloadReport3PDF/{id}', 'DownloadPdfController@downloadReport3PDF'
 Route::get('downloadReport4PDF/{id}', 'DownloadPdfController@downloadReport4PDF');
 Route::get('downloadReport5PDF/{id}', 'DownloadPdfController@downloadReport5PDF');
 Route::get('downloadReport6PDF/{id}', 'DownloadPdfController@downloadReport6PDF');
-Route::get('downloadDiplomaSupplement', 'DownloadPdfController@downloadDiplomaSupplement');
+
+Route::get('downloadDiplomaSupplement/{id}', 'DownloadPdfController@downloadDiplomaSupplement');
