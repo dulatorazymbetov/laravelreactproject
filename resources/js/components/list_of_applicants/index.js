@@ -14,7 +14,7 @@ function EditRespond(){
 
 	return (
 		<Box>
-			<Title content="Загрузка..." />
+			<Title content="Абитуриенты" />
 			<Box mt={4} p={4} component={Paper}>
 				
 			</Box>

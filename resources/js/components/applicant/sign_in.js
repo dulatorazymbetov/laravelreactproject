@@ -34,12 +34,12 @@ function AplicantSignIn() {
 	const classes = useStyles();
 	const [menuAnchor, setMenuAnchor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-
-	const [login, setLogin] = useState("");
+	const [errorMessage, setErrorMessage] = useState(false);
+	const [iin, setIin] = useState("");
     const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 
-    const { setToken } = useAuth();
+   	const { setToken, setUserInfo } = useAuth();
 
 	const { setW, getW, setL } = useLang();
 	setW({
@@ -47,16 +47,16 @@ function AplicantSignIn() {
 			ru: 'Приемная комиссия',
 			en: 'Entrance committe'
 		},
-		account: {
-			ru: 'Ученая запись',
-			en: 'Username'
+		iin: {
+			ru: 'ИИН',
+			en: 'IIN'
 		},
 		password: {
 			ru: 'Пароль',
 			en: 'Password'
 		},
 		send: {
-			ru: 'Отправить',
+			ru: 'Войти',
 			en: 'Login'
 		},
 		lang: {
@@ -80,7 +80,7 @@ function AplicantSignIn() {
 	const langSelect = (lang) => {setMenuAnchor(null);setL(lang);}
 	
 	const handleChange = event => {
-        if(event.target.name === 'login'){setLogin(event.target.value);}
+        if(event.target.name === 'iin'){setIin(event.target.value);}
 		if(event.target.name === 'password'){setPassword(event.target.value);}
 	}
 	const handleClickShowPassword = () => {
@@ -88,6 +88,24 @@ function AplicantSignIn() {
 	}
 	const submitForm = event => {
 		event.preventDefault();
+		if(iin && password && !isLoading){
+			setIsLoading(true);
+			const data = new FormData(event.target);
+			window.axios.post('login', data)
+            .then((response) => {
+				setIsLoading(false);
+				console.log(response);
+				setToken(response.data.token.access_token);
+				setUserInfo(response.data.applicant);
+            })
+            .catch(function (error) {
+    			console.log(error.response);
+    			setIsLoading(false);
+    			if(error.response.data === "invalid login or password"){
+    				setErrorMessage('invalid_login_or_password');
+    			}
+  			});
+		}
 	}
 
 	return (
@@ -105,10 +123,10 @@ function AplicantSignIn() {
 					<Box color="text.secondary">{getW('title')}</Box>
 					<Box my={5} component="form" onSubmit={submitForm}>
 						<TextField
-							name="login"
-							label={getW('account')}
+							name="iin"
+							label={getW('iin')}
 							className={classes.fullWidth}
-							value={login}
+							value={iin}
 							onChange={handleChange}
 							margin="normal"
 							required

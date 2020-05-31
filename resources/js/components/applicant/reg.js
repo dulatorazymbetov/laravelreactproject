@@ -23,7 +23,7 @@ import { useAuth } from "@contexts/auth";
 
 const useStyles = makeStyles({
 	item: {
-		minHeight: '100vh'
+		height: '126vh'
 	},
 	fullWidth: {
 		minWidth: '240px',
@@ -34,8 +34,12 @@ function AplicantSignIn() {
 	const classes = useStyles();
 	const [menuAnchor, setMenuAnchor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-
-	const [login, setLogin] = useState("");
+	const [firstname, setFirstname] = useState("");
+	const [lastname, setLastname] = useState("");
+	const [patronymic, setPatronymic] = useState("");
+	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
+	const [iin, setIin] = useState("");
     const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -56,8 +60,8 @@ function AplicantSignIn() {
 			en: 'Password'
 		},
 		send: {
-			ru: 'Отправить',
-			en: 'Login'
+			ru: 'Зарегистрироваться',
+			en: 'Register'
 		},
 		lang: {
 			ru: 'Русский',
@@ -80,7 +84,12 @@ function AplicantSignIn() {
 	const langSelect = (lang) => {setMenuAnchor(null);setL(lang);}
 	
 	const handleChange = event => {
-        if(event.target.name === 'login'){setLogin(event.target.value);}
+        if(event.target.name === 'iin'){setIin(event.target.value);}
+        if(event.target.name === 'email'){setEmail(event.target.value);}
+     	if(event.target.name === 'phone'){setPhone(event.target.value);}
+        if(event.target.name === 'firstname'){setFirstname(event.target.value);}
+        if(event.target.name === 'lastname'){setLastname(event.target.value);}
+        if(event.target.name === 'patronymic'){setPatronymic(event.target.value);}
 		if(event.target.name === 'password'){setPassword(event.target.value);}
 	}
 	const handleClickShowPassword = () => {
@@ -88,6 +97,23 @@ function AplicantSignIn() {
 	}
 	const submitForm = event => {
 		event.preventDefault();
+		if(email && password && iin && phone && firstname && lastname && patronymic && !isLoading){
+			setIsLoading(true);
+			const data = new FormData(event.target);
+			window.axios.post('register', data)
+            .then((response) => {
+				setIsLoading(false);
+				/*setToken(response.data.token.access_token);
+				setUserInfo(response.data.user);*/
+            })
+            .catch(function (error) {
+    			console.log(error.response);
+    			setIsLoading(false);
+    			if(error.response.data === "invalid login or password"){
+    				setErrorMessage('invalid_login_or_password');
+    			}
+  			});
+		}
 	}
 
 	return (
@@ -96,52 +122,70 @@ function AplicantSignIn() {
 				component={Grid}
 				item container 
 				lg={7} md={12}
-				className={classes.item}
 				p={4}
 				alignItems="center" justify="center"
 			>
-				<Box textAlign="center" width="100%" maxWidth="350px">
+				<Box mt={1} textAlign="center" width="100%" maxWidth="375px">
 					<Typography variant="h1">IITU CAMPUS</Typography>
 					<Box color="text.secondary">{getW('title')}</Box>
-					<Box my={5} component="form" onSubmit={submitForm}>
+					<Box mt={1} mb={4} component="form" onSubmit={submitForm}>
 						<TextField
-							name="IIN"
+							name="iin"
 							label="ИИН"
 							className={classes.fullWidth}
-							defaultValue=""
+							value={iin}
 							onChange={handleChange}
 							margin="normal"
 							required
 							variant="filled"
 						/>
 						<TextField
-							name="E-mail"
+							name="email"
 							label="E-mail"
 							className={classes.fullWidth}
-							defaultValue=""
+							value={email}
 							onChange={handleChange}
 							margin="normal"
 							required
 							variant="filled"
 						/>
 						<TextField
-							name="IIN"
+							name="phone"
 							label="Телефон"
 							className={classes.fullWidth}
-							defaultValue=""
+							value={phone}
 							onChange={handleChange}
 							margin="normal"
 							required
 							variant="filled"
 						/>
 						<TextField
-							name="IIN"
-							label="ФИО"
+							name="lastname"
+							label="Фамилия на кириллице"
 							className={classes.fullWidth}
-							defaultValue=""
+							value={lastname}
 							onChange={handleChange}
 							margin="normal"
 							required
+							variant="filled"
+						/>
+						<TextField
+							name="firstname"
+							label="Имя на кириллице"
+							className={classes.fullWidth}
+							value={firstname}
+							onChange={handleChange}
+							margin="normal"
+							required
+							variant="filled"
+						/>
+						<TextField
+							name="patronymic"
+							label="Отчество на кириллице"
+							className={classes.fullWidth}
+							value={patronymic}
+							onChange={handleChange}
+							margin="normal"
 							variant="filled"
 						/>
 						<TextField
@@ -165,7 +209,7 @@ function AplicantSignIn() {
 							}}
 						/>
 						
-						<Box my={4}>
+						<Box mt={2} mb={4}>
 							{!isLoading ? <Button variant="contained" color="secondary" className={classes.fullWidth} size="large" type="submit">
 								{getW('send')}
 							</Button> : <Button variant="contained" color="secondary" className={classes.fullWidth} size="large" disabled>
@@ -205,12 +249,12 @@ function AplicantSignIn() {
 				item container 
 				lg={5} md={12}
 				bgcolor="text.primary"
-				className={classes.item}
 				p={4}
-				alignItems="center" justify="center"
+				justify="center"
+				className={classes.item}
 			>
-				<Box textAlign="center" width="100%" maxWidth="350px">
-					<img src="/img/logo.webp" />
+				<Box mt={30} textAlign="center" width="100%" maxWidth="350px">
+					<img src="/img/logo.webp"/>
 					<Button 
                         component={Link}
                         to="/"

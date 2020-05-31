@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 Route::post('auth', 'Auth\LoginController@login');
 Route::get('auth', 'Auth\LoginController@status');
 
+Route::post('login', 'Auth\ApplicantLoginController@loginApplicant');
+Route::post('register', 'Auth\ApplicantLoginController@registerApplicant');
+
 Route::get('roles', 'UserController@allRoles');
 Route::get('modules', 'UserController@allModules');
 Route::get('students', 'UserController@allStudents');

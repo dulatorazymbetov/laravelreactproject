@@ -13,8 +13,6 @@
 
 Route::get('/', function () {return view('welcome');});
 
-Route::get('/dd', function () {return view('diploma_supplement');});
-
 Route::get('downloadReport1PDF/{id}', 'DownloadPdfController@downloadReport1PDF');
 Route::get('downloadReport2PDF/{id}', 'DownloadPdfController@downloadReport2PDF');
 Route::get('downloadReport3PDF/{id}', 'DownloadPdfController@downloadReport3PDF');

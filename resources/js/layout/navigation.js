@@ -79,6 +79,7 @@ function Navigation(props){
 	const logOut = () => {
 		auth.setToken(null);
 		auth.setUserInfo(null);
+		document.title = "IITU CAMPUS";
 	}
 
 	const handleDrawerToggle = () => {
@@ -115,7 +116,7 @@ function Navigation(props){
 						);	
 					}
 				})}
-				<Box className={classes.item}  component={Link} to="#" onClick={logOut}>
+				<Box className={classes.item}  component={Link} to="/" onClick={logOut}>
 					<Box>Выйти</Box>
 				</Box>
 			</Box>

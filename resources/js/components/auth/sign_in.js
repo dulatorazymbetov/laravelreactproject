@@ -62,7 +62,7 @@ function SignIn() {
 		},
 		send: {
 			kk: 'Kirý',
-			ru: 'Отправить',
+			ru: 'Войти',
 			en: 'Login'
 		},
 		lang: {
@@ -101,6 +101,7 @@ function SignIn() {
 			const data = new FormData(event.target);
 			window.axios.post('auth', data)
             .then((response) => {
+            	console.log(response);
 				setIsLoading(false);
 				setToken(response.data.token.access_token);
 				setUserInfo(response.data.user);
