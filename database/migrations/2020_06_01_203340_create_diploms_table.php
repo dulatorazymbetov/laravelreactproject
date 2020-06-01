@@ -36,12 +36,12 @@ class CreateDiplomsTable extends Migration
 			$table->string('secretary_name_en')->nullable();
 
 			
-			$table->string('prev_educ_doc_name_kz')->nullable();
+			$table->string('prev_educ_doc_name_kz')->nullable();	//документ о предыдущем образовании
 			$table->string('prev_educ_doc_name_ru')->nullable();
 			$table->string('prev_educ_doc_name_en')->nullable();
 			$table->string('prev_educ_doc_num')->nullable();
 			$table->date('prev_educ_doc_date')->nullable();
-			$table->string('entrance_doc_name_kz')->nullable();
+			$table->string('entrance_doc_name_kz')->nullable();		//вступительный документ//сертификат или тп
 			$table->string('entrance_doc_name_ru')->nullable();
 			$table->string('entrance_doc_name_en')->nullable();
 			$table->string('entrance_doc_num')->nullable();
@@ -49,40 +49,43 @@ class CreateDiplomsTable extends Migration
 			$table->integer('start_year');	//год поступления
 			$table->integer('finish_year');	//год окончания
 			
-			$table->integer('start_university_id');		//поступил в universities
+			$table->integer('start_university_id');		//поступил в// universities
 			$table->string('start_university_name_kz');	//
 			$table->string('start_university_name_ru');	//
 			$table->string('start_university_name_en');	//
 			
 			
-			$table->integer('credits')->nullable();
+			$table->integer('credits')->nullable();	//кредиты
 			$table->integer('ects_credits');
-			$table->integer('theoretical_credits')->nullable();
+			$table->integer('theoretical_credits')->nullable();	//теоретические кредиты
 			$table->integer('theoretical_ects_credits');
 			$table->float('gpa');
 			
-			$table->integer('gak_protocol_num');
-			$table->date('gak_protocol_date');
+			$table->integer('gak_protocol_num');	//номер протокола ГАК
+			$table->date('gak_protocol_date');		//дата протокола ГАК
 			
-			$table->integer('academic_degree_id');
+			$table->integer('academic_degree_id');	//присуждаемая степень
+			$table->integer('academic_degree_name_kz');	//присуждаемая степень
+			$table->integer('academic_degree_name_ru');	//присуждаемая степень
+			$table->integer('academic_degree_name_en');	//присуждаемая степень
 			
-			$table->integer('speciality_id');
+			$table->integer('speciality_id');	//специальность
 			$table->string('speciality_code');
 			$table->string('speciality_name_kz');
 			$table->string('speciality_name_ru');
 			$table->string('speciality_name_en');
 			
-			$table->integer('specialization_id');
+			$table->integer('specialization_id');	//обр программа // специализация
 			$table->string('specialization_code');
 			$table->string('specialization_name_kz');
 			$table->string('specialization_name_ru');
 			$table->string('specialization_name_en');
 			
-			$table->string('qualification_name_kz')->nullable();
+			$table->string('qualification_name_kz')->nullable();	//присуждаемая квалификация
 			$table->string('qualification_name_ru')->nullable();
 			$table->string('qualification_name_en')->nullable();
 			
-			$table->string('university_name_kz');
+			$table->string('university_name_kz');	//название университета в текущий момент
 			$table->string('university_name_ru');
 			$table->string('university_name_en');
 			

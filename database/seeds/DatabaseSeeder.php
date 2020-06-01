@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
 		$this->call(ExamTypeSeeder::class); 
 		$this->call(ControlFormSeeder::class); 
 		$this->call(DegreeTypeSeeder::class); 
+		$this->call(DiplomDetailTypeSeeder::class); 
 		
     }
 }
