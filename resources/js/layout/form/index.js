@@ -52,7 +52,12 @@ const useStyles = makeStyles(theme => ({
 function FormRespond(props){
 	let initVal = {};
 	props.fields.forEach(element => {
-		initVal[element.name] = element.value || '';
+		if(element.type === 'float'){
+			initVal[element.name] = element.value;
+		}
+		else {
+			initVal[element.name] = element.value || '';
+		}
 	});
 	const classes = useStyles();
 	const [value, setValue] = useState(initVal);
@@ -68,7 +73,9 @@ function FormRespond(props){
 	}
 	const setFieldValue = (event, type) => {
 		let newValue = event.target.value;
-		if(type === 'float'){newValue = parseFloat(newValue) || '';}
+		if(type === 'float'){
+			newValue = newValue.replace(/[^\d\+]/g, '') || value[event.target.name];
+		}
 		setValue({...value, [event.target.name]: newValue});
 	}
 	const handleChangeValue = (name, newValue) => {
@@ -90,7 +97,7 @@ function FormRespond(props){
 							if(list.required!==false && list.type!=='checkbox'){
 								list.required = true;
 								all_rows++;
-								if(value[list.name]){enter_rows++}
+								if(value[list.name]!==''){enter_rows++}
 							}
 							if(props.disabled){list.disabled = true;}
 							list.handleChange =  handleChangeValue;
