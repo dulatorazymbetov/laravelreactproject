@@ -59,6 +59,7 @@ function SubjectsList(props){
 			setRefreshDate(new Date);
 		});
 	}
+	console.log(editItem);
 	const fields = [
 		{name: 'title_kk', label: 'Название на казахском языке', value: editItem.title_kk},
 		{name: 'title_ru', label: 'Название на русском языке', value: editItem.title_ru},
@@ -86,6 +87,24 @@ function SubjectsList(props){
 				items: form.departments
 			},
 			value: editItem.department_id
+		},
+		{
+			name: 'lection',
+			label: 'К-во часов на лекции',
+			type: 'float',
+			value: editItem.lection
+		},
+		{
+			name: 'lab',
+			label: 'К-во часов на лаб. занятия',
+			type: 'float',
+			value: editItem.lab
+		},
+		{
+			name: 'practice',
+			label: 'К-во часов на практические занятия',
+			type: 'float',
+			value: editItem.practice
 		},
 		{
 			name: 'ects_credits',
