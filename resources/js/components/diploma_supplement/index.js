@@ -34,7 +34,7 @@ function DiplomaSupplement(){
 
 
 	useEffect(() => {
-       	window.axios.get('students').then((response) => {
+       	window.axios.get('graduates').then((response) => {
        		console.log(response.data);
 			setStudents(response.data);
 			setIsLoading(false);

@@ -22,6 +22,7 @@ Route::post('register', 'Auth\ApplicantLoginController@registerApplicant');
 Route::get('roles', 'UserController@allRoles');
 Route::get('modules', 'UserController@allModules');
 Route::get('students', 'UserController@allStudents');
+Route::get('graduates', 'UserController@allGraduates');
 Route::get('applicants', 'UserController@allApplicants');
 
 Route::group(['middleware' => 'role:role_manager'], function() {

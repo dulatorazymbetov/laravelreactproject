@@ -30,6 +30,9 @@ class UserController extends Controller
     public function allStudents(){
         return Student::with('user')->orderBy('id', 'DESC')->get();
     }
+    public function allGraduates(){
+        return Student::with('user')->where('study_status_id', 4)->orderBy('id', 'DESC')->get();
+    }
     public function allApplicants(){
         return Applicant::get();
     }
