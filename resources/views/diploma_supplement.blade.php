@@ -238,7 +238,7 @@
   <body>
     <div class="container-fluid">
       <div class="row">      
-        <div class="block-1 ml-5">
+        <div class="block-1 ml-5 mt-1">
           <p>1. Фамилия &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<big>{{$user->lastname}}</big></p><hr class="line1" />
           <p>2. Имя, отчество(при его наличии) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<big>{{$user->firstname}} {{$user->patronymic}}</big></p><hr class="line2" />
           <p>&nbsp;</p><hr/>  
@@ -442,7 +442,7 @@
             </tbody>
           </table>
         </div> 
-        <div class="block-2">
+        <div class="block-2 mt-1">
           <div class="gerb">
             <img width="85" height="85" src="img/gerb.jpg" alt="">
           </div>
