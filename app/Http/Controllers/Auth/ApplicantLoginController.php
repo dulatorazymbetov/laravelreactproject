@@ -53,6 +53,7 @@ class ApplicantLoginController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
+
     protected function respondUserInfo($applicant){
         return [
             'iin' => $applicant->iin,
@@ -80,23 +81,21 @@ class ApplicantLoginController extends Controller
 	public function registerApplicant(Request $request) {
 
 		$validator = Validator::make($request->all(),[
-                'iin' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
+                'iin' => 'required|unique:applicants',
+                'email' => 'required|unique:applicants',
+                'phone' => 'required|unique:applicants',
                 'firstname' => 'required',
                 'lastname' => 'required',
-                'patronymic' => 'required',
                 'password' => 'required',
-            ],
-            [
+            ]
+            /*[
                 'iin.required' => 'iin required',
                 'email.required' => 'email required',
                 'phone.required' => 'phone required',
                 'firstname.required' => 'firstname required',
                 'lastname.required' => 'lastname required',
-                'patronymic.required' => 'patronymic required',
                 'password.required' => 'password required',
-            ]
+            ]*/
         );
 
         if($validator->fails()){

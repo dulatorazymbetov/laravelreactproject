@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-
+import Alert from '@material-ui/lab/Alert';
 import TranslateIcon from '@material-ui/icons/Translate';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -25,15 +25,21 @@ const useStyles = makeStyles({
 	item: {
 		height: '126vh'
 	},
+	itemSuccess: {
+		height: '135vh'
+	},
 	fullWidth: {
 		minWidth: '240px',
 		width: '100%'
 	},
 });
+
 function AplicantSignIn() {
 	const classes = useStyles();
 	const [menuAnchor, setMenuAnchor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
+	const [isSuccess, setIsSuccess] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 	const [firstname, setFirstname] = useState("");
 	const [lastname, setLastname] = useState("");
 	const [patronymic, setPatronymic] = useState("");
@@ -75,6 +81,21 @@ function AplicantSignIn() {
 		sign_in: {
 			ru: 'Войти',
 			en: 'Sign In'
+		},
+		iin_has_already_been_taken: {
+			kk: 'Qate iin nemese qupıasóz',
+			ru: 'Данный ИИН уже используется',
+			en: 'The iin has already been taken.'
+		},
+		email_has_already_been_taken: {
+			kk: 'Qate email nemese qupıasóz',
+			ru: 'Данный email уже используется',
+			en: 'The iin has already been taken.'
+		},
+		phone_has_already_been_taken: {
+			kk: 'Qate phone nemese qupıasóz',
+			ru: 'Данный телефон уже используется',
+			en: 'The phone has already been taken.'
 		}
 	});
 
@@ -97,37 +118,86 @@ function AplicantSignIn() {
 	}
 	const submitForm = event => {
 		event.preventDefault();
-		if(email && password && iin && phone && firstname && lastname && patronymic && !isLoading){
+		if(email && password && iin && phone && firstname && lastname && !isLoading){
 			setIsLoading(true);
 			const data = new FormData(event.target);
 			window.axios.post('register', data)
             .then((response) => {
 				setIsLoading(false);
+				setIsSuccess(true);
+				setIin("");
+				setEmail("");
+				setPhone("");
+				setLastname("");
+				setFirstname("");
+				setPatronymic("");
+				setPassword("");
 				/*setToken(response.data.token.access_token);
 				setUserInfo(response.data.user);*/
             })
             .catch(function (error) {
     			console.log(error.response);
     			setIsLoading(false);
-    			if(error.response.data === "invalid login or password"){
-    				setErrorMessage('invalid_login_or_password');
+    			if(error.response.data.iin[0] === "The iin has already been taken."){
+    				setErrorMessage('iin_has_already_been_taken');
+    			}
+				if(error.response.data.email[0] === "The email has already been taken."){
+    				setErrorMessage('email_has_already_been_taken');
+    			}
+    			if(error.response.data.phone[0] === "The phone has already been taken."){
+    				setErrorMessage('phone_has_already_been_taken');
     			}
   			});
 		}
 	}
-
+	console.log(errorMessage);
 	return (
 		<Grid container alignItems="center">
 			<Box 
 				component={Grid}
 				item container 
-				lg={7} md={12}
+				lg={7} md={12}	
 				p={4}
 				alignItems="center" justify="center"
 			>
-				<Box mt={1} textAlign="center" width="100%" maxWidth="375px">
+				<Box mt={1} textAlign="center" width="100%" maxWidth="350px">
 					<Typography variant="h1">IITU CAMPUS</Typography>
 					<Box color="text.secondary">{getW('title')}</Box>
+					{isSuccess && <Box mt={2}>
+						<Alert variant="filled" severity="success">
+		        			Вы успешно зарегистрировались
+						</Alert>
+					</Box>}
+					{(() => {
+				        if (errorMessage === 'email_has_already_been_taken' && !isSuccess) {
+							return (
+								<Box mt={2}>
+									<Alert variant="filled" severity="error">
+										{getW('email_has_already_been_taken')}
+									</Alert>
+								</Box>
+							);
+							setErrorMessage("");
+				        } else if (errorMessage === "iin_has_already_been_taken" && !isSuccess) {
+							return (
+								<Box mt={2}>
+									<Alert variant="filled" severity="error">
+										{getW('iin_has_already_been_taken')}
+									</Alert>
+								</Box>
+							)
+							setErrorMessage("");
+				        } else if (errorMessage === "phone_has_already_been_taken" && !isSuccess) {
+							return (
+								<Box mt={2}>
+									<Alert variant="filled" severity="error">
+										{getW('phone_has_already_been_taken')}
+									</Alert>
+								</Box>
+							)
+							setErrorMessage("");
+				        }
+			      	})()}
 					<Box mt={1} mb={4} component="form" onSubmit={submitForm}>
 						<TextField
 							name="iin"
@@ -244,29 +314,55 @@ function AplicantSignIn() {
 					</Menu>
 				</Box>
 			</Box>
-			<Box 
-				component={Grid}
-				item container 
-				lg={5} md={12}
-				bgcolor="text.primary"
-				p={4}
-				justify="center"
-				className={classes.item}
-			>
-				<Box mt={30} textAlign="center" width="100%" maxWidth="350px">
-					<img src="/img/logo.webp"/>
-					<Button 
-                        component={Link}
-                        to="/"
-						variant="contained" 
-						className={classes.fullWidth} 
-						size="large"
-						startIcon={<LockOpenIcon />}
-					>
-						Авторизация
-					</Button>
+			{!isSuccess ?  
+				<Box 
+					component={Grid}
+					item container 
+					lg={5} md={12}
+					bgcolor="text.primary"
+					className={classes.item}
+					p={4}
+					justify="center"
+				>
+					<Box mt={30} textAlign="center" width="100%" maxWidth="350px">
+						<img src="/img/logo.webp"/>
+						<Button 
+	                        component={Link}
+	                        to="/"
+							variant="contained" 
+							className={classes.fullWidth} 
+							size="large"
+							startIcon={<LockOpenIcon />}
+						>
+							Авторизация
+						</Button>
+					</Box>
 				</Box>
-			</Box>
+			: 
+				<Box 
+					component={Grid}
+					item container 
+					lg={5} md={12}
+					bgcolor="text.primary"
+					className={classes.itemSuccess}
+					p={4}
+					justify="center"
+				>
+					<Box mt={30} textAlign="center" width="100%" maxWidth="350px">
+						<img src="/img/logo.webp"/>
+						<Button 
+	                        component={Link}
+	                        to="/"
+							variant="contained" 
+							className={classes.fullWidth} 
+							size="large"
+							startIcon={<LockOpenIcon />}
+						>
+							Авторизация
+						</Button>
+					</Box>
+				</Box>
+			}
 		</Grid>
 	);
 }

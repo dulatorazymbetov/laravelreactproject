@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-
+import Alert from '@material-ui/lab/Alert';
 import TranslateIcon from '@material-ui/icons/Translate';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -71,6 +71,11 @@ function AplicantSignIn() {
 		registration: {
 			ru: 'Регистрация',
 			en: 'Registration'
+		},
+		invalid_login_or_password: {
+			kk: 'Qate iin nemese qupıasóz',
+			ru: 'Неверный иин или пароль',
+			en: 'Invalid iin or password'
 		}
 	});
 
@@ -101,7 +106,7 @@ function AplicantSignIn() {
             .catch(function (error) {
     			console.log(error.response);
     			setIsLoading(false);
-    			if(error.response.data === "invalid login or password"){
+    			if(error.response.data === "invalid iin or password" || error.response.data.message === "Trying to get property 'password' of non-object"){
     				setErrorMessage('invalid_login_or_password');
     			}
   			});
@@ -120,8 +125,13 @@ function AplicantSignIn() {
 			>
 				<Box textAlign="center" width="100%" maxWidth="350px">
 					<Typography variant="h1">IITU CAMPUS</Typography>
-					<Box color="text.secondary">{getW('title')}</Box>
-					<Box my={5} component="form" onSubmit={submitForm}>
+					<Box mb={4} color="text.secondary">{getW('title')}</Box>
+					{errorMessage && <Box mt={3}>
+						<Alert variant="filled" severity="error">
+        					Неверный иин или пароль
+      					</Alert>
+					</Box>}
+					<Box mt={2} mb={5} component="form" onSubmit={submitForm}>
 						<TextField
 							name="iin"
 							label={getW('iin')}
