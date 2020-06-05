@@ -94,7 +94,8 @@ class LoginController extends Controller {
             'firstname' => $user->firstname,
             'lastname' => $user->lastname,
             'login' => $user->login,
-            'modules' => $user->modules
+            'modules' => $user->modules,
+            'token' => auth()->login($user)
         ];
     }
     protected function getInfoFromOldCampus($login){

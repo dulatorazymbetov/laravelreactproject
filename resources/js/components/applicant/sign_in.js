@@ -13,6 +13,9 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Alert from '@material-ui/lab/Alert';
+import Dialog from "@material-ui/core/Dialog";
+import ReCAPTCHA from "react-google-recaptcha";
+
 import TranslateIcon from '@material-ui/icons/Translate';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -20,6 +23,8 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 import { useLang } from "@contexts/lang";
 import { useAuth } from "@contexts/auth";
+
+import FormBuilder from "@layouts/form";
 
 const useStyles = makeStyles({
 	item: {
@@ -38,7 +43,7 @@ function AplicantSignIn() {
 	const [iin, setIin] = useState("");
     const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
-
+	const [regOpen, setRegOpen] = useState(false);
    	const { setToken, setUserInfo } = useAuth();
 
 	const { setW, getW, setL } = useLang();
@@ -99,12 +104,10 @@ function AplicantSignIn() {
 			window.axios.post('login', data)
             .then((response) => {
 				setIsLoading(false);
-				console.log(response);
 				setToken(response.data.token.access_token);
 				setUserInfo(response.data.applicant);
             })
             .catch(function (error) {
-    			console.log(error.response);
     			setIsLoading(false);
     			if(error.response.data === "invalid iin or password" || error.response.data.message === "Trying to get property 'password' of non-object"){
     				setErrorMessage('invalid_login_or_password');
@@ -125,7 +128,7 @@ function AplicantSignIn() {
 			>
 				<Box textAlign="center" width="100%" maxWidth="350px">
 					<Typography variant="h1">IITU CAMPUS</Typography>
-					<Box mb={4} color="text.secondary">{getW('title')}</Box>
+					<Box mb={3} color="text.secondary">{getW('title')}</Box>
 					{errorMessage && <Box mt={3}>
 						<Alert variant="filled" severity="error">
         					Неверный иин или пароль
@@ -162,7 +165,12 @@ function AplicantSignIn() {
 								),
 							}}
 						/>
-						<Box my={4}>
+						<Box component={ReCAPTCHA} mt={2}
+    						style={{ display: "inline-block" }}
+    						sitekey="6LdNkQAVAAAAAOpqV_V4i8uUhLlgRkQ3PyNsDtnD"
+    						onChange={() => {alert('xf')}}
+  						/>
+						<Box my={2}>
 							{!isLoading ? <Button variant="contained" color="secondary" className={classes.fullWidth} size="large" type="submit">
 								{getW('send')}
 							</Button> : <Button variant="contained" color="secondary" className={classes.fullWidth} size="large" disabled>
@@ -170,15 +178,54 @@ function AplicantSignIn() {
 							</Button>}
 						</Box>
 						{getW('or')}
-						<Box mt={4}>
+						<Box mt={2}>
 							<Button variant="contained" className={classes.fullWidth} size="large" component={Link} to="/applicant_reg">
 								{getW('registration')}
 							</Button>
 						</Box>
+						<Dialog 
+							open={regOpen}
+							onClose={() => {setRegOpen(false)}}
+							fullWidth maxWidth="md"
+						>
+							<FormBuilder 
+								fields={[
+									{
+										label: ''
+									}
+								]} 
+							/>
+						</Dialog>
 					</Box>
+				</Box>
+			</Box>
+			<Box 
+				component={Grid}
+				item container 
+				lg={5} md={12}
+				bgcolor="text.primary"
+				className={classes.item}
+				p={4}
+				alignItems="center" 
+				justify="center"
+			>
+				<Box textAlign="center" width="100%" maxWidth="350px">
+					<img src="/img/logo.webp" />
 					<Button 
+                        component={Link}
+                        to="/"
+						variant="contained" 
+						className={classes.fullWidth} 
+						size="large"
+						startIcon={<LockOpenIcon />}
+					>
+						Авторизация
+					</Button>
+					<Box my={2}/>
+					<Button
 						aria-controls="simple-menu" 
-						aria-haspopup="true" 
+						aria-haspopup="true"
+						variant="contained"
 						onClick={handleLangMenuOpen}
 						size="small"
 						startIcon={<TranslateIcon />}
@@ -195,29 +242,6 @@ function AplicantSignIn() {
 						<MenuItem onClick={() => {langSelect('ru')}}>Русский</MenuItem>
 						<MenuItem onClick={() => {langSelect('en')}}>English</MenuItem>
 					</Menu>
-				</Box>
-			</Box>
-			<Box 
-				component={Grid}
-				item container 
-				lg={5} md={12}
-				bgcolor="text.primary"
-				className={classes.item}
-				p={4}
-				alignItems="center" justify="center"
-			>
-				<Box textAlign="center" width="100%" maxWidth="350px">
-					<img src="/img/logo.webp" />
-					<Button 
-                        component={Link}
-                        to="/"
-						variant="contained" 
-						className={classes.fullWidth} 
-						size="large"
-						startIcon={<LockOpenIcon />}
-					>
-						Авторизация
-					</Button>
 				</Box>
 			</Box>
 		</Grid>
