@@ -15,6 +15,12 @@ class CreateAdmDivisionsTable extends Migration
     {
         Schema::create('adm_divisions', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->bigInteger('parent_id')->nullable;
+			$table->string('name_kz');
+			$table->string('name_ru');
+			$table->integer('area_type');
+			$table->integer('level');
+			$table->string('code');
             $table->timestamps();
         });
     }
