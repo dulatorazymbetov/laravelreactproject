@@ -74,12 +74,11 @@ function FormRespond(props){
 	const setFieldValue = (event, type) => {
 		let newValue = event.target.value;
 		if(type === 'float'){
-			newValue = newValue.replace(/[^\d\+]/g, '') || value[event.target.name];
+			newValue = newValue.replace(/[^.0-9]/gim, '') || value[event.target.name];
 		}
 		setValue({...value, [event.target.name]: newValue});
 	}
 	const handleChangeValue = (name, newValue) => {
-		console.log(name);
 		setValue({...value, [name]: newValue});
 	}
 	let enter_rows = 0;

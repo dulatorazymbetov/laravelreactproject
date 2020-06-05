@@ -160,7 +160,7 @@ function SubjectsList(props){
 			</Button>
 			<Dialog open={addOpen} fullWidth maxWidth="md" onClose={() => {setAddOpen(false)}}>
 				<FormBuilder 
-					title="Регистрация"
+					title="Добавить дисциплину"
 					handleSubmit={handleAddSubmit}
 					fields={fields}
 				/>
