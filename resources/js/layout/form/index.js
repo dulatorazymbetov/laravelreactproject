@@ -3,27 +3,20 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-
-import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { MuiPickersUtilsProvider, DatePicker} from '@material-ui/pickers';
-import DateFnsUtils from "@date-io/date-fns";
-import enLocale from "date-fns/locale/en-US";
-import ruLocale from "date-fns/locale/ru";
-
+import FormBuilderAutocomplete from "./autocomplete.js";
+import FormBuilderCaptcha from "./captcha.js";
+import FormBuilderCheckbox from "./checkbox.js";
+import FormBuilderDate from "./date.js";
+import FormBuilderHeader from "./header.js";
+import FormBuilderFloat from "./float.js";
+import FormBuilderPassword from "./password.js";
 import FormBuilderSelect from "./select.js";
+import FormBuilderString from "./string.js";
+
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -36,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 	title: {
 		flex: '0 0 auto',
 		fontWeight: '900',
-		fontSize: '1.25rem'
+		fontSize: '1.4rem'
 	},
 	content: {
 		flex: '1 1 auto',
@@ -52,12 +45,7 @@ const useStyles = makeStyles(theme => ({
 function FormRespond(props){
 	let initVal = {};
 	props.fields.forEach(element => {
-		if(element.type === 'float'){
-			initVal[element.name] = element.value;
-		}
-		else {
-			initVal[element.name] = element.value || '';
-		}
+		initVal[element.name] = element.value;
 	});
 	const classes = useStyles();
 	const [value, setValue] = useState(initVal);
@@ -71,13 +59,6 @@ function FormRespond(props){
 		const data = new FormData(event.target);
 		props.handleSubmit(data);
 	}
-	const setFieldValue = (event, type) => {
-		let newValue = event.target.value;
-		if(type === 'float'){
-			newValue = newValue.replace(/[^.0-9]/gim, '') || value[event.target.name];
-		}
-		setValue({...value, [event.target.name]: newValue});
-	}
 	const handleChangeValue = (name, newValue) => {
 		setValue({...value, [name]: newValue});
 	}
@@ -90,86 +71,29 @@ function FormRespond(props){
 				{props.title || "Новая форма"}
 			</Box>
 			<Box className={classes.content} px={3} py={1}>
-				<MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
-					<Grid container spacing={2}>
-						{props.fields.map((list, index) => {
-							if(list.required!==false && list.type!=='checkbox'){
-								list.required = true;
-								all_rows++;
-								if(value[list.name]!==''){enter_rows++}
-							}
-							if(props.disabled){list.disabled = true;}
-							list.handleChange =  handleChangeValue;
-							return (
-								<Grid item key={index} xs={12} sm={12 * (list.width || 1)}>
-									{(list.type === 'string' || list.type === 'float' || !list.type) && <TextField
-										required={list.required}
-										name={list.name}
-										label={list.label || list.name}
-										fullWidth
-										InputProps={{
-            								readOnly: list.readOnly || false,
-          								}}
-										disabled={props.disabled}
-										onChange={(event) => {setFieldValue(event, list.type)}}
-										autoComplete={list.name}
-										value={value[list.name]}
-										variant="filled"
-										helperText={list.helper}
-									/>}
-									{list.type === 'select' && <FormBuilderSelect   
-										{...list}
-									/>}
-									{list.type === 'autocomplete' && <Box>
-										<Autocomplete
-      										id={list.name}
-      										fullWidth
-      										disabled={props.disabled}
-      										disableClearable
-      										openOnFocus
-      										options={list.autocomplete.items}
-      										getOptionLabel={(option) => option[list.autocomplete.label]+" "+option[list.autocomplete.prefix_label]}
-      										value={list.autocomplete.items[list.autocomplete.items.findIndex((element, index, array) => {
-      											return element.id === value[list.name];
-      										})]}
-      										onChange={(event, newValue) => {setValue({...value, [list.name]: newValue.id})}}
-      										renderInput={(params) => {
-      											return (<TextField required={list.required} {...params} label={list.label} variant="filled" />);
-      										}}
-    									/>
-    									<input name={list.name} hidden value={value[list.name]} readOnly />
-    								</Box>}
-									{list.type === 'checkbox' && <Box>
-										<FormControlLabel
-        									control={
-        										<Checkbox 
-        											disabled={props.disabled} 
-        											required={list.required}
-        											onChange={(event) => {setValue({...value, [list.name]: event.target.checked})}}
-        											checked={Boolean(value[list.name])}
-        										/>}
-        									label={list.label}
-      									/>
-      									<input readOnly hidden name={list.name} value={value[list.name] ? 1:0} />
-      								</Box>}
-									{list.type === 'date' && <DatePicker
-										value={value[list.name] || null}
-										onChange={(date) => {setValue({...value, [list.name]: date})}}
-							 			animateYearScrolling
-							 			fullWidth
-							 			autoOk
-							 			readOnly={props.disabled}
-							 			clearable
-							 			inputVariant="filled"
-							 			format="yyyy-MM-dd"
-							 			label={list.label}
-							 			InputProps={{name: list.name, disabled: props.disabled}}
-									/>}
-								</Grid>
-							);
-						})}
-					</Grid>
-				</MuiPickersUtilsProvider>
+				<Grid container spacing={2}>
+					{props.fields.map((list, index) => {
+						if(list.required!==false && list.type!=='checkbox' && list.type!=='header'){
+							list.required = true;
+							all_rows++;
+							if(value[list.name]){enter_rows++}
+						}
+						if(props.disabled){list.disabled = true;}
+						list.handleChange =  handleChangeValue;
+						return (
+							<Grid item key={index} xs={12} sm={12 * (list.width || 1)}>
+								{list.type === 'float' && <FormBuilderFloat {...list} />}
+								{(list.type === 'string' || !list.type) && <FormBuilderString {...list} />}
+								{list.type === 'select' && <FormBuilderSelect {...list} />}
+								{list.type === 'autocomplete' && <FormBuilderAutocomplete {...list} />}
+								{list.type === 'checkbox' && <FormBuilderCheckbox {...list} />}
+								{list.type === 'date' && <FormBuilderDate {...list} />}
+								{list.type === 'password' && <FormBuilderPassword {...list} />}
+								{list.type === 'header' && <FormBuilderHeader {...list} />}
+							</Grid>
+						);
+					})}
+				</Grid>
 			</Box>
 			{props.disabled!==true && <Box className={classes.actions} px={3} pt={2} pb={2}>
 				<Button 

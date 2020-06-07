@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -20,6 +21,7 @@ import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 import Alert from '@material-ui/lab/Alert';
 
+import FormBuilder from '@layouts/form';
 import { useLang } from "@contexts/lang";
 import { useAuth } from "@contexts/auth";
 
@@ -34,12 +36,14 @@ const useStyles = makeStyles({
 });
 function SignIn() {
 	const classes = useStyles();
+
 	const [menuAnchor, setMenuAnchor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState(false);
 	const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
+	const [applicantOpen, setApplicantOpen] = useState(false);
 
     const { setToken, setUserInfo } = useAuth();
 
@@ -171,9 +175,104 @@ function SignIn() {
 							</Button>}
 						</Box>
 					</Box>
+				</Box>
+			</Box>
+			<Box 
+				component={Grid}
+				item container 
+				lg={5} md={12}
+				bgcolor="text.primary"
+				className={classes.item}
+				p={4}
+				alignItems="center" justify="center"
+			>
+				<Box textAlign="center" width="100%" maxWidth="350px">
+					<img src="/img/logo.webp" />
 					<Button 
-						aria-controls="simple-menu" 
-						aria-haspopup="true" 
+						variant="contained" 
+						className={classes.fullWidth} 
+						size="large"
+						onClick={() => {setApplicantOpen(true)}}
+						startIcon={<EmojiPeopleIcon />}
+					>
+						{getW('applicant')}
+					</Button>
+					<Dialog 
+						open={applicantOpen} 
+						fullWidth 
+						maxWidth="md"
+						onClose={() => {setApplicantOpen(false)}}
+					>
+						<FormBuilder 
+							title="Регистрация абитуриента"
+							fields={[
+								{
+									type: 'header',
+									label: '1. Личные данные:'
+								},
+								{
+									label: 'ИИН',
+									name: 'iin',
+									mask: '999999999999',
+									width: 1/2
+								},
+								{
+									label: 'Телефон',
+									name: 'tel',
+									mask: '+7 (999) 999 99 99',
+									width: 1/2 
+								},
+								{
+									label: 'E-mail',
+									name: 'email',
+									mask: 'email',
+									
+								},
+								{
+									label: 'Фамилия (на кириллице)',
+									name: 'lastname'
+								},
+								{
+									label: 'Имя (на кириллице)',
+									name: 'firstname'
+								},
+								{
+									label: 'Отчество (на кириллице)',
+									name: 'patronymic',
+									required: false
+								},
+								{
+									type: 'header',
+									label: '2. Данные о родителях:'
+								},
+								{
+									label: 'ФИО одного из родителей',
+									name: 'parent_fio'
+								},
+								{
+									label: 'Телефон одного из родителей',
+									name: 'tel',
+									mask: '+7 (999) 999 99 99'
+								},
+								{
+									type: 'header',
+									label: '3. Данные для авторизации:'
+								},
+								{
+									label: 'Пароль',
+									name: 'password',
+									type: 'password'
+								},
+							]}
+						/>
+					</Dialog>
+					<Box pt={4} pb={1} color="background.paper">
+						Язык системы:
+					</Box>
+					<Button 
+						aria-controls="lang-menu" 
+						aria-haspopup="true"
+						variant="contained"
 						onClick={handleLangMenuOpen}
 						size="small"
 						startIcon={<TranslateIcon />}
@@ -191,29 +290,6 @@ function SignIn() {
 						<MenuItem onClick={() => {langSelect('ru')}}>Русский</MenuItem>
 						<MenuItem onClick={() => {langSelect('en')}}>English</MenuItem>
 					</Menu>
-				</Box>
-			</Box>
-			<Box 
-				component={Grid}
-				item container 
-				lg={5} md={12}
-				bgcolor="text.primary"
-				className={classes.item}
-				p={4}
-				alignItems="center" justify="center"
-			>
-				<Box textAlign="center" width="100%" maxWidth="350px">
-					<img src="/img/logo.webp" />
-					<Button 
-                        component={Link}
-                        to="/applicant"
-						variant="contained" 
-						className={classes.fullWidth} 
-						size="large"
-						startIcon={<EmojiPeopleIcon />}
-					>
-						{getW('applicant')}
-					</Button>
 				</Box>
 			</Box>
 		</Grid>

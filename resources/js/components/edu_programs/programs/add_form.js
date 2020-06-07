@@ -21,19 +21,19 @@ function AddEduProgramsForm(props){
 			setFields([
 				{
 					name: 'reg_num',
-					label: 'Шифр, регистрационный номер',
+					label: 'Шифр, регистрационный номер'
 				},
 				{
 					name: 'title_kk',
-					label: 'Название на казахском языке',
+					label: 'Название на казахском языке'
 				},
 				{
 					name: 'title_ru',
-					label: 'Название на русском языке',
+					label: 'Название на русском языке'
 				},
 				{
 					name: 'title_en',
-					label: 'Название на английском языке',
+					label: 'Название на английском языке'
 				},
 				{
 					name: 'edu_programs_type_id',
@@ -59,15 +59,15 @@ function AddEduProgramsForm(props){
 				},
 				{
 					name: 'goals_kk',
-					label: "Цель ОП на казахском языке",
+					label: "Цель ОП на казахском языке"
 				},
 				{
 					name: 'goals_ru',
-					label: "Цель ОП на русском языке",
+					label: "Цель ОП на русском языке"
 				},
 				{
 					name: 'goals_en',
-					label: "Цель ОП на английском языке",
+					label: "Цель ОП на английском языке"
 				},
 				{
 					name: 'academic_degree_id',
