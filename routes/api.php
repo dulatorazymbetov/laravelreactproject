@@ -59,6 +59,8 @@ Route::group(['middleware' => 'role:edu_programs'], function() {
     //ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ
     Route::get('edu_programs', 'EduProgramsController@all');
     Route::post('edu_programs', 'EduProgramsController@add');
+    Route::get('edu_programs/{id}', 'EduProgramsController@get')
+        ->where('id', '[0-9]+');
     Route::post('edu_programs/{id}', 'EduProgramsController@update')
         ->where('id', '[0-9]+');
     //РЕЗУЛЬТАТЫ ОБУЧЕНИЯ
