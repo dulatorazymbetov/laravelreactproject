@@ -191,6 +191,16 @@ class ModulesTableSeeder extends Seeder
 
         DB::table('modules')->insert([
             'id' => '14',
+            'url' => 'diploma_supplement/:id',
+            'without_params' => 'diploma_supplement'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '5',
+            'module_id' => '14'
+        ]);
+
+        DB::table('modules')->insert([
+            'id' => '15',
             'url' => 'course_apps',
             'description_kk' => 'Заявки от кафедр',
             'description_ru' => 'Заявки от кафедр',
@@ -199,7 +209,7 @@ class ModulesTableSeeder extends Seeder
         ]);
         DB::table('module_role')->insert([
             'role_id' => '5',
-            'module_id' => '14'
+            'module_id' => '15'
         ]);
     }
 }

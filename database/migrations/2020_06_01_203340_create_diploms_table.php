@@ -15,18 +15,21 @@ class CreateDiplomsTable extends Migration
     {
         Schema::create('diploms', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->integer('student_id');
+			$table->integer('student_id')->unique();
 			$table->string('iin');
-			$table->string('firstname');
-			$table->string('lastname')->nullable();
-			$table->string('patronymic')->nullable();
+			$table->string('firstname_ru');
+			$table->string('lastname_ru')->nullable();
+			$table->string('patronymic_ru')->nullable();
+			$table->string('firstname_kk')->nullable();
+			$table->string('lastname_kk')->nullable();
+			$table->string('patronymic_kk')->nullable();
 			$table->string('firstname_en')->nullable();
 			$table->string('lastname_en')->nullable();
 			$table->string('patronymic_en')->nullable();
-			$table->date('birth_date');
-			$table->string('diplom_num');
-			$table->date('diplom_date');
-			$table->string('protocol_num');
+			$table->date('birthdate')->nullable();;
+			$table->string('diplom_num')->nullable();;
+			$table->date('diplom_date')->nullable();;
+			$table->string('protocol_num')->nullable();;
 			
 			$table->string('rector_name')->nullable();		//ректор
 			$table->string('rector_name_en')->nullable();
@@ -36,58 +39,58 @@ class CreateDiplomsTable extends Migration
 			$table->string('secretary_name_en')->nullable();
 
 			
-			$table->string('prev_educ_doc_name_kz')->nullable();	//документ о предыдущем образовании
+			$table->string('prev_educ_doc_name_kk')->nullable();	//документ о предыдущем образовании
 			$table->string('prev_educ_doc_name_ru')->nullable();
 			$table->string('prev_educ_doc_name_en')->nullable();
 			$table->string('prev_educ_doc_num')->nullable();
 			$table->date('prev_educ_doc_date')->nullable();
-			$table->string('entrance_doc_name_kz')->nullable();		//вступительный документ//сертификат или тп
+			$table->string('entrance_doc_name_kk')->nullable();		//вступительный документ//сертификат или тп
 			$table->string('entrance_doc_name_ru')->nullable();
 			$table->string('entrance_doc_name_en')->nullable();
 			$table->string('entrance_doc_num')->nullable();
 			$table->date('entrance_doc_date')->nullable();
-			$table->integer('start_year');	//год поступления
-			$table->integer('finish_year');	//год окончания
+			$table->integer('start_year')->nullable();;	//год поступления
+			$table->integer('finish_year')->nullable();;	//год окончания
 			
-			$table->integer('start_university_id');		//поступил в// universities
-			$table->string('start_university_name_kz');	//
-			$table->string('start_university_name_ru');	//
-			$table->string('start_university_name_en');	//
+			$table->integer('start_university_id')->nullable();;		//поступил в// universities
+			$table->string('start_university_name_kk')->nullable();;	//
+			$table->string('start_university_name_ru')->nullable();;	//
+			$table->string('start_university_name_en')->nullable();;	//
 			
 			
 			$table->integer('credits')->nullable();	//кредиты
-			$table->integer('ects_credits');
+			$table->integer('ects_credits')->nullable();;
 			$table->integer('theoretical_credits')->nullable();	//теоретические кредиты
-			$table->integer('theoretical_ects_credits');
-			$table->float('gpa');
+			$table->integer('theoretical_ects_credits')->nullable();;
+			$table->float('gpa')->nullable();;
 			
-			$table->integer('gak_protocol_num');	//номер протокола ГАК
-			$table->date('gak_protocol_date');		//дата протокола ГАК
+			$table->integer('gak_protocol_num')->nullable();;	//номер протокола ГАК
+			$table->date('gak_protocol_date')->nullable();;		//дата протокола ГАК
 			
-			$table->integer('academic_degree_id');	//присуждаемая степень
-			$table->integer('academic_degree_name_kz');	//присуждаемая степень
-			$table->integer('academic_degree_name_ru');	//присуждаемая степень
-			$table->integer('academic_degree_name_en');	//присуждаемая степень
+			$table->integer('academic_degree_id')->nullable();;	//присуждаемая степень
+			$table->string('academic_degree_name_kk')->nullable();;	//присуждаемая степень
+			$table->string('academic_degree_name_ru')->nullable();;	//присуждаемая степень
+			$table->string('academic_degree_name_en')->nullable();;	//присуждаемая степень
 			
-			$table->integer('speciality_id');	//специальность
-			$table->string('speciality_code');
-			$table->string('speciality_name_kz');
-			$table->string('speciality_name_ru');
-			$table->string('speciality_name_en');
+			$table->integer('speciality_id')->nullable();;	//специальность
+			$table->string('speciality_code')->nullable();;
+			$table->string('speciality_name_kk')->nullable();;
+			$table->string('speciality_name_ru')->nullable();;
+			$table->string('speciality_name_en')->nullable();;
 			
-			$table->integer('specialization_id');	//обр программа // специализация
-			$table->string('specialization_code');
-			$table->string('specialization_name_kz');
-			$table->string('specialization_name_ru');
-			$table->string('specialization_name_en');
+			$table->integer('specialization_id')->nullable();;	//обр программа // специализация
+			$table->string('specialization_code')->nullable();;
+			$table->string('specialization_name_kk')->nullable();;
+			$table->string('specialization_name_ru')->nullable();;
+			$table->string('specialization_name_en')->nullable();;
 			
-			$table->string('qualification_name_kz')->nullable();	//присуждаемая квалификация
+			$table->string('qualification_name_kk')->nullable();	//присуждаемая квалификация
 			$table->string('qualification_name_ru')->nullable();
 			$table->string('qualification_name_en')->nullable();
 			
-			$table->string('university_name_kz');	//название университета в текущий момент
-			$table->string('university_name_ru');
-			$table->string('university_name_en');
+			$table->string('university_name_kk')->nullable();;	//название университета в текущий момент
+			$table->string('university_name_ru')->nullable();;
+			$table->string('university_name_en')->nullable();;
 			
             $table->timestamps();
 			$table->softDeletes();

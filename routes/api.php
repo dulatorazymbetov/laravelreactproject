@@ -22,8 +22,16 @@ Route::post('register', 'Auth\ApplicantLoginController@registerApplicant');
 Route::get('roles', 'UserController@allRoles');
 Route::get('modules', 'UserController@allModules');
 Route::get('students', 'UserController@allStudents');
-Route::get('graduates', 'UserController@allGraduates');
 Route::get('applicants', 'UserController@allApplicants');
+
+Route::group(['middleware' => 'role:diploma_supplement'], function() {
+    Route::get('diploma_supplement', 'UserController@allGraduates');
+    Route::get('diploma_supplement/{id}', 'UserController@getGraduate')
+        ->where('id', '[0-9]+');
+    Route::get('diplom/{id}', 'UserController@getDiplomInfo')
+        ->where('id', '[0-9]+');
+    Route::post('diploma_supplement/{id}', 'UserController@updateDiplomDetail');
+});
 
 Route::group(['middleware' => 'role:role_manager'], function() {
     Route::get('users', 'UserController@users');
@@ -51,8 +59,6 @@ Route::group(['middleware' => 'role:edu_programs'], function() {
     //ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ
     Route::get('edu_programs', 'EduProgramsController@all');
     Route::post('edu_programs', 'EduProgramsController@add');
-    Route::get('edu_programs/{id}', 'EduProgramsController@get')
-        ->where('id', '[0-9]+');
     Route::post('edu_programs/{id}', 'EduProgramsController@update')
         ->where('id', '[0-9]+');
     //РЕЗУЛЬТАТЫ ОБУЧЕНИЯ
