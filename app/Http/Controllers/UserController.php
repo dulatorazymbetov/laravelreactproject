@@ -31,8 +31,23 @@ class UserController extends Controller
     public function allStudents(){
         return Student::with('user')->orderBy('id', 'DESC')->get();
     }
-    public function allGraduates(){
-        return Student::with('user')->where('study_status_id', 4)->orderBy('id', 'DESC')->get();
+    public function allGraduates(Request $request){
+        $rows = $request->rows;
+        $offset = $request->page * $rows;
+        $filter = json_decode($request->filter);
+
+        $items = Student::with('user')
+            ->where('study_status_id', 4)
+            ->orderBy('id', 'DESC')
+            ->take($rows)
+            ->skip($offset)
+            ->get();
+        $total = Student::where('study_status_id', 4)->count();
+
+        return [
+            'items' => $items,
+            'total' => $total
+        ];
     }
     public function allApplicants(){
         return Applicant::get();
@@ -79,7 +94,8 @@ class UserController extends Controller
     public function getGraduate(Request $request){
         return [
             'info' => Student::with('user')->find($request->id),
-            'diplom_info' => Diplom::where('student_id', $request->id)        ];
+            'diplom_info' => Diplom::where('student_id', $request->id)
+        ];
     }
 
     public function updateDiplomDetail(Request $request){
