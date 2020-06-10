@@ -24,8 +24,8 @@ function DiplomaSupplementMain(){
 							value: row => row.user.iin || '-'
 						},
 						{
-							label: 'Занимаемые должности',
-							value: ''
+							label: 'ID студента',
+							value: row => row.user.login
 						},
 						{
 							label: 'Редактировать',
