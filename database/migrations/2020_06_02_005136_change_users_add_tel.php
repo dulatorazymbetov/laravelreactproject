@@ -10,7 +10,6 @@ class ChangeUsersAddTel extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('tel')->after('email')->nullable();
-            $table->date('birthdate')->after('tel')->nullable();
             $table->string('registration_address', 1000)->after('birthdate')->nullable();
             $table->string('residential_address', 1000)->after('registration_address')->nullable();
         });
@@ -20,8 +19,7 @@ class ChangeUsersAddTel extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn([
-                'tel', 
-                'birthdate',
+                'tel',
                 'registration_address',
                 'residential_address'
             ]);
