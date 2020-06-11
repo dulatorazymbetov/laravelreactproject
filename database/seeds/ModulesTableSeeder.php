@@ -211,5 +211,18 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '5',
             'module_id' => '15'
         ]);
+
+        DB::table('modules')->insert([
+            'id' => '16',
+            'url' => 'students_statements',
+            'description_kk' => 'Исходящие заявки',
+            'description_ru' => 'Исходящие заявки',
+            'description_en' => 'Исходящие заявки',
+            'icon' => 'ballot'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '5',
+            'module_id' => '16'
+        ]);
     }
 }

@@ -47,7 +47,10 @@ function FormBuilderString(props){
     		};	
     	}
     }
-    
+    if(props.multiline){
+    	builderProps.multiline = true;
+    	builderProps.rows = props.multiline;
+    }
 
 	return (
 		<div><TextField {...builderProps} /></div>
