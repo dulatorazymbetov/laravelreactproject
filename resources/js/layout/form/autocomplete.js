@@ -5,10 +5,13 @@ import TextField from '@material-ui/core/TextField';
 
 function FormBuilderAutocomplete(props){
 	const getValue = () => {
-		const index = props.autocomplete.items.findIndex((element, index, array) => {
-      		return element.id === props.value;
-      	});
-      	return props.autocomplete.items[index];
+		if(props.value){
+			const index = props.autocomplete.items.findIndex((element, index, array) => {
+      			return element.id === props.value;
+      		});
+      		return props.autocomplete.items[index];
+		}
+      	return {};
 	}
 
 	const [value, setValue] = useState(getValue);
