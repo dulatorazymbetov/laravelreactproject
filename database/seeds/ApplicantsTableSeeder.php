@@ -14,9 +14,9 @@ class ApplicantsTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('users')->truncate();
+        
         \DB::table('applicants')->truncate();
-        \DB::table('role_user')->truncate();
+        
         \DB::connection('old')
             ->table('user')
             ->select(

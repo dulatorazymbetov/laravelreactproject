@@ -15,6 +15,12 @@ class StaffTableSeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('users')->truncate();
+        \DB::table('role_user')->truncate();
+        \DB::table('staff')->truncate();
+        \DB::table('users')->truncate();
+        \DB::table('students')->truncate();
+
         \DB::connection('old')
             ->table('user')
             ->select(
