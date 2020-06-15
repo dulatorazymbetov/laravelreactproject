@@ -20,12 +20,12 @@ class ChangeAllApplicants extends Migration
             ]);
             $table->string('user_id')->after('id');
             $table->string('apply_year')->after('user_id');
-            $table->string('firstname_kk')->after('apply_year');
-            $table->string('lastname_kk')->after('firstname_kk');
-            $table->string('patronymic_kk')->after('lastname_kk');
-            $table->string('firstname_en')->after('patronymic_kk');
-            $table->string('lastname_en')->after('firstname_en');
-            $table->string('patronymic_en')->after('lastname_en');
+            $table->string('firstname_kk')->after('apply_year')->nullable();
+            $table->string('lastname_kk')->after('firstname_kk')->nullable();
+            $table->string('patronymic_kk')->after('lastname_kk')->nullable();
+            $table->string('firstname_en')->after('patronymic_kk')->nullable();
+            $table->string('lastname_en')->after('firstname_en')->nullable();
+            $table->string('patronymic_en')->after('lastname_en')->nullable();
         });
     }
 
