@@ -17,7 +17,7 @@ use App\Models\Department\Department;
 
 class ListOfStaffController extends Controller
 {
-    public function staff(Request $request){
+    public function all(Request $request){
         $rows = $request->rows;
         $offset = $request->page * $rows;
         $filter = json_decode($request->filter);
@@ -25,8 +25,24 @@ class ListOfStaffController extends Controller
         $items = Staff::with('user')
             ->take($rows)
             ->skip($offset)
+            ->when(isset($filter->search), function ($q) use ($filter) {
+                $q->whereHas(
+                    'user', function($q) use($filter) {
+                        $q->whereRaw("concat(firstname, ' ', lastname, ' ', patronymic) like '%".$filter->search."%' ");
+                        $q->orWhereRaw("login like '%".$filter->search."%' ");
+                    }
+                );
+            })
             ->get();
-        $total = Staff::count();
+        $total = Staff::when(isset($filter->search), function ($q) use ($filter) {
+                $q->whereHas(
+                    'user', function($q) use($filter) {
+                        $q->whereRaw("concat(firstname, ' ', lastname, ' ', patronymic) like '%".$filter->search."%' ");
+                        $q->orWhereRaw("login like '%".$filter->search."%' ");
+                    }
+                );
+            })
+            ->count();
 
         return [
             'items' => $items,
@@ -34,7 +50,7 @@ class ListOfStaffController extends Controller
         ];
     }
 
-    public function all(Request $request){
+    public function staff(Request $request){
         $rows = $request->rows;
         $offset = $request->page * $rows;
         $search = $request->search;
@@ -92,12 +108,5 @@ class ListOfStaffController extends Controller
         $user->iin = $request->iin;
         $user->email = $request->email;
         $user->save();
-    }
-    public function positionsForm(){
-        return [
-            'departments' => Department::where('include_staff', true)->get(),
-            'position_time_types' => PositionTimeType::all(),
-            'position_types' => PositionType::all()
-        ];
     }
 }

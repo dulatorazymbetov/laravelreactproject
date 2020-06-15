@@ -17,14 +17,22 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function TableBuilder(props){
+	function defaultFilter() {
+		let filter = {};
+		if(props.filter){props.filter.rows.forEach(element => filter[element.name] = element.defaultValue);}
+		return filter;
+	}
+
 	const [items, setItems] = useState([]);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(15);
 	const [count, setCount] = useState(0);
-	const [showFilter, setShowFilter] = useState(false);
-	const [filter, setFilter] = useState({});
+	const [showFilterBar, setShowFilterBar] = useState(false);
+	const [filter, setFilter] = useState(defaultFilter());
+	const [filterForm, setFilterForm] = useState({});
 	const [searchInputTimer, setSearchInputTimer] = useState();
 
 	useEffect(() => {
@@ -35,27 +43,26 @@ function TableBuilder(props){
 		setPage(newPage);
 		getData(rowsPerPage, newPage, filter);
 	}
-
 	const handleChangeRowsPerPage = (event) => {
 		const newValue = parseInt(event.target.value, 10);
 		setRowsPerPage(newValue);
 		setPage(0);
 		getData(newValue, 0, filter);
 	}
-
 	const getData = (rows, page, filter) => {
 		window.axios.get(props.url, {params: {rows, page, filter}})
 			.then((response) => {
        			setItems(response.data.items);
-       			setCount(response.data.total);
+				setCount(response.data.total);
+				setFilterForm(response.data.filter);
        		});
 	}
-	const handleShowFilter = () => {
-		if(showFilter){
-			getData(rowsPerPage, page, {});
+	const handleShowFilterBar = () => {
+		if(showFilterBar){
+			getData(rowsPerPage, page, defaultFilter());
 		}
-		setShowFilter(!showFilter); 
-		setFilter({});
+		setShowFilterBar(!showFilterBar); 
+		setFilter(defaultFilter());
 	}
 	const handleSearch = (event) => {
 		setFilter({...filter, search: event.target.value});
@@ -75,9 +82,9 @@ function TableBuilder(props){
 		<Box>
 			<Box mb={2} display="flex" alignItems="center">
 				<Button 
-					variant={showFilter ? "contained" : "outlined"}
-					startIcon={<Icon>{showFilter ? "close" : "filter_list"}</Icon>}
-					onClick={handleShowFilter}
+					variant={showFilterBar ? "contained" : "outlined"}
+					startIcon={<Icon>{showFilterBar ? "close" : "filter_list"}</Icon>}
+					onClick={handleShowFilterBar}
 					size="large"
 				>
 					Расширенный поиск
@@ -94,13 +101,40 @@ function TableBuilder(props){
 					onChangeRowsPerPage={handleChangeRowsPerPage}
 				/>
 			</Box>
-			{showFilter && <Box component={Paper} p={2} my={2}>
+			{showFilterBar && <Box component={Paper} p={2} my={2}>
 				<TextField 
 					value={filter['search'] || ''} 
 					onChange={handleSearch} 
 					label="Поиск" 
-					variant="outlined" 
-				/>	
+					variant="outlined"
+				/>
+				{props.filter && props.filter.rows.map(row => {
+					return (
+						<TextField 
+							key={"filter-"+row.name}
+							value={filter[row.name] || ''} 
+							onChange={(event) => {
+								setFilter({...filter, [row.name]: event.target.value});
+								getData(rowsPerPage, 0, {...filter, [row.name]: event.target.value});
+							}} 
+							label={row.label} 
+							variant="outlined"
+							select
+						>
+							<MenuItem>{row.emptyValue}</MenuItem>
+							{filterForm[row.name].map((item, item_index) => {
+								return (
+									<MenuItem 
+										key={"filter-"+row.name+"-item"+item_index}
+										value={item[row.name]}
+									>
+										{item[row.name]}
+									</MenuItem>
+								);
+							})}
+						</TextField>
+					);	
+				})}
 			</Box>}
 			<TableContainer component={Paper}>
 				<Table>

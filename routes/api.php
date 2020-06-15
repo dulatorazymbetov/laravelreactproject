@@ -22,7 +22,6 @@ Route::post('register', 'Auth\ApplicantLoginController@registerApplicant');
 Route::get('roles', 'UserController@allRoles');
 Route::get('modules', 'UserController@allModules');
 Route::get('students', 'UserController@allStudents');
-Route::get('applicants', 'UserController@allApplicants');
 
 Route::group(['middleware' => 'role:diploma_supplement'], function() {
     Route::get('diploma_supplement', 'UserController@allGraduates');
@@ -39,8 +38,12 @@ Route::group(['middleware' => 'role:role_manager'], function() {
     Route::post('users/{id}', 'UserController@updateUser');
 });
 
+Route::group(['middleware' => 'role:list_of_applicants'], function() {
+    Route::get('list_of_applicants', 'ListOfApplicantsController@all');
+});
+
 Route::group(['middleware' => 'role:list_of_staff'], function() {
-    Route::get('list_of_staff', 'ListOfStaffController@staff');
+    Route::get('list_of_staff', 'ListOfStaffController@all');
     Route::get('list_of_staff/{id}', 'ListOfStaffController@get')
         ->where('id', '[0-9]+');
     Route::post('list_of_staff/{id}', 'ListOfStaffController@edit')

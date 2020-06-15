@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User\User;
 use App\Models\Student\Student;
-use App\Models\Applicant\Applicant;
 use App\Models\Staff\Staff;
 use App\Models\User\Role;
 use App\Models\User\Module;
@@ -48,9 +47,6 @@ class UserController extends Controller
             'items' => $items,
             'total' => $total
         ];
-    }
-    public function allApplicants(){
-        return Applicant::get();
     }
     public function users(Request $request){
         $rows = $request->rows;
