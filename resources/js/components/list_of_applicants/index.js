@@ -49,6 +49,10 @@ function ListOfApplicants(){
 							value: 'apply_year',
 						},
 						{
+							label: 'Телефон',
+							value: row => row.user.tel,
+						},
+						{
 							label: 'Подробнее',
 							type: 'link',
 							action: {

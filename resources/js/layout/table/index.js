@@ -101,38 +101,44 @@ function TableBuilder(props){
 					onChangeRowsPerPage={handleChangeRowsPerPage}
 				/>
 			</Box>
-			{showFilterBar && <Box component={Paper} p={2} my={2}>
-				<TextField 
-					value={filter['search'] || ''} 
-					onChange={handleSearch} 
-					label="Поиск" 
-					variant="outlined"
-				/>
+			{showFilterBar && <Box component={Paper} p={2} my={2} display="flex">
+				<Box flexGrow={1} p={1}>
+					<TextField 
+						value={filter['search'] || ''} 
+						onChange={handleSearch} 
+						label={props.filter ? props.filter.searchText || 'Поиск' : 'Поиск'} 
+						variant="outlined"
+						fullWidth
+					/>
+				</Box>
 				{props.filter && props.filter.rows.map(row => {
 					return (
-						<TextField 
-							key={"filter-"+row.name}
-							value={filter[row.name] || ''} 
-							onChange={(event) => {
-								setFilter({...filter, [row.name]: event.target.value});
-								getData(rowsPerPage, 0, {...filter, [row.name]: event.target.value});
-							}} 
-							label={row.label} 
-							variant="outlined"
-							select
-						>
-							<MenuItem>{row.emptyValue}</MenuItem>
-							{filterForm[row.name].map((item, item_index) => {
-								return (
-									<MenuItem 
-										key={"filter-"+row.name+"-item"+item_index}
-										value={item[row.name]}
-									>
-										{item[row.name]}
-									</MenuItem>
-								);
-							})}
-						</TextField>
+						<Box p={1}>
+							<TextField 
+								key={"filter-"+row.name}
+								value={filter[row.name] || ''} 
+								onChange={(event) => {
+									setFilter({...filter, [row.name]: event.target.value});
+									getData(rowsPerPage, 0, {...filter, [row.name]: event.target.value});
+								}} 
+								label={row.label} 
+								variant="outlined"
+								select
+								style={{minWidth: 120}}
+							>
+								<MenuItem>{row.emptyValue}</MenuItem>
+								{filterForm[row.name].map((item, item_index) => {
+									return (
+										<MenuItem 
+											key={"filter-"+row.name+"-item"+item_index}
+											value={item[row.name]}
+										>
+											{item[row.name]}
+										</MenuItem>
+									);
+								})}
+							</TextField>
+						</Box>
 					);	
 				})}
 			</Box>}
