@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Applicant\Applicant;
+use App\Models\User\Gender;
+use App\Models\EduProgram\EduProgram;
+use App\Models\Student\StudyForm;
 
 class ListOfApplicantsController extends Controller {
     
@@ -40,6 +43,17 @@ class ListOfApplicantsController extends Controller {
             'filter' => [
                 'apply_year' => Applicant::select('apply_year')->distinct('apply_year')->orderBy('apply_year', 'DESC')->get()
             ]
+        ];
+    }
+    public function get(Request $request){
+        $id = $request->id;
+        return [
+            'form' => [
+                'gender' => Gender::all(),
+                'edu_program' => EduProgram::select('title_en', 'title_kk', 'title_ru', 'id', 'academic_degree_id', 'reg_num')->get(),
+                'study_form' => StudyForm::all()
+            ],
+            'item' => Applicant::with('user')->find($id)
         ];
     }
 }
