@@ -44,7 +44,8 @@ function SignIn() {
     const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 	const [applicantOpen, setApplicantOpen] = useState(false);
-
+	const [regFormDisabled, setRegFormDisabled] = useState(false);
+	
     const { setToken, setUserInfo } = useAuth();
 
 	const { setW, getW, setL } = useLang();
@@ -105,13 +106,11 @@ function SignIn() {
 			const data = new FormData(event.target);
 			window.axios.post('auth', data)
             .then((response) => {
-            	console.log(response);
 				setIsLoading(false);
 				setToken(response.data.token.access_token);
 				setUserInfo(response.data.user);
             })
             .catch(function (error) {
-    			console.log(error.response);
     			setIsLoading(false);
     			if(error.response.data === "invalid login or password"){
     				setErrorMessage('invalid_login_or_password');
@@ -120,7 +119,21 @@ function SignIn() {
 		}
 	}
 	const handleRegSubmit = (data) => {
-		window.axios.post('registration', data);
+		setRegFormDisabled(true);
+		window.axios.post('registration', data).then((response) => {
+			setApplicantOpen(false);
+			setRegFormDisabled(false);
+			alert("Регистрация прошла успешно, проверьте Вашу почту");
+		})
+		.catch(function (error) {
+			setRegFormDisabled(false);
+			if(error.response.data.errors.iin){
+				alert("Ошибка при регистрации: ИИН уже есть в системе");	
+			}
+			else {
+				alert("Ошибка при регистрации");
+			}
+		});
 	}
 	return (
 		<Grid container alignItems="center">
@@ -266,6 +279,7 @@ function SignIn() {
 									type: 'password'
 								},
 							]}
+							disabled={regFormDisabled}
 							handleSubmit={handleRegSubmit}
 						/>
 					</Dialog>

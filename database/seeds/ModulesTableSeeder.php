@@ -233,5 +233,17 @@ class ModulesTableSeeder extends Seeder
             'role_id' => '5',
             'module_id' => '17'
         ]);
+        DB::table('modules')->insert([
+            'id' => '18',
+            'url' => 'applicant_edit',
+            'description_kk' => 'Редактировать данные',
+            'description_ru' => 'Редактировать данные',
+            'description_en' => 'Редактировать данные',
+            'icon' => 'ballot'
+        ]);
+        DB::table('module_role')->insert([
+            'role_id' => '7',
+            'module_id' => '18'
+        ]);
     }
 }

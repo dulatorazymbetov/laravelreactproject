@@ -20,11 +20,11 @@ function ApplicantItem(props){
     const { getL } = useLang();
 
 	useEffect(() => {
-		getData(props.id);
+		getData();
 	}, []);
 
-    const getData = (id) => {
-		window.axios.get('list_of_applicants/'+id).then((response) => {
+    const getData = () => {
+		window.axios.get('applicant_edit').then((response) => {
 			setData(response.data.item);
 			setForm(response.data.form);
 			setIsLoading(false);

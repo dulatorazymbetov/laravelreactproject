@@ -56,4 +56,15 @@ class ListOfApplicantsController extends Controller {
             'item' => Applicant::with('user')->find($id)
         ];
     }
+    public function getPersonal(Request $request){
+        $id = $request->user()->id;
+        return [
+            'form' => [
+                'gender' => Gender::all(),
+                'edu_program' => EduProgram::select('title_en', 'title_kk', 'title_ru', 'id', 'academic_degree_id', 'reg_num')->get(),
+                'study_form' => StudyForm::all()
+            ],
+            'item' => Applicant::with('user')->where('user_id', $id)->first()
+        ];
+    }
 }

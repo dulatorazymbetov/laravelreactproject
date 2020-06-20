@@ -107,3 +107,9 @@ Route::group(['middleware' => 'role:student_profile'], function() {
     Route::get('student_profile', 'StudentProfileController@all');
     Route::post('student_profile/add', 'StudentProfileController@add');
 });
+
+
+
+Route::group(['middleware' => 'role:applicant_edit'], function() {
+    Route::get('applicant_edit', 'ListOfApplicantsController@getPersonal');
+});
