@@ -7,10 +7,17 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Adldap\Laravel\Facades\Adldap;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User\User;
-use App\Models\User\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
+//MODELS
+use App\Models\User\User;
+use App\Models\User\Role;
+use App\Models\Applicant\Applicant;
+//REQUESTS
+use App\Http\Requests\ApplicantRegistration;
+//MAIL
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ConfirmMail;
 
 class LoginController extends Controller {
     use AuthenticatesUsers;
@@ -63,10 +70,10 @@ class LoginController extends Controller {
         $ldap_user = Adldap::search()->where('sAMAccountName', '=', $login)->first();
         $old_info = $this->getInfoFromOldCampus($login);
         $user = new User();
-        $user->login     = strtolower($login);
-        $user->firstname    = $ldap_user->givenname[0];
-        $user->lastname     = $ldap_user->sn[0];
-        $user->password     = Hash::make($password);
+        $user->login = strtolower($login);
+        $user->firstname = $ldap_user->givenname[0];
+        $user->lastname = $ldap_user->sn[0];
+        $user->password = Hash::make($password);
         $user->gender = $old_info->gender;
         $user->email = $old_info->email;
         $user->birthdate = $old_info->birthdate;
@@ -109,5 +116,40 @@ class LoginController extends Controller {
             ->where('user_id', $user->user_id)
             ->get()->pluck('role_id');
         return $user;
+    }
+    public function registerApplicant(ApplicantRegistration $request){
+        $data = $request->validated();
+        $login = $data['iin']."-".date('Y');
+        if(User::select('login')->where('login', $login)->first()){
+            return response()->json([
+                'errors' => [
+                    'iin' => 'The iin has already been taken.'
+                ],
+                'message' => 'The given data was invalid.'
+            ], 422);
+        }
+        else {
+            $user = new User;
+            $user->lastname = $data['lastname'];
+            $user->firstname = $data['firstname'];
+            $user->patronymic = $data['patronymic'];
+            $user->login = $data['iin']."-".date('Y');
+            $user->tel = $data['tel'];
+            $user->email = $data['email'];
+            $user->iin = $data['iin'];
+            $user->password = $data['password'];
+            $user->save();
+            $user->roles()->sync(Role::find(7));
+
+            $applicant = new Applicant;
+            $applicant->user_id = $user->id;
+            $applicant->apply_year = date('Y');
+            $applicant->additional = $data['parent_fio']."\n".$data['parent_tel'];
+            $applicant->confirmed_token = md5($user->id.date('Y'));
+            $applicant->save();
+            $comment = 'Это сообщение отправлено из формы обратной связи';
+            Mail::to($data['email'])->send(new ConfirmMail($comment));
+            return 'Сообщение отправлено на адрес '. $data['email'];
+        }
     }
 }

@@ -119,7 +119,9 @@ function SignIn() {
   			});
 		}
 	}
-
+	const handleRegSubmit = (data) => {
+		window.axios.post('registration', data);
+	}
 	return (
 		<Grid container alignItems="center">
 			<Box 
@@ -214,32 +216,38 @@ function SignIn() {
 									label: 'ИИН',
 									name: 'iin',
 									mask: '999999999999',
-									width: 1/2
+									width: 1/2,
+									value: '011219600758'
 								},
 								{
 									label: 'Телефон',
 									name: 'tel',
 									mask: '+7 (999) 999 99 99',
-									width: 1/2 
+									width: 1/2,
+									value: '+7 (999) 999 99 99'
 								},
 								{
 									label: 'E-mail',
 									name: 'email',
 									mask: 'email',
+									value: 'test@mail.ru'
 									
 								},
 								{
 									label: 'Фамилия (на кириллице)',
-									name: 'lastname'
+									name: 'lastname',
+									value: 'Lastname'
 								},
 								{
 									label: 'Имя (на кириллице)',
-									name: 'firstname'
+									name: 'firstname',
+									value: 'Firstname'
 								},
 								{
 									label: 'Отчество (на кириллице)',
 									name: 'patronymic',
-									required: false
+									required: false,
+									value: 'Отчество (на кириллице)'
 								},
 								{
 									type: 'header',
@@ -247,12 +255,14 @@ function SignIn() {
 								},
 								{
 									label: 'ФИО одного из родителей',
-									name: 'parent_fio'
+									name: 'parent_fio',
+									value: 'ФИО одного из родителей'
 								},
 								{
 									label: 'Телефон одного из родителей',
-									name: 'tel',
-									mask: '+7 (999) 999 99 99'
+									name: 'parent_tel',
+									mask: '+7 (999) 999 99 99',
+									value: '+7 (999) 999 99 99'
 								},
 								{
 									type: 'header',
@@ -261,9 +271,11 @@ function SignIn() {
 								{
 									label: 'Пароль',
 									name: 'password',
-									type: 'password'
+									type: 'password',
+									value: '963852'
 								},
 							]}
+							handleSubmit={handleRegSubmit}
 						/>
 					</Dialog>
 					<Box pt={4} pb={1} color="background.paper">

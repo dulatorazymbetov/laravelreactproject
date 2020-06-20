@@ -25,6 +25,8 @@ class AddAdditionalToApplicantsTable extends Migration
             $table->string('firstname_translit')->after('apply_year')->nullable();
             $table->string('lastname_translit')->after('firstname_translit')->nullable();
             $table->string('patronymic_translit')->after('lastname_translit')->nullable();
+            $table->string('additional')->after('patronymic_translit')->nullable();
+            $table->string('confirmed_token')->after('additional')->nullable();
         });
     }
 
@@ -46,6 +48,8 @@ class AddAdditionalToApplicantsTable extends Migration
                 'firstname_translit',
                 'lastname_translit',
                 'patronymic_translit',
+                'additional',
+                'confirmed_token'
             ]);
         });
     }
