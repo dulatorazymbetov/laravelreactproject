@@ -230,7 +230,7 @@ function SignIn() {
 									label: 'E-mail',
 									name: 'email',
 									mask: 'email',
-									value: 'test@mail.ru'
+									value: 'aibek.mazhenov@gmail.com'
 									
 								},
 								{

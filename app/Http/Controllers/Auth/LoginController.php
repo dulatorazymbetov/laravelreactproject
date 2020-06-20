@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
+use Redirect;
 //MODELS
 use App\Models\User\User;
 use App\Models\User\Role;
@@ -27,8 +28,6 @@ class LoginController extends Controller {
     }
 
     public function login(Request $request){
-        //$user = Adldap::search()->where('sAMAccountName', '=', 'amazhenov')->first();
-        //return response()->json($user, 201);
         $user = auth()->user();
         if($user){
             dd($user);
@@ -55,10 +54,23 @@ class LoginController extends Controller {
                     $user = $this->registerUser($login, $password);
                 }
                 $token = auth()->login($user);
-                return ['token' => $this->respondWithToken($token), 'user' => $this->respondUserInfo($user)];
+                return [
+                    'token' => $this->respondWithToken($token), 
+                    'user' => $this->respondUserInfo($user)
+                ];
             }
             else{
-                return response()->json('invalid login or password', 400);
+                $user = User::where('login', $login)->with('roles','applicant')->first();
+                if (Hash::check($password, $user->password, [])) {
+                    $token = auth()->login($user);
+                    return [
+                        'token' => $this->respondWithToken($token), 
+                        'user' => $this->respondUserInfo($user)
+                    ];
+                }
+                else {
+                    return response()->json('invalid login or password', 400);
+                }
             }
         }
         catch (\Adldap\Exceptions\Auth\BindException $e){
@@ -145,11 +157,29 @@ class LoginController extends Controller {
             $applicant->user_id = $user->id;
             $applicant->apply_year = date('Y');
             $applicant->additional = $data['parent_fio']."\n".$data['parent_tel'];
-            $applicant->confirmed_token = md5($user->id.date('Y'));
+            $applicant->confirm_token = md5($user->id.date('Y'));
             $applicant->save();
-            $comment = 'Это сообщение отправлено из формы обратной связи';
-            Mail::to($data['email'])->send(new ConfirmMail($comment));
-            return 'Сообщение отправлено на адрес '. $data['email'];
+            $params = [
+                'confirm_token' => md5($user->id.date('Y')),
+                'login' => $login,
+                'password' => $data['password'],
+                'fio' => $data['lastname']." ".$data['firstname']
+            ];
+            Mail::to($data['email'])->send(new ConfirmMail($params));
+        }
+    }
+    public function confirmEmail(Request $request){
+        $applicant = Applicant::where('confirm_token', $request->token)->with('user')->first();
+        if($applicant){
+            $applicant->confirm_token = null;
+            $applicant->user()->update([
+                'password' => Hash::make($applicant->user->password)
+            ]);
+            $applicant->save();
+            return "Ученая запись подтверждена.<br /> <a href='/'>На главную страницу</a>";
+        }
+        else {
+            return "Вы уже подтвердили учетную запись или ссылка не активна";
         }
     }
 }

@@ -35,6 +35,9 @@ class User extends Authenticatable implements JWTSubject
     public function staff(){
         return $this->hasOne('App\Models\Staff\Staff');
     }
+    public function applicant(){
+        return $this->belongsTo('App\Models\Applicant\Applicant');
+    }
     public function getJWTIdentifier(){
         return $this->getKey();
     }

@@ -12,6 +12,7 @@
 */
 
 Route::get('/', function () {return view('welcome');});
+Route::get('/confirm/{token}', 'Auth\LoginController@confirmEmail');
 
 Route::get('downloadReport1PDF/{id}', 'DownloadPdfController@downloadReport1PDF');
 Route::get('downloadReport2PDF/{id}', 'DownloadPdfController@downloadReport2PDF');
