@@ -18,7 +18,7 @@ class ChangeAllApplicants extends Migration
                 'iin',
                 'phone'
             ]);
-            $table->string('user_id')->after('id');
+            $table->integer('user_id')->after('id');
             $table->string('apply_year')->after('user_id');
             $table->string('firstname_kk')->after('apply_year')->nullable();
             $table->string('lastname_kk')->after('firstname_kk')->nullable();

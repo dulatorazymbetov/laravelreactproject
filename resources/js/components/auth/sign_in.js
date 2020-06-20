@@ -216,38 +216,32 @@ function SignIn() {
 									label: 'ИИН',
 									name: 'iin',
 									mask: '999999999999',
-									width: 1/2,
-									value: '011219600758'
+									width: 1/2
 								},
 								{
 									label: 'Телефон',
 									name: 'tel',
 									mask: '+7 (999) 999 99 99',
-									width: 1/2,
-									value: '+7 (999) 999 99 99'
+									width: 1/2
 								},
 								{
 									label: 'E-mail',
 									name: 'email',
-									mask: 'email',
-									value: 'aibek.mazhenov@gmail.com'
+									mask: 'email'
 									
 								},
 								{
 									label: 'Фамилия (на кириллице)',
-									name: 'lastname',
-									value: 'Lastname'
+									name: 'lastname'
 								},
 								{
 									label: 'Имя (на кириллице)',
-									name: 'firstname',
-									value: 'Firstname'
+									name: 'firstname'
 								},
 								{
 									label: 'Отчество (на кириллице)',
 									name: 'patronymic',
-									required: false,
-									value: 'Отчество (на кириллице)'
+									required: false
 								},
 								{
 									type: 'header',
@@ -255,14 +249,12 @@ function SignIn() {
 								},
 								{
 									label: 'ФИО одного из родителей',
-									name: 'parent_fio',
-									value: 'ФИО одного из родителей'
+									name: 'parent_fio'
 								},
 								{
 									label: 'Телефон одного из родителей',
 									name: 'parent_tel',
-									mask: '+7 (999) 999 99 99',
-									value: '+7 (999) 999 99 99'
+									mask: '+7 (999) 999 99 99'
 								},
 								{
 									type: 'header',
@@ -271,8 +263,7 @@ function SignIn() {
 								{
 									label: 'Пароль',
 									name: 'password',
-									type: 'password',
-									value: '963852'
+									type: 'password'
 								},
 							]}
 							handleSubmit={handleRegSubmit}
