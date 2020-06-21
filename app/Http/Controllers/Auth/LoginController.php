@@ -174,7 +174,7 @@ class LoginController extends Controller {
     public function confirmEmail(Request $request){
         $applicant = Applicant::where('confirm_token', $request->token)->with('user')->first();
         if($applicant){
-            $applicant->confirm_token = null;
+            //$applicant->confirm_token = null;
             $login = $applicant->user->login;
             $password = $applicant->user->password;
             $name = $applicant->user->lastname." ".$applicant->user->firstname;
@@ -201,23 +201,37 @@ class LoginController extends Controller {
         }
     }
     public function getGraph($login, $password, $name){
-        $token = "eyJ0eXAiOiJKV1QiLCJub25jZSI6IjBmdWE1TVlkek1VckFSemxvY0JOS2t6YnNYN2xMOVNmZmlnUGF6a1BuZWciLCJhbGciOiJSUzI1NiIsIng1dCI6IlNzWnNCTmhaY0YzUTlTNHRycFFCVEJ5TlJSSSIsImtpZCI6IlNzWnNCTmhaY0YzUTlTNHRycFFCVEJ5TlJSSSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9lMDY5YzJmYS1lMDY3LTQ2OWMtYmM3Ni04MTQzYWZjZTFlYzcvIiwiaWF0IjoxNTkyNzQyMDM4LCJuYmYiOjE1OTI3NDIwMzgsImV4cCI6MTU5Mjc0NTkzOCwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFTUUEyLzhQQUFBQWxzRTkrMFJFeTRzdXcrUHh5ZkgxTUxUZ3dLdmVpZDAyWFdFb1pHVFFrdTg9IiwiYW1yIjpbInB3ZCJdLCJhcHBfZGlzcGxheW5hbWUiOiJQSFAgR3JhcGggVHV0b3JpYWwiLCJhcHBpZCI6ImEzODBjNGQyLTM1MzEtNDg4Yi04ZTEwLWJhMWIzMGYyNGUyMCIsImFwcGlkYWNyIjoiMSIsImZhbWlseV9uYW1lIjoiS3VhbnlzaCIsImdpdmVuX25hbWUiOiJSYXVhbiIsImlwYWRkciI6IjY3LjIwOS4xMzAuMTE5IiwibmFtZSI6IlJhdWFuIEt1YW55c2giLCJvaWQiOiI1NGNmNjNjYy04YTg0LTRlYTgtOTk5Yi01ZTgyOWYwNGZmNDYiLCJwbGF0ZiI6IjMiLCJwdWlkIjoiMTAwMzIwMDBDMTdENkYzNyIsInNjcCI6IkNhbGVuZGFycy5SZWFkIERpcmVjdG9yeS5BY2Nlc3NBc1VzZXIuQWxsIERpcmVjdG9yeS5SZWFkV3JpdGUuQWxsIG9wZW5pZCBwcm9maWxlIFVzZXIuUmVhZCBVc2VyLlJlYWRXcml0ZS5BbGwgZW1haWwiLCJzaWduaW5fc3RhdGUiOlsia21zaSJdLCJzdWIiOiJzMUp5ZWk1S1BGbmdiWFVxRWM2Zmx5QTNoT1I5bVpBME83Slo1Nm4yby0wIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkVVIiwidGlkIjoiZTA2OWMyZmEtZTA2Ny00NjljLWJjNzYtODE0M2FmY2UxZWM3IiwidW5pcXVlX25hbWUiOiJyYXVhbkBhZG1pc3Npb24uaWl0dS5reiIsInVwbiI6InJhdWFuQGFkbWlzc2lvbi5paXR1Lmt6IiwidXRpIjoibWlWcWRTdzQ1azYyVUQ2X3RjMUVBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiNjJlOTAzOTQtNjlmNS00MjM3LTkxOTAtMDEyMTc3MTQ1ZTEwIl0sInhtc19zdCI6eyJzdWIiOiJzTmFCNzRXcXk2R0pDbjFxRjFZRFlWVW5UODR3cWY5NlFtUDg1VTF2M1FBIn0sInhtc190Y2R0IjoxNTg5NTMxNTQxfQ.civdVZgetcyq3cMsFgoEivRZ7JLaymIw4WfrQbp6SutwGRoeV7bP8478QOHChGJEV43cirxenhkh13U2LILhOMz1af7R2MMvubka49_6syvAKTl1Jgpen0Z6O0oKoJoHSulZq6uZ7XLxLjI1vyEW22lARiGO400Rob1T39tcxNebtrTdh8rR4bowH3LayDB0iFQ36kOPjA8YMLM-LZi48crtg22V6tNHRJCXIoeCyC7pIsusL1LAeG2OjxIcpExe7wPWESJxqzD3YI6dA8MbtS1cSeFdkBKtub70_-IqZGjPz9Kp7YqFzrMY_qTNXiOy7_hMk7gdeqCmBYiUvnRABw";
+        $tenantId = 'e069c2fa-e067-469c-bc76-8143afce1ec7';
+        $guzzle = new \GuzzleHttp\Client();
+        $url = 'https://login.microsoftonline.com/' . $tenantId . '/oauth2/token?api-version=1.0';
+        $token = json_decode($guzzle->post($url, [
+            'form_params' => [
+                'client_id' => '67ec9117-9658-4daa-b77d-65aeb23a20ef',
+                'client_secret' => 'CImRkYWYEsMy37-2O-8r0MH~v-QFqyBEp9',
+                'resource' => 'https://graph.microsoft.com/',
+                'grant_type' => 'client_credentials',
+            ],
+        ])->getBody()->getContents());
+        $accessToken = $token->access_token;
 
         $graph = new Graph();
-        $graph->setAccessToken($token);
+        $graph->setAccessToken($accessToken);
+
         $queryParams='{
-            "accountEnabled": true,
-            "displayName": "'.$name.'",
-            "mailNickname": "'.$login.'",
-            "userPrincipalName": "'.$login.'@admission.iitu.kz",
-            "passwordProfile" : {
-                "forceChangePasswordNextSignIn": true,
-                "password": "'.$password.'"
-            }
+          "accountEnabled": true,
+          "displayName": "'.$name.'",
+          "mailNickname": "'.$login.'",
+          "userPrincipalName": "'.$login.'@admission.iitu.kz",
+          "passwordProfile" : {
+            "forceChangePasswordNextSignIn": true,
+            "password": "'.$password.'"
+          }
         }';
         $getCreateUrl = '/users';
         $createres = $graph->createRequest('POST', $getCreateUrl)
           ->attachBody($queryParams)
+          ->setReturnType(Model\User::class)
           ->execute();
+
     }
 }
