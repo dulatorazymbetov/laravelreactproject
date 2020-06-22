@@ -191,7 +191,7 @@ class LoginController extends Controller {
                 </p>
                 <p>
                     Учетная запись для входа в 365: <b>".$applicant->user->login."@admission.iitu.kz</b><br/>
-                    Пароль: <b>".$password."</b>
+                    Временный пароль: <b>IITU-applicant-".date('Y')."</b>
                 </p>
                 <a href='/'>На главную страницу</a>
             ");
@@ -224,7 +224,7 @@ class LoginController extends Controller {
           "userPrincipalName": "'.$login.'@admission.iitu.kz",
           "passwordProfile" : {
             "forceChangePasswordNextSignIn": true,
-            "password": "'.$password.'"
+            "password": "IITU-applicant-'.date('Y').'"
           }
         }';
         $getCreateUrl = '/users';

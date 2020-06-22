@@ -11,6 +11,7 @@ import FormBuilderAutocomplete from "./autocomplete.js";
 import FormBuilderCaptcha from "./captcha.js";
 import FormBuilderCheckbox from "./checkbox.js";
 import FormBuilderDate from "./date.js";
+import FormBuilderFile from "./file.js";
 import FormBuilderHeader from "./header.js";
 import FormBuilderFloat from "./float.js";
 import FormBuilderPassword from "./password.js";
@@ -90,6 +91,7 @@ function FormRespond(props){
 								{list.type === 'date' && <FormBuilderDate {...list} />}
 								{list.type === 'password' && <FormBuilderPassword {...list} />}
 								{list.type === 'header' && <FormBuilderHeader {...list} />}
+								{list.type === 'file' && <FormBuilderFile {...list} />}
 							</Grid>
 						);
 					})}

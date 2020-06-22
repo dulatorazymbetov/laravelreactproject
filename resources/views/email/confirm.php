@@ -6,6 +6,10 @@
 		Пароль: <b><?=$data['password'];?></b>
 	</p>
 	<p>
+        Учетная запись для входа в 365: <b><?=$data['login'];?>@admission.iitu.kz</b><br/>
+        Временный пароль: <b>IITU-applicant-<?=date('Y');?></b>
+    </p>
+	<p>
 		<a href="https://newcampus.iitu.kz/confirm/<?=$data['confirm_token']?>">
 			Подтвердить E-mail
 		</a>

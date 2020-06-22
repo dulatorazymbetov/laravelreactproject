@@ -30,13 +30,18 @@ function ApplicantItem(props){
 			setIsLoading(false);
 		});
 	}
+    const handleSubmit = (data) => {
+        window.axios.post('applicant_edit', data).then((response) => {
+            getData();
+        })
+    }
 
     if(isLoading) return (<div />);
 
     return (
         <Box>
             <Title 
-				content={data.user.lastname + " " + data.user.firstname + " " + data.user.patronymic}
+				content={data.user.lastname + " " + data.user.firstname + " " + (data.user.patronymic || '')}
 				tree={[
 					{link: '/list_of_applicants', name: 'Абитуриенты'},
 					{name: 'Редактировать профиль абитуриента'}
@@ -46,6 +51,7 @@ function ApplicantItem(props){
                 <FormBuilder
                     disabled={formDisabled}
                     title="Данные об абитуриенте"
+                    handleSubmit={handleSubmit}
                     fields={[
                         {
                             label: '1. Личные данные',
@@ -65,6 +71,7 @@ function ApplicantItem(props){
                             name: 'patronymic',
                             label: 'Отчество',
                             value: data.user.patronymic,
+                            required: false
                         },
                         {
                             name: 'birthdate',
@@ -86,29 +93,37 @@ function ApplicantItem(props){
                             }
                         },
                         {
-                            name: 'nationality',
+                            name: 'nationality_id',
                             label: 'Национальность',
-                            value: data.nationality,
+                            value: data.user.nationality_id,
                             width: 1/2,
-                            required: false
+                            type: 'select',
+                            select: {
+                                label: 'name_'+getL,
+                                value: 'id',
+                                items: form.nationality
+                            }
                         },
                         {
                             name: 'iin',
                             label: 'ИИН',
                             value: data.user.iin,
-                            width: 1/2
+                            width: 1/2,
+                            mask: '999999999999',
                         },
                         {
                             name: 'email',
                             label: 'E-mail',
                             value: data.user.email,
-                            width: 1/2
+                            width: 1/2,
+                            mask: 'email'
                         },
                         {
                             name: 'tel',
                             label: 'Телефон',
                             value: data.user.tel,
-                            width: 1/2
+                            width: 1/2,
+                            mask: '+7 (999) 999 99 99',
                         },
                         {
                             name: 'registration_address',
@@ -141,33 +156,29 @@ function ApplicantItem(props){
                             required: false
                         },
                         {
-                            name: 'social_category',
+                            name: 'birthplace',
                             label: 'Место рождения',
-                            required: false
+                            value: data.birthplace
                         },
                         {
-                            name: 'social_category',
+                            name: 'social_category_id',
                             label: 'Социальные категории',
                             width: 1/2,
-                            required: false
+                            required: false,
+                            type: 'select',
+                            select: {
+                                items: []
+                            }
                         },
                         {
-                            name: 'social_category',
+                            name: 'military_organization_id',
                             label: 'Район военкомата (*обязательно для юношей)',
                             width: 1/2,
-                            required: false
-                        },
-                        {
-                            name: 'social_category',
-                            label: 'Достижения',
-                            width: 1/2,
-                            required: false
-                        },
-                        {
-                            name: 'social_category',
-                            label: 'Хобби',
-                            width: 1/2,
-                            required: false
+                            required: false,
+                            type: 'select',
+                            select: {
+                                items: []
+                            }
                         },
                         {
                             label: 'Проживает в г. Алматы',
@@ -176,34 +187,10 @@ function ApplicantItem(props){
                             required: false
                         },
                         {
-                            label: '3. Академический план',
-                            type: 'header'
-                        },
-                        {
-                            name: 'study_form_id',
-                            label: 'Форма обучения',
-                            value: data.user.study_form_id,
-                            width: 1/2,
-                            type: 'select',
-                            select: {
-                                label: 'description_'+getL,
-                                value: 'id',
-                                items: form.study_form
-                            }
-                        },
-                        {
-                            name: 'edu_program_id',
-                            label: 'Обр. программа',
-                            value: data.user.edu_program_id,
-                            width: 1/2,
-                            type: 'select',
-                            select: {
-                                label: 'title_'+getL,
-                                value: 'id',
-                                items: form.edu_program
-                            }
-                        },
-                        
+                            label: 'Документ удостоверяющий личность',
+                            type: 'file',
+                            name: 'udv'
+                        }
                     ]}
                 />
             </Box>

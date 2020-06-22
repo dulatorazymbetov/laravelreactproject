@@ -9,14 +9,10 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
-
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $guarded = [];
 
     protected $hidden = [
-        'password', 'remember_token', 'created_at', 'updated_at', 'pivot'
+        'password', 'created_at', 'updated_at', 'pivot'
     ];
 
     protected $casts = [
@@ -44,6 +40,8 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(){
         return [];
     }
-
+    public function nationality(){
+        return $this->belongsTo('App\Models\User\Nationality');
+    }
     
 }
