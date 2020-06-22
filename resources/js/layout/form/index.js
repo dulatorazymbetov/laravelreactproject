@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import FormBuilderAutocomplete from "./autocomplete.js";
 import FormBuilderCaptcha from "./captcha.js";
@@ -64,6 +65,7 @@ function FormRespond(props){
 		setValue({...value, [name]: newValue});
 	}
 	let enter_rows = 0;
+	let empty_rows = [];
 	let all_rows = 0;
 
 	return (
@@ -78,6 +80,7 @@ function FormRespond(props){
 							list.required = true;
 							all_rows++;
 							if(value[list.name]){enter_rows++}
+							else {empty_rows.push(list.label);}
 						}
 						if(props.disabled){list.disabled = true;}
 						list.handleChange =  handleChangeValue;
@@ -106,10 +109,12 @@ function FormRespond(props){
 					color="primary"
 					disabled={(all_rows - enter_rows) > 0}
 				>
-						Отправить
+					Отправить
 				</Button>
 				{(all_rows - enter_rows) > 0 && <Box ml={2} style={{flex: '1 1 auto',}}>
-					<Box mb={1}>* Заполните все важные поля (осталось: {all_rows - enter_rows})</Box>
+					<Tooltip title={empty_rows.length > 0 ? "Обязательные поля: " + empty_rows.join(', ') : 'Все важные поля заполнены'}>
+						<Box mb={1}>* Заполните все важные поля (осталось: {all_rows - enter_rows})</Box>
+					</Tooltip>
 					<LinearProgress variant="determinate" value={(enter_rows/all_rows)*100} />
 				</Box>}
 			</Box>}

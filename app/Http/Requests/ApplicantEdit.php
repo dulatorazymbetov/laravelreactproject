@@ -25,7 +25,7 @@ class ApplicantEdit extends FormRequest
             'residential_address' => 'required',
             'lastname_translit' => 'required|alpha',
             'firstname_translit' => 'required|alpha',
-            'patronymic_translit' => 'required|alpha',
+            'patronymic_translit' => 'nullable|alpha',
             'birthplace' => 'required',
             'social_category_id' => 'integer|nullable',
             'military_organization_id' => 'integer|nullable',
@@ -59,7 +59,7 @@ class ApplicantEdit extends FormRequest
             'prev_edu_diplom_excellent'  => 'boolean',
             'main_doc_type' => 'required|integer',
             'main_doc_number' => 'required|string',
-            'main_doc_series' => 'required|string',
+            'main_doc_series' => 'nullable|string',
             'main_doc_date' => 'required|string',
             'main_doc_giver' => 'required|string'
         ];

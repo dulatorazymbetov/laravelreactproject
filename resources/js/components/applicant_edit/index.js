@@ -174,7 +174,8 @@ function ApplicantItem(props){
                             label: 'Серия документа',
                             name: 'main_doc_series',
                             value: data.main_doc_series,
-                            width: 1/2
+                            width: 1/2,
+                            required: false
                         },
                         {
                             label: 'Срок годности документа',
