@@ -107,9 +107,9 @@ function ApplicantItem(props){
                         {
                             name: 'iin',
                             label: 'ИИН',
+                            disabled: true,
                             value: data.user.iin,
                             width: 1/2,
-                            mask: '999999999999',
                         },
                         {
                             name: 'email',
@@ -136,7 +136,54 @@ function ApplicantItem(props){
                             value: data.user.residential_address,
                         },
                         {
-                            label: '2. Карта абитуриента',
+                            label: '2. Основной документ',
+                            type: 'header'
+                        },
+                        {
+                            label: 'Тип документа',
+                            type: 'select',
+                            name: 'main_doc_type',
+                            width: 1/2,
+                            value: data.main_doc_type,
+                            select: {
+                                value: 'id',
+                                label: 'title',
+                                items: [
+                                    {id: 1, title: 'Удостоверение личности'},
+                                    {id: 2, title: 'Паспорт'},
+                                    {id: 3, title: 'Свидетельство о рождении'},
+                                    {id: 4, title: 'Вид на жительство'},
+                                    {id: 5, title: 'Другой документ'},
+                                ]
+                            }
+                        },
+                        {
+                            label: '№ документа',
+                            name: 'main_doc_number',
+                            value: data.main_doc_number,
+                            width: 1/2
+                        },
+                        {
+                            label: 'Серия документа',
+                            name: 'main_doc_series',
+                            value: data.main_doc_series,
+                            width: 1/2
+                        },
+                        {
+                            label: 'Срок годности документа',
+                            name: 'main_doc_date',
+                            type: 'date',
+                            value: data.main_doc_date,
+                            width: 1/2
+                        },
+                        {
+                            label: 'Орган выдавший документ',
+                            name: 'main_doc_giver',
+                            value: data.main_doc_giver,
+                            width: 1/2
+                        },
+                        {
+                            label: '3. Карта абитуриента',
                             type: 'header'
                         },
                         {
@@ -177,20 +224,290 @@ function ApplicantItem(props){
                             required: false,
                             type: 'select',
                             select: {
-                                items: []
+                                items: form.military,
+                                value: 'id',
+                                label: 'title_'+getL
                             }
                         },
                         {
                             label: 'Проживает в г. Алматы',
                             type: 'checkbox',
                             name: 'live_in_almaty',
+                            required: false,
+                            value: data.live_in_almaty
+                        },
+                        {
+                            label: '4. Академический план',
+                            type: 'header'
+                        },
+                        {
+                            name: 'study_form_id',
+                            label: 'Форма обучения',
+                            value: data.study_form_id,
+                            width: 1/2,
+                            type: 'select',
+                            select: {
+                                label: 'description_'+getL,
+                                value: 'id',
+                                items: form.study_form
+                            }
+                        },
+                        {
+                            name: 'edu_program_id',
+                            label: 'Обр. программа',
+                            value: data.edu_program_id,
+                            width: 1/2,
+                            type: 'select',
+                            select: {
+                                label: 'title_'+getL,
+                                value: 'id',
+                                items: form.edu_program
+                            }
+                        },
+                        {
+                            name: 'payment_form_id',
+                            label: 'Форма оплаты',
+                            type: 'select',
+                            value: data.payment_form_id,
+                            width: 1/2,
+                            select: {
+                                value: 'id',
+                                label: 'description_'+getL,
+                                items: form.payment_form
+                            }
+                        },
+                        {
+                            name: 'need_campus',
+                            label: 'Необходимость общежития',
+                            type: 'select',
+                            width: 1/2,
+                            value: data.need_campus,
+                            select: {
+                                value: 'id',
+                                label: 'title',
+                                items: [
+                                    {id: 0, title: 'Не нуждается'},
+                                    {id: 1, title: 'Нуждается'},
+                                    {id: 2, title: 'Обеспечен'}
+                                ]
+                            }
+                        },
+                        {
+                            name: 'english_level_id',
+                            label: 'Уровень английского',
+                            type: 'select',
+                            value: data.english_level_id,
+                            select: {
+                                value: 'id',
+                                label: 'description_'+getL,
+                                items: form.english_level
+                            },
+                            width: 1/2,
                             required: false
                         },
                         {
-                            label: 'Документ удостоверяющий личность',
-                            type: 'file',
-                            name: 'udv'
-                        }
+                            name: 'citizenship',
+                            label: 'Гражданство',
+                            type: 'select',
+                            value: data.citizenship,
+                            select: {
+                                value: 'id',
+                                label: 'name_'+getL,
+                                items: form.citizenship
+                            },
+                            width: 1/2,
+                            required: false
+                        },
+                        {
+                            label: '5. Сертификат ЕНТ/КТА',
+                            type: 'header'
+                        },
+                        {
+                            label: 'Номер сертификата',
+                            name: 'ent_certificate_number',
+                            value: data.ent_certificate_number,
+                        },
+                        {
+                            label: 'Серия сертификата',
+                            name: 'ent_certificate_series',
+                            required: false,
+                            width: 1/2,
+                            value: data.ent_certificate_series,
+                        },
+                        {
+                            label: 'ИКТ',
+                            name: 'ent_ikt',
+                            width: 1/2,
+                            value: data.ent_ikt
+                        },
+                        {
+                            label: 'Общий балл',
+                            name: 'ent_total',
+                            type: 'float',
+                            width: 1/2,
+                            value: data.ent_total
+                        },
+                        {
+                            label: 'История Казахстана',
+                            name: 'ent_history_of_kk',
+                            type: 'float',
+                            required: false,
+                            width: 1/2,
+                            value: data.ent_history_of_kk
+                        },
+                        {
+                            label: 'Математическая грамотность',
+                            name: 'ent_math',
+                            type: 'float',
+                            required: false,
+                            width: 1/2,
+                            value: data.ent_math
+                        },
+                        {
+                            label: 'Грамотность чтения',
+                            name: 'ent_reading',
+                            type: 'float',
+                            required: false,
+                            width: 1/2,
+                            value: data.ent_reading
+                        },
+                        {
+                            label: 'Профильный 1 (Математика)',
+                            name: 'ent_profile_1',
+                            type: 'float',
+                            required: false,
+                            width: 1/2,
+                            value: data.ent_profile_1
+                        },
+                        {
+                            label: 'Профильный 2 (Физика/География)',
+                            name: 'ent_profile_2',
+                            type: 'float',
+                            required: false,
+                            width: 1/2,
+                            value: data.ent_profile_2
+                        },
+                        {
+                            label: 'Творческий экзамен',
+                            name: 'creative_exam',
+                            type: 'float',
+                            required: false,
+                            width: 1/2,
+                            value: data.creative_exam
+                        },
+                        {
+                            label: 'Творческий экзамен 2',
+                            name: 'creative_exam2',
+                            type: 'float',
+                            required: false,
+                            width: 1/2,
+                            value: data.creative_exam2
+                        },
+                        {
+                            label: '6. Данные о предыдущем образовании',
+                            type: 'header'
+                        },
+                        {
+                            label: 'Тип образовательного учреждения',
+                            name: 'prev_edu_org_type',
+                            type: 'select',
+                            select: {
+                                value: 'id',
+                                label: 'title',
+                                items: [
+                                    {id: 1, title: 'Школа'},
+                                    {id: 2, title: 'Колледж'},
+                                    {id: 3, title: 'ВУЗ'},
+                                    {id: 4, title: 'Другое'}
+                                ]
+                            },
+                            width: 1/2,
+                            value: data.prev_edu_org_type
+                        },
+                        {
+                            label: 'Регион расположения',
+                            name: 'prev_edu_org_region',
+                            type: 'select',
+                            select: {
+                                value: 'id',
+                                label: 'name_ru',
+                                items: form.prev_edu_org_region
+                            },
+                            width: 1/2,
+                            value: data.prev_edu_org_region
+                        },
+                        {
+                            label: 'Язык обучения',
+                            name: 'prev_edu_language',
+                            type: 'select',
+                            select: {
+                                value: 'id',
+                                label: 'title_'+getL,
+                                items: form.prev_edu_language
+                            },
+                            width: 1/2,
+                            value: data.prev_edu_language
+                        },
+                        {
+                            label: 'GPA/Средняя оценка',
+                            name: 'prev_edu_score',
+                            type: 'float',
+                            width: 1/2,
+                            required: false,
+                            value: data.prev_edu_score
+                        },
+                        {
+                            label: 'Название специальности/направления',
+                            name: 'prev_edu_direction',
+                            width: 1/2,
+                            required: false,
+                            value: data.prev_edu_direction
+                        },
+                        {
+                            label: 'Зарубежное учреждение',
+                            name: 'prev_edu_foreign',
+                            type: 'checkbox',
+                            required: false,
+                            width: 1/2,
+                            value: data.prev_edu_foreign
+                        },
+                        {
+                            name: 'prev_edu_diplom_series',
+                            label: 'Серия диплома / аттестата',
+                            width: 1/2,
+                            value: data.prev_edu_diplom_series
+                        },
+                        {
+                            name: 'prev_edu_diplom_number',
+                            label: 'Номер диплома / аттестата',
+                            width: 1/2,
+                            value: data.prev_edu_diplom_number
+                        },
+                        {
+                            label: 'Дата выдачи диплома',
+                            name: 'prev_edu_diplom_date',
+                            type: 'date',
+                            required: false,
+                            width: 1/2,
+                            value: data.prev_edu_diplom_date
+                        },
+                        {
+                            label: 'Диплом с отличием (Алтын белгi)',
+                            name: 'prev_edu_diplom_excellent',
+                            type: 'checkbox',
+                            required: false,
+                            width: 1/2,
+                            value: data.prev_edu_diplom_excellent
+                        },
+
+                    ]}
+                />
+            </Box>
+            <Box component={Paper} mt={4}>
+                <FormBuilder 
+                    title="Загруженные документы"
+                    fields={[
+
                     ]}
                 />
             </Box>

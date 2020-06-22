@@ -36,6 +36,7 @@ function FormBuilderString(props){
     builderProps.required 	  = props.required;
     builderProps.autoComplete = props.autoComplete;
     builderProps.mask = props.mask;
+
     if(props.mask){
     	if(props.mask === 'email'){
     		builderProps.type = 'email';

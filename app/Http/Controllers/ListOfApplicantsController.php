@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 //MODELS
 use App\Models\Applicant\Applicant;
+use App\Models\Applicant\AdmDivision;
 use App\Models\User\User;
 use App\Models\User\Gender;
+use App\Models\User\MilitaryOrganization;
 use App\Models\User\Nationality;
+use App\Models\User\Country;
 use App\Models\EduProgram\EduProgram;
 use App\Models\Student\StudyForm;
+use App\Models\Student\PaymentForm;
+use App\Models\Staff\EnglishLevel;
+use App\Models\Staff\TeachingLanguage;
 //REQUESTS
 use App\Http\Requests\ApplicantEdit;
 
@@ -58,7 +64,13 @@ class ListOfApplicantsController extends Controller {
                 'gender' => Gender::all(),
                 'edu_program' => EduProgram::select('title_en', 'title_kk', 'title_ru', 'id', 'academic_degree_id', 'reg_num')->get(),
                 'study_form' => StudyForm::all(),
-                'nationality' => Nationality::all()
+                'nationality' => Nationality::all(),
+                'payment_form' => PaymentForm::all(),
+                'english_level' => EnglishLevel::all(),
+                'prev_edu_org_region' => AdmDivision::where('parent_id', 0)->get(),
+                'prev_edu_language' => TeachingLanguage::all(),
+                'citizenship' => Country::all(),
+                'military' => MilitaryOrganization::all()
             ],
             'item' => Applicant::with('user.nationality')->where('user_id', $id)->first()
         ];
@@ -66,37 +78,26 @@ class ListOfApplicantsController extends Controller {
     public function update(ApplicantEdit $request){
         $id = $request->user()->id;
         $data = $request->validated();
-        $users_data = Arr::only($data, [
+        $users_data = [
             'firstname', 
             'lastname', 
             'patronymic',
             'birthdate', 
             'gender', 
-            'nationality_id', 
-            'iin', 
+            'nationality_id',
             'email', 
             'tel', 
             'registration_address', 
             'residential_address'
-        ]);
+        ];
 
         $user = User::find($id);
-        $user->fill($users_data);
+        $user->fill(Arr::only($data, $users_data));
         $user->save();
 
-        $applicants_data = Arr::only($data, [
-            'lastname_translit', 
-            'firstname_translit', 
-            'patronymic_translit', 
-            'birthplace', 
-            'social_category_id', 
-            'military_organization_id',
-            'live_in_almaty'
-        ]);
         $applicant = Applicant::where('user_id', $user->id)->first();
-        $applicant->fill($applicants_data);
+        $applicant->fill(Arr::except($data, $users_data));
         $applicant->save();
 
-        dd($data['udv']);
     }
 }
