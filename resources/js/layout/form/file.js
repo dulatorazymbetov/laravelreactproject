@@ -15,22 +15,16 @@ function FormBuilderFile(props){
 	  			accept="image/*"
 	  			name={props.name}
 	  			style={{ display: 'none' }}
-	  			id="contained-button-file"
+	  			id={"contained-button-file-"+props.name}
 	  			type="file"
 	  			onChange={handleChange}
 			/>
-			<label htmlFor="contained-button-file">
-	  			{!props.file && <Box>
-	  				<Button variant="contained" component="span">
+			<label htmlFor={"contained-button-file-"+props.name}>
+	  			<Box>
+	  				<Button variant="contained" color={props.file || upload ? 'secondary' : 'default'}component="span">
 	    				{props.label}
-	  				</Button>  ({upload ? upload : 'Файл не выбран'})
-	  			</Box>}
-	  			{props.file && <Box>
-	  				<Button variant="contained" color="secondary" component="span">
-	    				Заменить {props.label}
-	  				</Button>  (Файл загружен)
+	  				</Button>  ({upload ?  'Файл ожидает загрузки' : (props.file ? 'Файл загружен': 'Файл не выбран')})
 	  			</Box>
-	  			}
 			</label> 
 		</Box>
 	);
