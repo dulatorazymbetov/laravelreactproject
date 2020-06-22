@@ -20,7 +20,7 @@ class ChangeUsersAddAdditionalFields extends Migration
             $table->string('birthplace')->after('patronymic_translit')->nullable();
             $table->integer('social_category_id')->after('patronymic_translit')->nullable();
             $table->integer('military_organization_id')->after('social_category_id')->nullable();
-            $table->boolean('live_in_almaty')->after('military_organization_id');
+            $table->boolean('live_in_almaty')->after('military_organization_id')->nullable();
         });
     }
 
