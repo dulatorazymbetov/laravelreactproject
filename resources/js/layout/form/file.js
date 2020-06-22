@@ -20,9 +20,17 @@ function FormBuilderFile(props){
 	  			onChange={handleChange}
 			/>
 			<label htmlFor="contained-button-file">
-	  			<Button variant="contained" component="span">
-	    			{props.label}
-	  			</Button> ({upload ? upload : 'Файл не выбран'})
+	  			{!props.file && <Box>
+	  				<Button variant="contained" component="span">
+	    				{props.label}
+	  				</Button>  ({upload ? upload : 'Файл не выбран'})
+	  			</Box>}
+	  			{props.file && <Box>
+	  				<Button variant="contained" color="secondary" component="span">
+	    				Заменить {props.label}
+	  				</Button>  (Файл загружен)
+	  			</Box>
+	  			}
 			</label> 
 		</Box>
 	);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 //MODELS
 use App\Models\Applicant\Applicant;
 use App\Models\Applicant\AdmDivision;
@@ -99,5 +100,42 @@ class ListOfApplicantsController extends Controller {
         $applicant->fill(Arr::except($data, $users_data));
         $applicant->save();
 
+    }
+    public function store_file(Request $request){
+        $id = $request->user()->id;
+        $user = User::find($id);
+        $applicant = Applicant::where('user_id', $user->id)->first();
+
+        if($request->file('udv_file')){
+            $path = Storage::putFile('public/'.$id, $request->file('udv_file'));
+            Storage::delete($applicant->udv_file);
+            $applicant->udv_file = $path;
+        }
+        if($request->file('ent_file')){
+            $path = Storage::putFile('public/'.$id, $request->file('ent_file'));
+            Storage::delete($applicant->ent_file);
+            $applicant->ent_file = $path;
+        }
+        if($request->file('middle_diplom_file')){
+            $path = Storage::putFile('public/'.$id, $request->file('middle_diplom_file'));
+            Storage::delete($applicant->middle_diplom_file);
+            $applicant->middle_diplom_file = $path;
+        }
+        if($request->file('hight_diplom_file')){
+            $path = Storage::putFile('public/'.$id, $request->file('hight_diplom_file'));
+            Storage::delete($applicant->hight_diplom_file);
+            $applicant->hight_diplom_file = $path;
+        }
+        if($request->file('exemption_file')){
+            $path = Storage::putFile('public/'.$id, $request->file('exemption_file'));
+            Storage::delete($applicant->exemption_file);
+            $applicant->exemption_file = $path;
+        }
+        if($request->file('other_file')){
+            $path = Storage::putFile('public/'.$id, $request->file('other_file'));
+            Storage::delete($applicant->other_file);
+            $applicant->other_file = $path;
+        }
+        $applicant->save();
     }
 }

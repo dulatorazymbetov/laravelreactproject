@@ -113,4 +113,5 @@ Route::group(['middleware' => 'role:student_profile'], function() {
 Route::group(['middleware' => 'role:applicant_edit'], function() {
     Route::get('applicant_edit', 'ListOfApplicantsController@get');
     Route::post('applicant_edit', 'ListOfApplicantsController@update');
+    Route::post('applicant_edit/store_file', 'ListOfApplicantsController@store_file');
 });

@@ -35,6 +35,13 @@ function ApplicantItem(props){
             getData();
         })
     }
+    const fileSubmit = (data) => {
+        window.axios.post('applicant_edit/store_file',data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    }
 
     if(isLoading) return (<div />);
 
@@ -506,8 +513,50 @@ function ApplicantItem(props){
             <Box component={Paper} mt={4}>
                 <FormBuilder 
                     title="Загруженные документы"
+                    handleSubmit={fileSubmit}
                     fields={[
-
+                        {
+                            label: 'Документ удостоверяющий личность',
+                            name: 'udv_file',
+                            type: 'file',
+                            required: false,
+                            file: data.udv_file
+                        },
+                        {
+                            label: 'Сертификат ЕНТ',
+                            name: 'ent_file',
+                            type: 'file',
+                            required: false,
+                            file: data.ent_file
+                        },
+                        {
+                            label: 'Документ о среднем образовании',
+                            name: 'middle_diplom_file',
+                            type: 'file',
+                            required: false,
+                            file: data.middle_diplom_file
+                        },
+                        {
+                            label: 'Документ о высшем образовании',
+                            name: 'hight_diplom_file',
+                            type: 'file',
+                            required: false,
+                            file: data.hight_diplom_file
+                        },
+                        {
+                            label: 'Подтверждающий документ о льготах',
+                            name: 'exemption_file',
+                            type: 'file',
+                            required: false,
+                            file: data.exemption_file
+                        },
+                        {
+                            label: 'Сертификаты, грамоты, дипломы, IELTS или TOEFL и так далее',
+                            name: 'other_file',
+                            type: 'file',
+                            required: false,
+                            file: data.other_file
+                        }
                     ]}
                 />
             </Box>
