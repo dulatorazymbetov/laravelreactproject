@@ -174,7 +174,7 @@ class LoginController extends Controller {
     public function confirmEmail(Request $request){
         $applicant = Applicant::where('confirm_token', $request->token)->with('user')->first();
         if($applicant){
-            //$applicant->confirm_token = null;
+            $applicant->confirm_token = null;
             $login = $applicant->user->login;
             $password = $applicant->user->password;
             $name = $applicant->user->lastname." ".$applicant->user->firstname;

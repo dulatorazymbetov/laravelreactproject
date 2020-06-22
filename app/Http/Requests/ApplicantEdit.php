@@ -30,8 +30,7 @@ class ApplicantEdit extends FormRequest
             'birthplace' => 'required',
             'social_category_id' => 'integer|nullable',
             'military_organization_id' => 'integer|nullable',
-            'live_in_almaty' => 'boolean',
-            'udv' => 'file'
+            'live_in_almaty' => 'boolean'
         ];
     }
 }
