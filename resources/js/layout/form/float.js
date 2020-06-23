@@ -10,6 +10,16 @@ function FormBuilderFloat(props){
 		if(newValue){
 			newValue = newValue.replace(/[^-.0-9]/gim, '') || value;
 		}
+		if(props.min){
+			if(newValue < props.min){
+				newValue = props.min;
+			}
+		}
+		if(props.max){
+			if(newValue > props.max){
+				newValue = props.max;
+			}
+		}
 		setValue(newValue);
 		props.handleChange(props.name, newValue);
 	}
