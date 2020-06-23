@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 //MODELS
 use App\Models\Applicant\Applicant;
 use App\Models\Applicant\AdmDivision;
+use App\Models\Applicant\SocialStatus;
 use App\Models\User\User;
 use App\Models\User\Gender;
 use App\Models\User\MilitaryOrganization;
@@ -59,7 +60,8 @@ class ListOfApplicantsController extends Controller {
         ];
     }
     public function get(Request $request){
-        $id = $request->user()->id;
+        $id = $request->id;
+        if(!$id){$id = $request->user()->id;}
         return [
             'form' => [
                 'gender' => Gender::all(),
@@ -71,13 +73,15 @@ class ListOfApplicantsController extends Controller {
                 'prev_edu_org_region' => AdmDivision::where('parent_id', 0)->get(),
                 'prev_edu_language' => TeachingLanguage::all(),
                 'citizenship' => Country::all(),
-                'military' => MilitaryOrganization::all()
+                'military' => MilitaryOrganization::all(),
+                'social_status' => SocialStatus::all()
             ],
-            'item' => Applicant::with('user.nationality')->where('user_id', $id)->first()
+            'item' => Applicant::with('user.nationality', 'social_status')->where('user_id', $id)->first()
         ];
     }
     public function update(ApplicantEdit $request){
-        $id = $request->user()->id;
+        $id = $request->id;
+        if(!$id){$id = $request->user()->id;}
         $data = $request->validated();
         $users_data = [
             'firstname', 
@@ -98,6 +102,7 @@ class ListOfApplicantsController extends Controller {
 
         $applicant = Applicant::where('user_id', $user->id)->first();
         $applicant->fill(Arr::except($data, $users_data));
+        $applicant->social_status()->sync(SocialStatus::findMany(explode(',', $request->social_statuses)));
         $applicant->save();
 
     }

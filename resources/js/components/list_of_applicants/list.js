@@ -58,7 +58,7 @@ function ListOfApplicants(){
 							action: {
 								icon: 'person',
 								variant: 'outlined',
-								param: 'id',
+								param: 'user_id',
 								url_prefix: 'list_of_applicants',
 								label: 'Подробнее'
 							}

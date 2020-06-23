@@ -41,6 +41,8 @@ Route::group(['middleware' => 'role:list_of_applicants'], function() {
     Route::get('list_of_applicants', 'ListOfApplicantsController@all');
     Route::get('list_of_applicants/{id}', 'ListOfApplicantsController@get')
         ->where('id', '[0-9]+');
+    Route::post('list_of_applicants/{id}', 'ListOfApplicantsController@update')
+        ->where('id', '[0-9]+');
 });
 
 Route::group(['middleware' => 'role:list_of_staff'], function() {

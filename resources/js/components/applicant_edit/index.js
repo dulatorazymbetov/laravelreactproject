@@ -216,13 +216,16 @@ function ApplicantItem(props){
                             value: data.birthplace
                         },
                         {
-                            name: 'social_category_id',
+                            name: 'social_statuses',
                             label: 'Социальные категории',
-                            width: 1/2,
                             required: false,
                             type: 'select',
+                            value: data.social_status,
                             select: {
-                                items: []
+                                items: form.social_status,
+                                label: 'title_'+getL,
+                                value: 'id',
+                                multiple: true,
                             }
                         },
                         {
@@ -242,7 +245,8 @@ function ApplicantItem(props){
                             type: 'checkbox',
                             name: 'live_in_almaty',
                             required: false,
-                            value: data.live_in_almaty
+                            value: data.live_in_almaty,
+                            width: 1/2
                         },
                         {
                             label: '4. Академический план',
@@ -352,6 +356,8 @@ function ApplicantItem(props){
                             label: 'Общий балл',
                             name: 'ent_total',
                             type: 'float',
+                            min: 0,
+                            max: 140,
                             width: 1/2,
                             value: data.ent_total
                         },
@@ -360,6 +366,8 @@ function ApplicantItem(props){
                             name: 'ent_history_of_kk',
                             type: 'float',
                             required: false,
+                            min: 0,
+                            max: 100,
                             width: 1/2,
                             value: data.ent_history_of_kk
                         },
@@ -368,6 +376,8 @@ function ApplicantItem(props){
                             name: 'ent_math',
                             type: 'float',
                             required: false,
+                            min: 0,
+                            max: 100,
                             width: 1/2,
                             value: data.ent_math
                         },
@@ -376,6 +386,8 @@ function ApplicantItem(props){
                             name: 'ent_reading',
                             type: 'float',
                             required: false,
+                            min:  0,
+                            max: 0,
                             width: 1/2,
                             value: data.ent_reading
                         },
@@ -384,6 +396,8 @@ function ApplicantItem(props){
                             name: 'ent_profile_1',
                             type: 'float',
                             required: false,
+                            min: 0,
+                            max: 0,
                             width: 1/2,
                             value: data.ent_profile_1
                         },
@@ -392,6 +406,8 @@ function ApplicantItem(props){
                             name: 'ent_profile_2',
                             type: 'float',
                             required: false,
+                            min: 0,
+                            max: 0,
                             width: 1/2,
                             value: data.ent_profile_2
                         },
@@ -400,6 +416,8 @@ function ApplicantItem(props){
                             name: 'creative_exam',
                             type: 'float',
                             required: false,
+                            min: 0,
+                            max: 0,
                             width: 1/2,
                             value: data.creative_exam
                         },
@@ -408,6 +426,8 @@ function ApplicantItem(props){
                             name: 'creative_exam2',
                             type: 'float',
                             required: false,
+                            min: 0,
+                            max: 0,
                             width: 1/2,
                             value: data.creative_exam2
                         },
