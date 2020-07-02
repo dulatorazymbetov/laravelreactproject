@@ -52,6 +52,7 @@ class ApplicantsTableSeeder extends Seeder
                         $password = 'IITU-applicant-'.date('Y');
                         $name = $user->lastname." ".$user->firstname;
                         $this->getGraph($login, $password, $name);
+                        echo "login:".$login."|";
                         $this->sendMail($value->email, $login, $name);
                         $user->password = Hash::make($password);
                     }
