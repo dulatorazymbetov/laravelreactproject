@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2",
         "adldap2/adldap2-laravel": "^6.0",
+        "artisaninweb/laravel-soap": "0.3.0.9",
         "barryvdh/laravel-dompdf": "^0.8.6",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",

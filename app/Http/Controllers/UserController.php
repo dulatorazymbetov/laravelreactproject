@@ -15,6 +15,7 @@ use App\Models\Staff\EnglishLevel;
 use App\Models\Staff\PositionType;
 use App\Models\Staff\PositionTimeType;
 use App\Models\Department\Department;
+use Artisaninweb\SoapWrapper\SoapWrapper;
 
 class UserController extends Controller
 {
@@ -148,5 +149,17 @@ class UserController extends Controller
         $dimplom->qualification_name_en = $request->qualification_name_en;
         $dimplom->save();
         return $dimplom;
+    }
+    public function soap(){
+        $s = new SoapWrapper;
+        $s->add('getAllDataItems', function ($service) {
+            $service->wsdl('https://nobd-services-test.iac.kz/nedb-ddm/services/ddmDataWebService?wsdl')
+            ->trace(false)
+            ->options(['login' => 'MUIT', 'password' => 'Mt48536!@']);
+        });
+        $s->client('getAllDataItems.arg0', function ($service) {
+            $xml = simplexml_load_string($service->call('getAllDataItems.arg0', []));
+        });
+
     }
 }
