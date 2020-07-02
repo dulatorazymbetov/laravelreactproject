@@ -48,8 +48,8 @@ class ApplicantsTableSeeder extends Seeder
                         $user = new User;
                     }
                     if(!$user->password){
+                        dd($login);
                         echo "login:".$login."|";
-                        $login = $user->login;
                         $password = 'IITU-applicant-'.date('Y');
                         $name = $user->lastname." ".$user->firstname;
                         $this->getGraph($login, $password, $name);
