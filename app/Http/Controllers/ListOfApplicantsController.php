@@ -67,7 +67,7 @@ class ListOfApplicantsController extends Controller {
                 'gender' => Gender::all(),
                 'edu_program' => EduProgram::select('title_en', 'title_kk', 'title_ru', 'id', 'academic_degree_id', 'reg_num')->get(),
                 'study_form' => StudyForm::all(),
-                'nationality' => Nationality::all(),
+                'nationality' => Nationality::orderBy('name_ru')->get(),
                 'payment_form' => PaymentForm::all(),
                 'english_level' => EnglishLevel::all(),
                 'prev_edu_org_region' => AdmDivision::where('parent_id', 0)->get(),

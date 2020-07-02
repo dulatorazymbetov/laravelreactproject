@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ConfirmMail extends Mailable
+class Send365 extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,6 +19,6 @@ class ConfirmMail extends Mailable
     }
 
     public function build() {
-        return $this->view('email.confirm');
+        return $this->view('email.send_365_login');
     }
 }
