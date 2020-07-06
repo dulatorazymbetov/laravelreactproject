@@ -38,7 +38,7 @@ class ApplicantsTableSeeder extends Seeder
             )
             ->leftJoin('student_card', 'student_card.student_id', '=', 'user.user_id')
             ->where('applicant_apply_year', '2020')
-            ->where('create_date', '>', '2020-06-01')
+            ->where('create_date', '>', '2020-05-01')
             ->orderBy('user.user_id')
             ->chunk(100, function ($rows) {
             	foreach ($rows as $key => $value) {
