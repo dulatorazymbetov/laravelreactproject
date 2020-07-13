@@ -6,6 +6,7 @@ use App\Models\User\User;
 use App\Models\Student\Student;
 use App\Models\Student\DiplomApp;
 use App\Models\Student\DiplomAppSubject;
+use App\Models\Student\DiplomAppTheme;
 
 use Illuminate\Http\Request;
 use App\Gender;
@@ -14,8 +15,20 @@ use PDF;
 class DiplomaSupplementController extends Controller
 {
     public function diplomaRu(Request $request){
-        $user = DiplomApp::find($request->id);
-        $user->subjects = DiplomAppSubject::where('student_id', $user->user_id)->get();
+        $user = DiplomApp::where('user_id', $request->id)->first();
+        $user->internships = DiplomAppSubject::with('type')
+            ->where('student_id', $user->user_id)
+            ->where('discipline_type_id', 1)
+            ->get();
+        $user->attestations = DiplomAppSubject::with('type')
+            ->where('student_id', $user->user_id)
+            ->where('discipline_type_id', 2)
+            ->get();
+        $user->themes = DiplomAppTheme::where('student_id', $user->user_id)->get();
+        $user->subjects = DiplomAppSubject::with('type')
+            ->where('student_id', $user->user_id)
+            ->where('discipline_type_id', 3)
+            ->get();
         $pdf = PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif'])->loadView('diploma/ru', compact('user'));
 
         return $pdf->stream('Report.pdf');
