@@ -44,7 +44,7 @@ class DiplomaSupplementController extends Controller
             })
             ->orderBy('id', 'DESC')
             ->get();
-        $total = User::when(isset($filter->search), function ($q) use ($filter) {
+        $total = DiplomApp::when(isset($filter->search), function ($q) use ($filter) {
                 $q->whereRaw("concat(first_name_ru, ' ', last_name_ru, ' ', middle_name_ru) like '%".$filter->search."%' ");
             })->count();
 
