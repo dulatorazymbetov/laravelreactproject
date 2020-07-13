@@ -48,6 +48,16 @@
 	<!--
 	<div style="position:absolute; top: 0;left: 0; display: block"><img src="<?=public_path();?>/img/diploma/kk1.jpg" /></div>
 	-->
+	<div style="position:absolute; top: 302px;left: 880px; width: 283px; text-align:center">Халықаралық</div>
+	<div style="position:absolute; top: 354px;left: 880px; width: 283px; text-align:center">ақпараттық</div>
+	<div style="position:absolute; top: 408px;left: 880px; width: 283px; text-align:center">технологиялар</div>
+	<div style="position:absolute; top: 462px;left: 880px; width: 283px; text-align:center"> университеті АҚ</div>
+	<div style="position:absolute; top: 518px;left: 880px; width: 283px; text-align:center">Алматы</div>
+	<div style="position:absolute; top: 718px;left: 960px; width: 283px;"><?=$user->diploma_number;?></div>
+	<div style="position:absolute; top: 794px;left: 880px; width: 283px; text-align:center"><?=$user->issue_date;?></div>
+	<div style="position:absolute; top: 864px;left: 880px; width: 283px; text-align:center"><?=$user->registration_number;?></div>
+
+
 	<div style="position:absolute; top: 95px;left: 180px"><?=$user->last_name_kk;?></div>
 	<div style="position:absolute; top: 134px;left: 370px"><?=$user->first_name_kk;?></div>
 	<div style="position:absolute; top: 172px;left: 70px"><?=$user->middle_name_kk;?></div>
@@ -74,6 +84,7 @@
 			</div>
 		<?php } ?>
 	</div>
+	<div style="position:absolute; top: 1284px;left: 296px">Дипломдық жоба</div>
 	<div style="position:absolute; top: 1420px;left: 75px">
 		<?php foreach($user->themes as $key => $value){ ?>
 			<div style="margin-bottom: 8px">
@@ -94,6 +105,10 @@
 		<?php }} ?>
 	</div>
 	<div style="position:absolute; top: 1477px;left: 775px;"><?=$user->theoretical_credits_number_ects; ?></div>
+	<div style="position:absolute; top: 1509px;left: 975px;"><?=$user->sac_protocol_number; ?></div>
+	<div style="position:absolute; top: 1547px;left: 83px;"><?=explode('-', $user->sac_protocol_date)[2]; ?></div>
+	<div style="position:absolute; top: 1547px;left: 183px;"><?=explode('-', $user->sac_protocol_date)[1]; ?></div>
+	<div style="position:absolute; top: 1547px;left: 303px;"><?=substr(explode('-', $user->sac_protocol_date)[0], -2); ?></div>
 	<div style="position:absolute; top: 1570px;left: 305px;"><?=$user->qualification_kk; ?></div>
 	<div style="position:absolute; top: 1650px;left: 75px;"><?=$user->specialty_kk; ?></div>
 	<?php if(count($user->subjects) >= 38){ ?>
@@ -109,7 +124,11 @@
 			<?php }} ?>
 		</div>
 		<div style="position:absolute; top: 1477px;left: 775px;"><?=$user->theoretical_credits_number_ects; ?></div>
-		<div style="position:absolute; top: 1570px;left: 305px;"><?=$user->qualification_kk; ?></div>
-		<div style="position:absolute; top: 1650px;left: 75px;"><?=$user->specialty_kk; ?></div>
+	<div style="position:absolute; top: 1509px;left: 975px;"><?=$user->sac_protocol_number; ?></div>
+	<div style="position:absolute; top: 1547px;left: 83px;"><?=explode('-', $user->sac_protocol_date)[2]; ?></div>
+	<div style="position:absolute; top: 1547px;left: 183px;"><?=explode('-', $user->sac_protocol_date)[1]; ?></div>
+	<div style="position:absolute; top: 1547px;left: 303px;"><?=substr(explode('-', $user->sac_protocol_date)[0], -2); ?></div>
+	<div style="position:absolute; top: 1570px;left: 305px;"><?=$user->qualification_kk; ?></div>
+	<div style="position:absolute; top: 1650px;left: 75px;"><?=$user->specialty_kk; ?></div>
 	<?php } ?>
 </body>

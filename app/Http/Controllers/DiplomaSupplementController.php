@@ -29,6 +29,10 @@ class DiplomaSupplementController extends Controller
             ->where('student_id', $user->user_id)
             ->where('discipline_type_id', 3)
             ->get();
+        $user->diploms = DiplomAppSubject::with('type')
+            ->where('student_id', $user->user_id)
+            ->where('discipline_type_id', 4)
+            ->get();
         return $user;
     }
     public function diplomaRu(Request $request){
