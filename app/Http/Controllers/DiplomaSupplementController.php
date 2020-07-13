@@ -14,7 +14,7 @@ use PDF;
 
 class DiplomaSupplementController extends Controller
 {
-    public function diplomaRu(Request $request){
+    public function diplomaData(Request $request){
         $user = DiplomApp::where('id', $request->id)->first();
         $user->internships = DiplomAppSubject::with('type')
             ->where('student_id', $user->user_id)
@@ -29,8 +29,21 @@ class DiplomaSupplementController extends Controller
             ->where('student_id', $user->user_id)
             ->where('discipline_type_id', 3)
             ->get();
+        return $user;
+    }
+    public function diplomaRu(Request $request){
+        $user = $this->diplomaData($request);
         $pdf = PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif'])->loadView('diploma/ru', compact('user'));
-
+        return $pdf->stream('Report.pdf');
+    }
+    public function diplomaKk(Request $request){
+        $user = $this->diplomaData($request);
+        $pdf = PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif'])->loadView('diploma/kk', compact('user'));
+        return $pdf->stream('Report.pdf');
+    }
+    public function diplomaEn(Request $request){
+        $user = $this->diplomaData($request);
+        $pdf = PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif'])->loadView('diploma/en', compact('user'));
         return $pdf->stream('Report.pdf');
     }
     public function index(Request $request){

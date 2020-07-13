@@ -57,6 +57,8 @@ function DiplomaSupplementItem(props){
 			</Box>
 			<Box mt={4} component={Paper} p={2}>
 				<Button component="a" variant="contained" href={"/diploma/ru/"+props.id}>Приложение к диплому на русском</Button>
+				<Button component="a" variant="contained" href={"/diploma/en/"+props.id}>Приложение к диплому на английском</Button>
+				<Button component="a" variant="contained" href={"/diploma/kk/"+props.id}>Приложение к диплому на казахском</Button>
 			</Box>
 		</div>
 	);
