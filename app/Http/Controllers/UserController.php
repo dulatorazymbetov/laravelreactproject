@@ -31,24 +31,6 @@ class UserController extends Controller
     public function allStudents(){
         return Student::with('user')->orderBy('id', 'DESC')->get();
     }
-    public function allGraduates(Request $request){
-        $rows = $request->rows;
-        $offset = $request->page * $rows;
-        $filter = json_decode($request->filter);
-
-        $items = Student::with('user')
-            ->where('study_status_id', 4)
-            ->orderBy('id', 'DESC')
-            ->take($rows)
-            ->skip($offset)
-            ->get();
-        $total = Student::where('study_status_id', 4)->count();
-
-        return [
-            'items' => $items,
-            'total' => $total
-        ];
-    }
     public function users(Request $request){
         $rows = $request->rows;
         $offset = $request->page * $rows;

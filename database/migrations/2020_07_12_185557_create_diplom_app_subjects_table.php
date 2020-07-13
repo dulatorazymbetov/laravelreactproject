@@ -15,17 +15,17 @@ class CreateDiplomAppSubjectsTable extends Migration
     {
         Schema::create('diplom_app_subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('spd_course_id')->default(0);
-            $table->integer('dl_course_id')->default(0);
+            $table->integer('spd_course_id')->nullable();
+            $table->integer('dl_course_id')->nullable();
             $table->integer('student_id');
-            $table->integer('discipline_code')->default('');
+            $table->integer('discipline_code')->nullable();
             $table->string('discipline_name_kk')->default('');
             $table->string('discipline_name_ru')->default('');
             $table->string('discipline_name_en')->default('');
-            $table->integer('discipline_credits')->default(0);
+            $table->integer('discipline_credits')->nullable();
             $table->integer('discipline_ects_credits')->default(0);
-            $table->float('final_grade')->default(0);
-            $table->string('alpha_mark')->default('');
+            $table->float('final_grade')->nullable();
+            $table->string('alpha_mark')->nullable();
             $table->float('numeric_mark')->default(0);
             $table->string('traditional_mark')->default('');
             $table->integer('discipline_type_id')->default(3);

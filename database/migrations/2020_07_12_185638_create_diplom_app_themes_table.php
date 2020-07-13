@@ -21,8 +21,8 @@ class CreateDiplomAppThemesTable extends Migration
             $table->string('diploma_name_en')->default('');
             $table->integer('diploma_credits')->default(0);
             $table->integer('diploma_ects_credits')->default(0);
-            $table->float('final_grade')->default(0);
-            $table->string('alpha_mark')->default('');
+            $table->float('final_grade')->nullable();
+            $table->string('alpha_mark')->nullable();
             $table->float('numeric_mark')->default(0);
             $table->string('traditional_mark')->default('');
             $table->boolean('is_disabled')->default(false);

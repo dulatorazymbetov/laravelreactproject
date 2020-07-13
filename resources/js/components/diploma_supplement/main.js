@@ -17,25 +17,21 @@ function DiplomaSupplementMain(){
 					rows={[
 						{
 							label: 'Ф.И.О',
-							value: row => row.user.lastname + " " + row.user.firstname + " " + row.user.patronymic
+							value: row => row['last_name_ru'] + " " + row['first_name_ru'] + " " + row['middle_name_ru']
 						},
 						{
-							label: 'ИИН',
-							value: row => row.user.iin || '-'
+							label: 'Обр. программа',
+							value: 'education_program_ru'
 						},
 						{
-							label: 'ID студента',
-							value: row => row.user.login
-						},
-						{
-							label: 'Редактировать',
+							label: 'Подробнее',
 							type: 'link',
 							action: {
-								icon: 'settings',
+								icon: 'person',
 								variant: 'outlined',
 								param: 'id',
 								url_prefix: 'diploma_supplement',
-								label: 'Редактировать'
+								label: 'Подробнее'
 							}
 						}
 					]}

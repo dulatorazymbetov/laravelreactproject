@@ -23,7 +23,7 @@ Route::get('modules', 'UserController@allModules');
 Route::get('students', 'UserController@allStudents');
 
 Route::group(['middleware' => 'role:diploma_supplement'], function() {
-    Route::get('diploma_supplement', 'UserController@allGraduates');
+    Route::get('diploma_supplement', 'DiplomaSupplementController@index');
     Route::get('diploma_supplement/{id}', 'UserController@getGraduate')
         ->where('id', '[0-9]+');
     Route::get('diplom/{id}', 'UserController@getDiplomInfo')
