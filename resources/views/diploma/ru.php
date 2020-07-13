@@ -85,7 +85,7 @@
 	<div style="position:absolute; top: 191px;left: 65px; font-size: 14px">
 		<?php foreach($user->subjects as $key => $value){ ?>
 			<div style="margin-bottom: 6px">
-			<div class="subject-row1">1</div><div class="subject-row2">1</div><div class="subject-row3"><?=$value->discipline_name_ru;?></div><div class="subject-row4"><?=$value->discipline_ects_credits;?></div><div class="subject-row5"><?=$value->alpha_mark;?></div><div class="subject-row5"><?=$value->final_grade;?></div><div class="subject-row5"><?=$value->traditional_mark;?></div>
+			<div class="subject-row1"><?=$key+1; ?></div><div class="subject-row2"><?=$value->discipline_code;?></div><div class="subject-row3"><?=$value->discipline_name_ru;?></div><div class="subject-row4"><?=$value->discipline_ects_credits;?></div><div class="subject-row5"><?=$value->alpha_mark;?></div><div class="subject-row5"><?=$value->final_grade;?></div><div class="subject-row5"><?=$value->traditional_mark;?></div>
 			</div>
 		<?php } ?>
 	</div>

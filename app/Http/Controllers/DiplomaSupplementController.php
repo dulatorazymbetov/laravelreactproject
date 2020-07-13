@@ -15,7 +15,7 @@ use PDF;
 class DiplomaSupplementController extends Controller
 {
     public function diplomaRu(Request $request){
-        $user = DiplomApp::where('user_id', $request->id)->first();
+        $user = DiplomApp::where('id', $request->id)->first();
         $user->internships = DiplomAppSubject::with('type')
             ->where('student_id', $user->user_id)
             ->where('discipline_type_id', 1)
