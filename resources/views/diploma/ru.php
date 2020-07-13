@@ -45,7 +45,7 @@
 	}
 </style>
 <body>
-	<div style="position:absolute; top: 0;left: 0; display: block"><img src="<?=public_path();?>/img/diploma/ru1.jpg" /></div>
+	<!--<div style="position:absolute; top: 0;left: 0; display: block"><img src="<?=public_path();?>/img/diploma/ru1.jpg" /></div>-->
 	<div style="position:absolute; top: 95px;left: 180px"><?=$user->last_name_ru;?></div>
 	<div style="position:absolute; top: 134px;left: 370px"><?=$user->first_name_ru;?></div>
 	<div style="position:absolute; top: 172px;left: 70px"><?=$user->middle_name_ru;?></div>
@@ -81,7 +81,7 @@
 	</div>
 	<div style="position:absolute; top: 1639px;left: 645px"><?=$user->gpa;?></div>
 	<div class="page-break"></div>
-	<div style="position:absolute; top: 0;left: 0; display: block"><img src="<?=public_path();?>/img/diploma/ru2.jpg" /></div>
+	<!--<div style="position:absolute; top: 0;left: 0; display: block"><img src="<?=public_path();?>/img/diploma/ru2.jpg" /></div>-->
 	<div style="position:absolute; top: 191px;left: 65px; font-size: 14px">
 		<?php foreach($user->subjects as $key => $value){ if($key < 38){ ?>
 			<div style="margin-bottom: 6px">
@@ -91,7 +91,7 @@
 	</div>
 	<?php if(count($user->subjects) >= 38){ ?>
 		<div class="page-break"></div>
-		<div style="position:absolute; top: 0;left: 0; display: block"><img src="<?=public_path();?>/img/diploma/ru2.jpg" /></div>
+		<!--<div style="position:absolute; top: 0;left: 0; display: block"><img src="<?=public_path();?>/img/diploma/ru2.jpg" /></div>-->
 		<div style="position:absolute; top: 191px;left: 65px; font-size: 14px">
 			<?php foreach($user->subjects as $key => $value){ if($key >= 38){ ?>
 				<div style="margin-bottom: 6px">
