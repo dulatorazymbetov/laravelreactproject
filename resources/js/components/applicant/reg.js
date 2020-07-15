@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-
+import Paper from '@material-ui/core/Paper';
 import FormBuilder from "@layouts/form";
 import { useLang } from "@contexts/lang";
 
@@ -64,9 +64,17 @@ function ApplicantReg(props) {
 	if(isLoading==='error'){return (<div>Не верная ссылка</div>);}
 	if(isLoading==='done'){return (<div>Данные сохранены</div>);}
 	return (
-		<div>
+		<Box component={Paper} elevation={3} style={{maxWidth: '900px', margin: '50px auto'}}>
 			<FormBuilder 
 				title={user.lastname + " " + user.firstname + " " + (user.patronymic || '')}
+				subtitle={<Box>
+					Уважаемый абитуриент-2020! <br />
+					Приемная комиссия МУИТ информирует Вас о том, что необходимо написать заявление на конкурс по присуждению целевого образовательного гранта АО «МУИТ» по прилагаемой форме.
+					Просим отправить качественное фото заявления на электронную почту ….. По возникшим вопросам звоните в приемную комиссию или пишите на данную электронную почту.
+ 					Номера телефонов указаны https://www.iitu.kz/ru/articles/ent-2020/ 
+					Это общая рассылка, поэтому если Вы уже предоставили такое заявление в Приемную комиссию МУИТ, просим не отвечать на данное письмо.
+ 					Добро пожаловать в МУИТ!
+				</Box>}
 				handleChange={handleChange}
 				handleSubmit={handleSubmit}
 				fields={[
@@ -137,7 +145,7 @@ function ApplicantReg(props) {
 					}
 				]}
 			/>
-		</div>
+		</Box>
 	);
 }
 

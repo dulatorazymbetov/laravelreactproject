@@ -195,4 +195,34 @@ class UserController extends Controller
             return response()->json('invalid login or password', 400);
         }
     }
+    public function registerApplicantList(){
+        $list = \DB::connection('old')->select("
+            SELECT u.email, CONCAT(IFNULL(u.lastname, ''), ' ',IFNULL(u.firstname, ''), ' ',IFNULL(u.middlename, '')) fio,
+            concat(spz.specializationcode, ' - ', spz.name) spz_name,
+            ef.name ef_name,
+            e.total_point ent,
+            ust.name a_status
+            FROM iitu_core_db.user u
+            JOIN iitu_core_db.academic_plan ap ON ap.student_id = u.user_id
+            JOIN iitu_core_db.academic_plan_additional_info api ON api.plan_id = ap.plan_id
+            JOIN iitu_core_db.student_card sc ON sc.student_id = u.user_id
+            JOIN iitu_core_db.academic_plan_pre_info app ON app.plan_id = ap.plan_id
+            JOIN iitu_core_db.certificate_ent e ON e.cert_id = app.cert_id
+            JOIN iitu_core_db.specialization spz ON spz.specialization_id = sc.specialization_id
+            JOIN iitu_core_db.education_form ef ON ef.form_id = sc.edu_form_id
+            JOIN iitu_core_db.user_applicant_status ust ON ust.status_id = u.user_applicant_status_id
+            WHERE sc.edu_form_id = 6
+            AND u.user_applicant_status_id = 3
+            AND 
+            ((sc.specialization_id IN (44,45) AND e.total_point >= 70)
+            OR
+            (sc.specialization_id not IN (44,45) AND e.total_point >= 50)
+            )
+            AND u.applicant_apply_year = 2020
+            order BY spz_name, fio
+        ");
+        foreach($list as $key => $value){
+            echo $value->spz_name." | ".$value->fio." ".$value->email." ".$value->a_status."<br/>";
+        }
+    }
 }

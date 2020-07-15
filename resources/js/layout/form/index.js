@@ -76,6 +76,7 @@ function FormRespond(props){
 			<Box pt={3} pb={2} px={3} className={classes.title}>
 				{props.title || "Новая форма"}
 			</Box>
+			{props.subtitle && <Box px={3}>{props.subtitle}</Box>}
 			<Box className={classes.content} px={3} py={1}>
 				<Grid container spacing={2}>
 					{props.fields.map((list, index) => {

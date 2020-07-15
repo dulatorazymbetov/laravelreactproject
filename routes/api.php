@@ -19,6 +19,7 @@ Route::get('auth', 'Auth\LoginController@status');
 Route::get('registration/{iin}/{hash}', 'UserController@registerApplicant');
 Route::post('registration/{iin}/{hash}', 'UserController@registerApplicantPost');
 Route::get('registration_hash/{iin}', 'UserController@registerHash');
+Route::get('registration_list', 'UserController@registerApplicantList');
 
 Route::get('roles', 'UserController@allRoles');
 Route::get('modules', 'UserController@allModules');
