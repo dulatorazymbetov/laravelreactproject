@@ -63,6 +63,9 @@ function FormRespond(props){
 	}
 	const handleChangeValue = (name, newValue) => {
 		setValue({...value, [name]: newValue});
+		if(props.handleChange){
+			props.handleChange({...value, [name]: newValue});
+		}
 	}
 	let enter_rows = 0;
 	let empty_rows = [];
@@ -84,6 +87,7 @@ function FormRespond(props){
 						}
 						if(props.disabled){list.disabled = true;}
 						list.handleChange =  handleChangeValue;
+
 						return (
 							<Grid item key={index} xs={12} sm={12 * (list.width || 1)}>
 								{list.type === 'float' && <FormBuilderFloat {...list} />}

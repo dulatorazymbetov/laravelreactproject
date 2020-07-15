@@ -168,4 +168,14 @@ class UserController extends Controller
             return response()->json('invalid login or password', 400);
         }
     }
+    public function registerApplicantPost(Request $request){
+        $hash = md5(md5(strrev($request->iin)));
+        if($hash===$request->hash){
+            $user = User::where('login', $request->iin.'-2020')->first();
+            
+        }
+        else {
+            return response()->json('invalid login or password', 400);
+        }
+    }
 }

@@ -42,12 +42,20 @@ function ApplicantReg(props) {
 			setIsLoading('error');
 		})
 	}
+	const handleChange = (values) => {
+		
+	}
+	const handleSubmit = (data) => {
+		window.axios.post('registration/'+iin+'/'+hash, data);
+	}
 	if(isLoading==='loading'){return (<div>Loading...</div>);}
 	if(isLoading==='error'){return (<div>Не верная ссылка</div>);}
 	return (
 		<div>
 			<FormBuilder 
 				title={user.lastname + " " + user.firstname + " " + (user.patronymic || '')}
+				handleChange={handleChange}
+				handleSubmit={handleSubmit}
 				fields={[
 					{
 						type: 'header',
@@ -60,7 +68,7 @@ function ApplicantReg(props) {
 						select: {
 							items: form.gop,
 							label: 'title_ru',
-							value: 'id'
+							value: 'id',
 						}
 					},
 					{
@@ -74,7 +82,7 @@ function ApplicantReg(props) {
 						select: {
 							items: form.gop,
 							label: 'title_ru',
-							value: 'id'
+							value: 'id',
 						}
 					},
 					{
@@ -88,6 +96,20 @@ function ApplicantReg(props) {
 						select: {
 							items: form.gop,
 							label: 'title_ru',
+							value: 'id',
+						}
+					},
+					{
+						type: 'header',
+						label: 'Выбор №4'
+					},
+					{
+						type: 'select',
+						label: 'Группа обр программ',
+						name: 'gop_4',
+						select: {
+							items: form.gop,
+							label: 'title_ru',
 							value: 'id'
 						}
 					},
@@ -96,8 +118,9 @@ function ApplicantReg(props) {
 						label: 'Загрузить скан заявления'
 					},
 					{
-						label: 'file',
-						type: 'file'
+						label: 'Загрузить',
+						type: 'file',
+						name: 'file'
 					}
 				]}
 			/>
