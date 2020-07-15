@@ -34,7 +34,7 @@ function Routing(){
         return (
             <Box component={Switch}>
                 <Route path="/applicant" exact component={ApplicantSignIn}/>
-                <Route path="/applicant_reg" exact component={ApplicantReg}/>
+                <Route path="/applicant_reg/:iin/:hash" exact component={ApplicantReg}/>
                 <Route path="/" component={SignIn}/>
             </Box>
         );

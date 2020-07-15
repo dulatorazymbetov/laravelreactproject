@@ -70,5 +70,7 @@ class DiplomaSupplementController extends Controller
             'total' => $total
         ];
     }
-    public function item(){}
+    public function item(Request $request){
+        
+    }
 }

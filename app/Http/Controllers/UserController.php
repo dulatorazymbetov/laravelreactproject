@@ -15,6 +15,7 @@ use App\Models\Staff\EnglishLevel;
 use App\Models\Staff\PositionType;
 use App\Models\Staff\PositionTimeType;
 use App\Models\Department\Department;
+use App\Models\EduProgram\EduProgramsGroup;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 
 class UserController extends Controller
@@ -143,5 +144,28 @@ class UserController extends Controller
             $xml = simplexml_load_string($service->call('getAllDataItems.arg0', []));
         });
 
+    }
+    public function registerHash(Request $request){
+        $hash = md5(md5(strrev($request->iin)));
+        return $hash;
+    }
+    public function registerApplicant(Request $request){
+        $hash = md5(md5(strrev($request->iin)));
+        if($hash===$request->hash){
+            $user = User::where('login', $request->iin.'-2020')->first();
+            return [
+                'user' => $user,
+                'form' => [
+                    'gop' => \DB::select("SELECT DISTINCT epg.id, epg.code, epg.title_kk, epg.title_ru, epg.title_en
+                        FROM campus.edu_programs_groups epg
+                        JOIN campus.edu_programs ep ON ep.edu_programs_group_id = epg.id
+                        WHERE CODE LIKE 'B%'"
+                    )
+                ]
+            ];
+        }
+        else {
+            return response()->json('invalid login or password', 400);
+        }
     }
 }
