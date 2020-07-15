@@ -37,7 +37,13 @@ function ApplicantReg(props) {
 		window.axios.get('registration/'+iin+'/'+hash).then((response) => {
 			setForm(response.data.form);
 			setUser(response.data.user);
-			setIsLoading(false);
+			if(response.data.applicant.confirmed){
+				setIsLoading('done');
+			}
+			else {
+				setIsLoading(false);
+			}
+			
 		}).catch((error) => {
 			setIsLoading('error');
 		})
@@ -56,7 +62,7 @@ function ApplicantReg(props) {
 	}
 	if(isLoading==='loading'){return (<div>Loading...</div>);}
 	if(isLoading==='error'){return (<div>Не верная ссылка</div>);}
-	if(isLoading==='error'){return (<div>Данные сохранены</div>);}
+	if(isLoading==='done'){return (<div>Данные сохранены</div>);}
 	return (
 		<div>
 			<FormBuilder 
