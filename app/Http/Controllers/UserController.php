@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User\User;
 use App\Models\Student\Student;
+use App\Models\Applicant\Applicant;
 use App\Models\Staff\Staff;
 use App\Models\User\Role;
 use App\Models\User\Module;
+use Illuminate\Support\Facades\Storage;
 use App\Diplom;
 use App\Models\Staff\AcademicDegree;
 use App\Models\Staff\AcademicRank;
@@ -153,8 +155,10 @@ class UserController extends Controller
         $hash = md5(md5(strrev($request->iin)));
         if($hash===$request->hash){
             $user = User::where('login', $request->iin.'-2020')->first();
+            $applicant = Applicant::where('user_id', $user->id)->first();
             return [
                 'user' => $user,
+                'applicant' => $applicant,
                 'form' => [
                     'gop' => \DB::select("SELECT DISTINCT epg.id, epg.code, epg.title_kk, epg.title_ru, epg.title_en
                         FROM campus.edu_programs_groups epg
@@ -171,8 +175,21 @@ class UserController extends Controller
     public function registerApplicantPost(Request $request){
         $hash = md5(md5(strrev($request->iin)));
         if($hash===$request->hash){
+            if($request->gop_1 === $request->gop_2 OR $request->gop_1 === $request->gop_3 OR $request->gop_2 === $request->gop_3){
+                return response()->json('reply gop', 420);
+            }
             $user = User::where('login', $request->iin.'-2020')->first();
-            
+            $applicant = Applicant::where('user_id', $user->id)->first();
+            $applicant->gop_1 = $request->gop_1;
+            $applicant->gop_2 = $request->gop_2;
+            $applicant->gop_3 = $request->gop_3;
+            $applicant->confirmed = $request->gop_3;
+            $path = Storage::putFile('public/'.$user->id, $request->file('request_file'));
+            Storage::delete($applicant->request_file);
+            $applicant->request_file = $path;
+            $applicant->confirmed = true;
+            $applicant->save();
+            return $applicant;
         }
         else {
             return response()->json('invalid login or password', 400);

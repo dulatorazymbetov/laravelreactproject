@@ -46,10 +46,17 @@ function ApplicantReg(props) {
 		
 	}
 	const handleSubmit = (data) => {
-		window.axios.post('registration/'+iin+'/'+hash, data);
+		window.axios.post('registration/'+iin+'/'+hash, data).then((response) => {
+			setIsLoading("done");
+		}).catch((error) => {
+			if(error.response.data==='reply gop'){
+				alert("Отмеченны повторяющиеся группы обр программ");
+			}
+		});
 	}
 	if(isLoading==='loading'){return (<div>Loading...</div>);}
 	if(isLoading==='error'){return (<div>Не верная ссылка</div>);}
+	if(isLoading==='error'){return (<div>Данные сохранены</div>);}
 	return (
 		<div>
 			<FormBuilder 
@@ -120,7 +127,7 @@ function ApplicantReg(props) {
 					{
 						label: 'Загрузить',
 						type: 'file',
-						name: 'file'
+						name: 'request_file'
 					}
 				]}
 			/>
