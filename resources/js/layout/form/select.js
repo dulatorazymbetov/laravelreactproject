@@ -49,7 +49,6 @@ function FormBuilderSelect(props){
         builderProps.SelectProps.multiple = true;
         builderProps.SelectProps.renderValue = values => renderChips(values);
     }
-
     return (
         <div>
             <TextField {...builderProps} select>

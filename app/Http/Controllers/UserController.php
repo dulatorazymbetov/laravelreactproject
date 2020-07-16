@@ -175,8 +175,10 @@ class UserController extends Controller
     public function registerApplicantPost(Request $request){
         $hash = md5(md5(strrev($request->iin)));
         if($hash===$request->hash){
-            if($request->gop_1 === $request->gop_2 OR $request->gop_1 === $request->gop_3 OR $request->gop_2 === $request->gop_3){
-                return response()->json('reply gop', 420);
+            if(!is_null($request->gop_2) OR !is_null($request->gop_3)){
+                if($request->gop_1 === $request->gop_2 OR $request->gop_1 === $request->gop_3 OR $request->gop_2 === $request->gop_3){
+                    return response()->json('reply gop', 420);
+                }
             }
             $user = User::where('login', $request->iin.'-2020')->first();
             $applicant = Applicant::where('user_id', $user->id)->first();

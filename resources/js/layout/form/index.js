@@ -114,7 +114,7 @@ function FormRespond(props){
 					color="primary"
 					disabled={(all_rows - enter_rows) > 0}
 				>
-					Отправить
+					{props.submitText ? props.submitText: "Отправить"}
 				</Button>
 				{(all_rows - enter_rows) > 0 && <Box ml={2} style={{flex: '1 1 auto',}}>
 					<Tooltip title={empty_rows.length > 0 ? "Обязательные поля: " + empty_rows.join(', ') : 'Все важные поля заполнены'}>
