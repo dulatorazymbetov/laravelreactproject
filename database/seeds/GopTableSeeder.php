@@ -1,57 +1,32 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Microsoft\Graph\Graph;
-use Microsoft\Graph\Model;
-use GuzzleHttp\Client;
-//MODELS
-use App\Models\User\User;
-use App\Models\Applicant\Applicant;
-use App\Models\User\Role;
+use Rap2hpoutre\FastExcel\FastExcel;
 //MAIL
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Send365;
+use App\Mail\SendForRequest;
 
-class ApplicantsTableSeeder extends Seeder
+class GopTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
-
-        \DB::connection('old')
-            ->table('user')
-            ->select(
-                'user.iin',
-                'user.lastname',
-                'user.firstname',
-                'user.middlename',
-                'user.phone',
-                'user.birthdate',
-                'user.applicant_apply_year',
-                'user.gender',
-                'user.email',
-                'user.create_date'
-            )
-            ->leftJoin('student_card', 'student_card.student_id', '=', 'user.user_id')
-            ->where('applicant_apply_year', '2020')
-            ->where('create_date', '>', '2020-05-01')
-            ->orderBy('user.user_id')
-            ->chunk(100, function ($rows) {
-            	foreach ($rows as $key => $value) {
-                    
-            	}
-            });
+    public function run(){
+        $users = (new FastExcel)->import(public_path('doc\list_for_email.xlsx'), function ($line) {
+            $this->sendMail($line['EMAIL'], $line['IIN'], $line['FIO']);
+            echo $line['EMAIL']."|";
+        });
     }
-    function sendMail($email, $login, $fio){
+    function sendMail($email, $iin, $fio){
+        $hash = md5(md5(strrev($iin)));
+        $link = "https://newcampus.iitu.kz/applicant_reg/".$iin."/".$hash;
         $params = [
-            'login' => $login,
+            'iin' => $iin,
             'fio' => $fio,
-            'password' => "IITU-applicant-".date('Y')
+            'link' => $link
         ];
-        Mail::to($email)->send(new Send365($params));
+        Mail::to('aibek.mazhenov@gmail.com')->send(new SendForRequest($params));
     }
 }
