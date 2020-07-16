@@ -27,6 +27,6 @@ class GopTableSeeder extends Seeder
             'fio' => $fio,
             'link' => $link
         ];
-        Mail::to('aibek.mazhenov@gmail.com')->send(new SendForRequest($params));
+        Mail::to($email)->send(new SendForRequest($params));
     }
 }
