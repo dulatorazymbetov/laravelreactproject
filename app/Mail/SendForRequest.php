@@ -15,8 +15,8 @@ class SendForRequest extends Mailable
 
     public function __construct($data) {
         $this->subject('Заявление на конкурс по присуждению целевого образовательного гранта');
-        $this->attach(public_path('doc\report_for_grant_kk.docx'));
-        $this->attach(public_path('doc\report_for_grant_ru.docx'));
+        $this->attach(public_path('doc/report_for_grant_kk.docx'));
+        $this->attach(public_path('doc/report_for_grant_ru.docx'));
         $this->data = $data;
     }
 
