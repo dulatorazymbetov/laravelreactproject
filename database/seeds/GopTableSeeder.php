@@ -14,7 +14,7 @@ class GopTableSeeder extends Seeder
      * @return void
      */
     public function run(){
-        $users = (new FastExcel)->import(public_path('doc\list_for_email.xlsx'), function ($line) {
+        $users = (new FastExcel)->import(public_path('doc/list_for_email.xlsx'), function ($line) {
             $this->sendMail($line['EMAIL'], $line['IIN'], $line['FIO']);
             echo $line['EMAIL']."|";
         });
