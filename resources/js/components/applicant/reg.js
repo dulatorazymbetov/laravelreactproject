@@ -131,7 +131,7 @@ function ApplicantReg(props) {
 					},
 					{
 						type: 'select',
-						label: 'Группа обр программ',
+						label: getW('gop'),
 						name: 'gop_1',
 						select: {
 							items: form.gop,

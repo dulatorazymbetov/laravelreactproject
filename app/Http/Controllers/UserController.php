@@ -149,7 +149,7 @@ class UserController extends Controller
     }
     public function registerHash(Request $request){
         $hash = md5(md5(strrev($request->iin)));
-        return $hash;
+        return "<a href='https://newcampus.iitu.kz/applicant_reg/".$request->iin."/".$hash."'>https://newcampus.iitu.kz/applicant_reg/".$request->iin."/".$hash."</a>";
     }
     public function registerApplicant(Request $request){
         $hash = md5(md5(strrev($request->iin)));
