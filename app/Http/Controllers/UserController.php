@@ -160,11 +160,12 @@ class UserController extends Controller
                 'user' => $user,
                 'applicant' => $applicant,
                 'form' => [
-                    'gop' => \DB::select("SELECT DISTINCT epg.id, epg.code, epg.title_kk, epg.title_ru, epg.title_en
+                    'gop' => \DB::select("SELECT DISTINCT epg.id, concat(CODE, ' - ', epg.title_kk) title_kk,
+                        concat(CODE, ' - ', epg.title_ru) title_ru
                         FROM campus.edu_programs_groups epg
-                        JOIN campus.edu_programs ep ON ep.edu_programs_group_id = epg.id
-                        WHERE CODE LIKE 'B%'"
-                    )
+                        where CODE LIKE 'B%'
+                        AND CODE IN ('B010', 'B044', 'B042','B057','B058','B059', 'B046','B011')
+                    ")
                 ]
             ];
         }

@@ -60,6 +60,7 @@ function ApplicantReg(props) {
 	const [user, setUser] = useState({});
 
 	useEffect(() => {
+		setL('kk');
 		getData();
 	}, []);
 
@@ -110,6 +111,9 @@ function ApplicantReg(props) {
 					В общей сложности вы можете выбрать до 4 ГОП. В случае если вы выбрали меньше 4 ГОП нашего университета, вы можете выбрать остальные ГОП через портал электронного правительства (http://egov.kz/) <br/>
 					По возникшим вопросам звоните в приемную комиссию или пишите на электронную почту <b>iitu.admission@gmail.com</b>. Номера телефонов указаны на сайте <a href="https://www.iitu.kz/ru/articles/ent-2020/" target="_blank">https://www.iitu.kz/ru/articles/ent-2020</a>  <br/>
 					Добро пожаловать в Международный университет информационных технологий!
+					<Box my={2}>
+						<Button component="a" target="_blank" href="/doc/report_for_grant_ru.docx" variant="outlined">Скачать образец</Button>
+					</Box>
 					</div>}
 					{getL === 'kk' && <div>
 					Құрметті абитуриент 2020! <br/>
@@ -119,6 +123,9 @@ function ApplicantReg(props) {
 					Барлығы 4 БББТ таңдай аласыз. Егер сіз біздің университеттен 4-тен аз БББТ таңдаған болсаңыз, қалған БББТ-ны электронды үкімет порталы (http://egov.kz/) арқылы басқа ЖЖО-нан таңдауға болады. <br/>
 					Барлық сұрақтар бойынша қабылдау бөліміне немесе iitu.admission@gmail.com электронды поштасына хабарласыңыз. Телефон нөмірлері <a href="https://www.iitu.kz/ru/articles/ent-2020/" target="_blank">https://www.iitu.kz/ru/articles/ent-2020</a> сайтында көрсетілген. <br/>
 					Халықаралық ақпараттық технологиялар университетіне қош келдіңіз! 
+					<Box my={2}>
+						<Button component="a" target="_blank" href="/doc/report_for_grant_kk.docx" variant="outlined">өтінім үлгісі</Button>
+					</Box>
 					</div>}
 				</Box>}
 				handleChange={handleChange}
